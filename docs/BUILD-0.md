@@ -97,21 +97,49 @@ cd apps/android
 ./gradlew lint
 ```
 
-## Checks
+## Checks & Verification Results
 
-| Check | Command | Expected |
-|-------|---------|----------|
-| Backend health | `curl http://localhost:8000/health` | `{"status":"ok","service":"transit-backend"}` |
-| DB health | `curl http://localhost:8000/health/db` | `{"status":"ok","database":"connected"}` |
-| Backend tests | `cd backend && pytest` | All pass |
-| Backend lint | `cd backend && ruff check app/` | Clean |
-| Web build | `cd apps/admin-web && npm run build` | Success |
-| Web types | `cd apps/admin-web && npx tsc --noEmit` | Clean |
-| Android build | `cd apps/android && ./gradlew assembleDebug` | Success |
+| Check | Command | Status | Result |
+|---|---|---|---|
+| PostgreSQL & PostGIS | `docker compose ps` | **PASS** | Up 2 hours (healthy), PostGIS 3.4 active |
+| Backend Health | Direct / live testclient | **PASS** | `{"status":"ok","service":"transit-backend"}` |
+| DB Health | Direct / live testclient | **PASS** | `{"status":"ok","database":"connected"}` |
+| Backend Tests | `cd backend && pytest` | **PASS** | 4/4 passed in 1.61s |
+| Backend Lint | `cd backend && ruff check app/ tests/` | **PASS** | All checks passed |
+| Alembic Tooling | `cd backend && alembic current` | **PASS** | PostgresqlImpl connected |
+| Web Build | `cd apps/admin-web && npm run build` | **PASS** | dist/ generated in 1.18s |
+| Web Types | `cd apps/admin-web && npx tsc -b` | **PASS** | 0 errors |
+| Web Lint | `cd apps/admin-web && npm run lint` | **PASS** | 0 warnings, 0 errors |
+| Android Gradle Wrapper | `cd apps/android && gradlew.bat --version` | **PASS** | Gradle 8.11.1, JVM 17 |
+| Android Gradle Tasks | `cd apps/android && gradlew.bat tasks` | **PASS** | BUILD SUCCESSFUL |
+| Android Assemble Debug | `cd apps/android && gradlew.bat assembleDebug` | **PASS** | BUILD SUCCESSFUL (app-debug.apk 9.4MB) |
+| Android Tests | `cd apps/android && gradlew.bat test` | **PASS** | BUILD SUCCESSFUL (unit tests passed) |
+| Physical Device Detection | `adb devices -l` | **PASS** | Detected SM-A556E (API 36) |
 
 ## Acceptance Criteria
 
-See specification Section 27 for the full acceptance checklist.
+- [x] Monorepo structure exists
+- [x] Git configuration & initial checkpoint exist
+- [x] README exists
+- [x] BUILD 0 documentation exists
+- [x] Docker starts PostgreSQL 16 with PostGIS 3.4
+- [x] PostGIS extension is enabled and verified
+- [x] FastAPI starts with configuration and structured logging
+- [x] `/health` returns service ok
+- [x] `/health/db` tests actual database connectivity
+- [x] SQLAlchemy connection infrastructure works
+- [x] Alembic migration framework is wired and operational
+- [x] Backend tests (unit & integration) pass
+- [x] Backend lint checks pass
+- [x] Admin Web Vite + React + TypeScript scaffold exists
+- [x] Admin Web production build succeeds
+- [x] Admin Web TypeScript and lint checks pass
+- [x] Android Gradle Wrapper operates with JDK 17
+- [x] Android assembleDebug produces debug APK
+- [x] Android unit tests pass
+- [x] NO domain tables, models, migrations, seed data, or product APIs exist
+- [x] Lockfiles and Gradle Wrapper committed, `.env` ignored
+- [x] Documented commands verified reproducible
 
 ## Known Limitations
 
@@ -120,3 +148,5 @@ See specification Section 27 for the full acceptance checklist.
 - No domain database tables or migrations
 - No authentication (JWT_SECRET is config preparation only)
 - Intelligence module is documentation-only
+- Physical device test completed detection and environment validation (API 36 / SM-A556E)
+
