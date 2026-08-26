@@ -1,6 +1,7 @@
 package com.transitplatform.app
 
 import android.Manifest
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.transitplatform.app.service.ScheduleNotificationHelper
 import com.transitplatform.app.ui.ActiveTrackingScreen
 import com.transitplatform.app.ui.AssignmentScreen
 import com.transitplatform.app.ui.LoginScreen
@@ -30,6 +32,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        handleNotificationIntent(intent)
         enableEdgeToEdge()
         setContent {
             TransitPlatformTheme {
@@ -40,6 +43,25 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleNotificationIntent(intent)
+    }
+
+    private fun handleNotificationIntent(intent: Intent?) {
+        val action = intent?.getStringExtra("action")
+        if (action == ScheduleNotificationHelper.ACTION_START_TRACKING_INTENT) {
+            if (viewModel.uiState.value.assignment != null) {
+                viewModel.navigateToReadiness()
+            }
+        } else if (action == ScheduleNotificationHelper.ACTION_SNOOZE_INTENT) {
+            ScheduleNotificationHelper.dismissNotification(
+                this,
+                ScheduleNotificationHelper.NOTIF_UPCOMING_TRIP_ID
+            )
         }
     }
 }

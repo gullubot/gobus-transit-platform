@@ -2,6 +2,8 @@ package com.transitplatform.app
 
 import com.transitplatform.app.data.local.TrackingPacketEntity
 import com.transitplatform.app.data.model.BatchAckResponse
+import com.transitplatform.app.service.LiveTrackingStatus
+import com.transitplatform.app.service.ScheduleNotificationHelper
 import com.transitplatform.app.ui.ReadinessCheckState
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -72,5 +74,35 @@ class OperatorFlowUnitTest {
         assertTrue(toEvict.contains(pkt1))
         assertTrue(toEvict.contains(pkt2))
         assertFalse(toEvict.contains(pkt3)) // retryable stays in Room queue!
+    }
+
+    @Test
+    fun testScheduleNotificationConstants() {
+        assertEquals("transit_schedule_alerts", ScheduleNotificationHelper.CHANNEL_SCHEDULE_ID)
+        assertEquals(
+            "com.transitplatform.app.ACTION_START_TRACKING_FROM_NOTIF",
+            ScheduleNotificationHelper.ACTION_START_TRACKING_INTENT
+        )
+        assertEquals(
+            "com.transitplatform.app.ACTION_SNOOZE_SCHEDULE",
+            ScheduleNotificationHelper.ACTION_SNOOZE_INTENT
+        )
+    }
+
+    @Test
+    fun testLiveTrackingStatusOfflineState() {
+        val statusOnline = LiveTrackingStatus(isTracking = true, isOnline = true, syncStatus = "SYNCED")
+        assertTrue(statusOnline.isOnline)
+        assertEquals("SYNCED", statusOnline.syncStatus)
+
+        val statusOffline = LiveTrackingStatus(
+            isTracking = true,
+            isOnline = false,
+            syncStatus = "QUEUED",
+            queuedPacketsCount = 5
+        )
+        assertFalse(statusOffline.isOnline)
+        assertEquals("QUEUED", statusOffline.syncStatus)
+        assertEquals(5, statusOffline.queuedPacketsCount)
     }
 }
