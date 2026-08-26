@@ -3,7 +3,7 @@
 **Status:** APPROVED  
 **Original Baseline Checkpoint:** `e1c1b46` ("BUILD 2 - operator auth and telemetry foundation")  
 **Intermediate Hardened Checkpoint:** `7761868` ("BUILD 2 - final verification hardening")  
-**Final Physical & Compliance Checkpoint:** `[CURRENT HEAD]`  
+**Final Physical & Compliance Checkpoint:** `98e379a` ("BUILD 2 - physical verification hardening")  
 **Scope Boundary:** BUILD 2 ONLY (Zero BUILD 3+ intelligence, zero schema migrations)  
 **Authoritative Baseline:** CHECKPOINT 13 / BUILD 0 / BUILD 1  
 
