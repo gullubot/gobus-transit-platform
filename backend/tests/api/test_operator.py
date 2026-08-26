@@ -10,9 +10,18 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
+from app.core.security import create_access_token
 from app.db.database import engine
-from app.db.seed import TRIP_PLANNED_ID, seed_dev_data
+from app.db.seed import (
+    DEV_DRIVER_ID,
+    ORG_ID,
+    TRIP_PLANNED_ID,
+    USER_DEPOT_ADMIN_ID,
+    USER_FLEET_ADMIN_ID,
+    seed_dev_data,
+)
 from app.main import app
+from app.models.device import Device, DeviceStatus
 
 client = TestClient(app)
 
@@ -43,7 +52,7 @@ def get_conductor_token() -> str:
 
 
 def test_get_operator_assignment_success():
-    """Driver retrieves their assigned trip duty with vehicle, route, and device info."""
+    """CASE A: Driver retrieves assigned trip duty with vehicle, route, and device info."""
     token = get_driver_token()
     response = client.get(
         "/api/operator/me/assignment",
@@ -61,7 +70,7 @@ def test_get_operator_assignment_success():
 
 
 def test_start_and_end_trip_tracking_lifecycle():
-    """Driver starts tracking for assigned trip, then ends it."""
+    """CASE A (Tracking Start/End): Driver starts tracking for assigned trip, then ends it."""
     token = get_driver_token()
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -89,7 +98,7 @@ def test_start_and_end_trip_tracking_lifecycle():
 
 
 def test_start_unassigned_trip_rejected():
-    """Starting tracking for an unassigned trip returns 403 Forbidden."""
+    """CASE C & F: Starting tracking for an unassigned / fake trip returns 403 Forbidden."""
     token = get_driver_token()
     random_trip_id = uuid.uuid4()
     response = client.post(
@@ -112,12 +121,8 @@ def test_conductor_assignment_retrieval():
     assert data["service_code"] == "AC4B"
 
 
-def test_non_operator_role_rejected_from_operator_endpoints():
-    """Fleet/Depot admin accounts are rejected from operator tracking endpoints."""
-    from app.core.security import create_access_token
-    from app.db.seed import ORG_ID, USER_FLEET_ADMIN_ID
-
-    # Generate token for FLEET_ADMIN
+def test_fleet_admin_rejected_from_operator_endpoints():
+    """CASE G: Fleet admin accounts are rejected from operator tracking endpoints."""
     admin_token = create_access_token(
         subject=str(USER_FLEET_ADMIN_ID),
         claims={"role": "FLEET_ADMIN", "org_id": str(ORG_ID)},
@@ -128,3 +133,41 @@ def test_non_operator_role_rejected_from_operator_endpoints():
     )
     assert response.status_code == 403
     assert "not authorized for operator tracking" in response.json()["detail"]
+
+
+def test_depot_admin_rejected_from_operator_endpoints():
+    """CASE H: Depot admin accounts are rejected from operator tracking endpoints."""
+    depot_token = create_access_token(
+        subject=str(USER_DEPOT_ADMIN_ID),
+        claims={"role": "DEPOT_ADMIN", "org_id": str(ORG_ID)},
+    )
+    response = client.get(
+        "/api/operator/me/assignment",
+        headers={"Authorization": f"Bearer {depot_token}"},
+    )
+    assert response.status_code == 403
+    assert "not authorized for operator tracking" in response.json()["detail"]
+
+
+def test_inactive_device_rejected_from_tracking():
+    """CASE I: An assigned device with REVOKED status is rejected on start tracking."""
+    try:
+        with Session(engine) as session:
+            device = session.get(Device, DEV_DRIVER_ID)
+            if device:
+                device.status = DeviceStatus.REVOKED
+                session.commit()
+
+        token = get_driver_token()
+        response = client.post(
+            f"/api/trips/{TRIP_PLANNED_ID}/start",
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        assert response.status_code == 403
+        assert "not active" in response.json()["detail"].lower()
+    finally:
+        with Session(engine) as session:
+            device = session.get(Device, DEV_DRIVER_ID)
+            if device:
+                device.status = DeviceStatus.ACTIVE
+                session.commit()

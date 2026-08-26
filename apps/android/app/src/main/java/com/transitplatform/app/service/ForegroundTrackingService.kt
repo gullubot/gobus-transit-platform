@@ -233,12 +233,22 @@ class ForegroundTrackingService : Service(), LocationListener {
         syncJob?.cancel()
         heartbeatJob?.cancel()
 
-        // Attempt final batch flush before shutdown
+        // Attempt final batch flush before shutdown and schedule WorkManager durable sync for any remaining backlog
+        val currentToken = token
+        val currentSession = sessionId
         serviceScope.launch {
             flushPendingPackets()
+            if (currentToken != null && currentSession != null) {
+                TelemetrySyncWorker.scheduleDurableSync(
+                    applicationContext,
+                    currentToken,
+                    currentSession
+                )
+            }
             _trackingStatus.value = LiveTrackingStatus(isTracking = false)
         }
     }
+
 
     override fun onLocationChanged(location: Location) {
         val currentSession = sessionId ?: return
