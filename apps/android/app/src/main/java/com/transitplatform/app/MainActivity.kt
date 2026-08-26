@@ -1,38 +1,43 @@
 package com.transitplatform.app
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.transitplatform.app.ui.ActiveTrackingScreen
+import com.transitplatform.app.ui.AssignmentScreen
+import com.transitplatform.app.ui.LoginScreen
+import com.transitplatform.app.ui.OperatorViewModel
+import com.transitplatform.app.ui.ReadinessScreen
+import com.transitplatform.app.ui.ScreenState
 import com.transitplatform.app.ui.theme.TransitPlatformTheme
 
-/**
- * Main activity — application entry point.
- *
- * BUILD 0: Basic Compose shell only.
- * No navigation, no domain screens, no business logic.
- */
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: OperatorViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             TransitPlatformTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AppShell(modifier = Modifier.padding(innerPadding))
+                    OperatorAppRoot(
+                        viewModel = viewModel,
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }
@@ -40,37 +45,58 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppShell(modifier: Modifier = Modifier) {
-    Surface(
-        modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+fun OperatorAppRoot(
+    viewModel: OperatorViewModel,
+    modifier: Modifier = Modifier
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "Transit Platform",
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Text(
-                text = "BUILD 0 — Foundation",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 8.dp)
+        viewModel.checkReadiness()
+    }
+
+    fun requestPermissions() {
+        val permissions = mutableListOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+        permissionLauncher.launch(permissions.toTypedArray())
+    }
+
+    when (uiState.currentScreen) {
+        ScreenState.LOGIN -> {
+            LoginScreen(
+                uiState = uiState,
+                onLogin = { code, pwd -> viewModel.login(code, pwd) },
+                onUpdateBaseUrl = { url -> viewModel.updateBaseUrl(url) }
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AppShellPreview() {
-    TransitPlatformTheme {
-        AppShell()
+        ScreenState.ASSIGNMENT -> {
+            AssignmentScreen(
+                uiState = uiState,
+                onRefresh = { viewModel.fetchAssignment() },
+                onStartTrackingClicked = { viewModel.navigateToReadiness() },
+                onLogout = { viewModel.logout() }
+            )
+        }
+        ScreenState.READINESS -> {
+            ReadinessScreen(
+                uiState = uiState,
+                onRequestPermissions = { requestPermissions() },
+                onConfirmStart = { viewModel.startTripTracking() },
+                onBack = { viewModel.navigateBackToAssignment() }
+            )
+        }
+        ScreenState.TRACKING -> {
+            ActiveTrackingScreen(
+                uiState = uiState,
+                onEndTripClicked = { viewModel.endTripTracking() }
+            )
+        }
     }
 }

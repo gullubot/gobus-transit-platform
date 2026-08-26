@@ -11,7 +11,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.routes.auth import router as auth_router
 from app.api.routes.health import router as health_router
+from app.api.routes.operator import router as operator_router
+from app.api.routes.tracking import router as tracking_router
 from app.core.config import settings
 from app.core.logging import logger, request_id_ctx
 
@@ -31,7 +34,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Transit Platform API",
-    description="Intelligent Transit Platform — Backend API (BUILD 0 Foundation)",
+    description="Intelligent Transit Platform — Backend API (BUILD 2 Telemetry Foundation)",
     version=settings.app_version,
     lifespan=lifespan,
 )
@@ -59,3 +62,6 @@ async def add_request_id(request: Request, call_next):
 
 # ── Routes ───────────────────────────────────────────────────────────
 app.include_router(health_router)
+app.include_router(auth_router)
+app.include_router(operator_router)
+app.include_router(tracking_router)

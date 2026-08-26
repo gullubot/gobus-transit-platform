@@ -6,9 +6,11 @@ Wires Alembic to the application's SQLAlchemy engine and metadata.
 
 from logging.config import fileConfig
 
-from alembic import context
 from sqlalchemy import engine_from_config, pool
 
+# Import all models so their tables are registered on Base.metadata
+import app.models  # noqa: F401
+from alembic import context
 from app.core.config import settings
 from app.db.database import Base
 

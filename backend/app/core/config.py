@@ -18,8 +18,10 @@ class Settings(BaseSettings):
     # Database
     database_url: str = "postgresql://transit:transit_dev_password@localhost:5432/transit_platform"
 
-    # Security (placeholder — not implemented in BUILD 0)
-    jwt_secret: str = "CHANGE_ME_IN_PRODUCTION"
+    # Security
+    jwt_secret: str = "transit_dev_jwt_secret_key_change_in_production"
+    jwt_algorithm: str = "HS256"
+    jwt_access_token_expire_minutes: int = 1440  # 24 hours for daily shift
 
     # CORS
     cors_origins: str = "http://localhost:5173,http://localhost:3000"

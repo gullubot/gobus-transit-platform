@@ -11,6 +11,9 @@ dependencies = [
     "alembic==1.16.1",
     "pydantic-settings==2.9.1",
     "python-dotenv==1.1.0",
+    "geoalchemy2>=0.15.0",
+    "pyjwt>=2.10.0",
+    "pwdlib[argon2]>=0.2.0",
 ]
 
 [project.optional-dependencies]
