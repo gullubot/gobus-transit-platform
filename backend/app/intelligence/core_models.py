@@ -109,3 +109,72 @@ class RouteMatchResult:
     match_confidence: Optional[float]
     direction: Direction
     diagnostic_codes: List[RouteMatchDiagnostic] = field(default_factory=list)
+
+
+# =================================================================
+# PHASE 3: STOP PROGRESSION & DWELL DETECTION
+# =================================================================
+
+
+class StopState(Enum):
+    BEFORE_STOP = "BEFORE_STOP"
+    AT_STOP = "AT_STOP"
+    PASSED_STOP = "PASSED_STOP"
+    UNKNOWN = "UNKNOWN"
+
+
+class DwellState(Enum):
+    MOVING = "MOVING"
+    DWELL_AT_STOP = "DWELL_AT_STOP"
+    DWELL_NON_STOP = "DWELL_NON_STOP"
+    UNKNOWN = "UNKNOWN"
+
+
+@dataclass
+class RouteStop:
+    id: str
+    sequence_number: int
+    distance_from_start: float
+    nominal_travel_time_seconds: int
+    lat: float
+    lon: float
+
+
+@dataclass
+class StopProgressContext:
+    # Maps stop_id to its state
+    stop_states: dict[str, StopState] = field(default_factory=dict)
+    current_stop_id: Optional[str] = None
+    next_stop_id: Optional[str] = None
+    previous_stop_id: Optional[str] = None
+
+
+@dataclass
+class StopProgressResult:
+    state: StopState
+    current_stop_id: Optional[str]
+    next_stop_id: Optional[str]
+    previous_stop_id: Optional[str]
+    route_progress_m: Optional[float]
+    progression_confidence: float
+    diagnostic_codes: List[str] = field(default_factory=list)
+
+
+@dataclass
+class DwellContext:
+    stationary_since: Optional[datetime] = None
+    last_moving_at: Optional[datetime] = None
+    last_observed_at: Optional[datetime] = None
+    previous_dwell_state: DwellState = DwellState.UNKNOWN
+    associated_stop_id: Optional[str] = None
+    consecutive_movement_observations: int = 0
+    previous_route_progress_m: Optional[float] = None
+
+
+@dataclass
+class DwellResult:
+    state: DwellState
+    duration_seconds: float
+    associated_stop_id: Optional[str]
+    confidence: float
+    diagnostic_codes: List[str] = field(default_factory=list)
