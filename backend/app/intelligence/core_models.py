@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 
 class ValidationStatus(Enum):
@@ -46,3 +46,64 @@ class ValidationReport:
     confidence_score: Optional[float]
     is_historical: bool
     diagnostic_codes: List[ValidationDiagnostic] = field(default_factory=list)
+
+
+# =================================================================
+# PHASE 2: ROUTE MATCHING & DIRECTION
+# =================================================================
+
+
+class Direction(Enum):
+    A_TO_B = "A_TO_B"
+    B_TO_A = "B_TO_A"
+    UNKNOWN = "UNKNOWN"
+
+
+class RouteMatchStatus(Enum):
+    MATCHED = "MATCHED"
+    AMBIGUOUS = "AMBIGUOUS"
+    NO_MATCH = "NO_MATCH"
+
+
+class RouteMatchDiagnostic(Enum):
+    MATCHED = "MATCHED"
+    LOW_ROUTE_CONFIDENCE = "LOW_ROUTE_CONFIDENCE"
+    AMBIGUOUS_CANDIDATES = "AMBIGUOUS_CANDIDATES"
+    NO_ROUTE_CANDIDATE = "NO_ROUTE_CANDIDATE"
+    GPS_TOO_FAR = "GPS_TOO_FAR"
+    PROGRESS_INCONSISTENT = "PROGRESS_INCONSISTENT"
+    DIRECTION_UNCERTAIN = "DIRECTION_UNCERTAIN"
+    PARALLEL_ROUTE_AMBIGUITY = "PARALLEL_ROUTE_AMBIGUITY"
+
+
+@dataclass
+class RouteCandidate:
+    route_id: str
+    # A LineString is a sequence of points (lat, lon).
+    geometry_coordinates: List[Tuple[float, float]]
+
+
+@dataclass
+class RouteMatchContext:
+    route_id: str
+    segment_index: int
+    route_progress_m: float
+    direction: Direction
+    matched_at: datetime
+    confidence: float
+    direction_observations: int = 1
+    opposite_direction_observations: int = 0
+
+
+@dataclass
+class RouteMatchResult:
+    status: RouteMatchStatus
+    route_id: Optional[str]
+    segment_index: Optional[int]
+    projected_lat: Optional[float]
+    projected_lon: Optional[float]
+    cross_track_distance_m: Optional[float]
+    route_progress_m: Optional[float]
+    match_confidence: Optional[float]
+    direction: Direction
+    diagnostic_codes: List[RouteMatchDiagnostic] = field(default_factory=list)
