@@ -4,8 +4,8 @@
 The Phase 2 Route Matching and Direction engines have been successfully hardened according to the final pure deterministic specification. It implements `route_matching.py` and `direction.py` that consume validated GPS events and evaluate them against bounded PostGIS-provided route candidate segments.
 
 ## 2. Route Matching Algorithm
-- **Candidate Geometry (PostGIS Architecture):** PostGIS `ST_DWithin` combined with `ST_DumpSegments` generates O(1) single-segment spatial bounds dynamically in the repository layer (`route_spatial.py`), completely avoiding O(N) Python iteration over large route line-strings. Python scores only bounded pre-segmented candidates.
-- **Candidate Scoring:** A weighted sum of continuous exponential mappings:
+- **Candidate Generation (PostGIS Architecture):** Indexed PostGIS spatial query (`ST_DWithin` combined with `ST_DumpSegments`) generates single-segment spatial bounds dynamically in the repository layer (`route_spatial.py`), completely avoiding O(N) Python iteration over large route line-strings.
+- **Candidate Scoring:** $O(C)$ where $C$ is the number of candidates returned by the bounded spatial query. For a bounded candidate set, this is practically small. The Python layer strictly scores these pre-segmented candidates using a weighted sum of continuous exponential mappings:
   - $S_{dist} = \exp(-cross\_track / \max(accuracy, 15.0))$
   - $S_{head} = \max(0, 1.0 - (\Delta \theta / 90.0))$
   - $S_{speed} =$ linearly decays between $5 m/s$ and $15 m/s$ speed mismatches

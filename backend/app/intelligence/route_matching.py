@@ -20,6 +20,8 @@ from .config import (
     CONTINUITY_PROGRESS_SCALE,
     SMALL_RETROGRADE_TOLERANCE_M,
     SMALL_RETROGRADE_SCORE,
+    MEANINGFUL_RETROGRADE_SCORE,
+    LEGITIMATE_REVERSAL_SCORE,
 )
 from .core_models import (
     Direction,
@@ -210,7 +212,10 @@ class RouteMatcher:
                             if abs(cand_prog_delta) <= SMALL_RETROGRADE_TOLERANCE_M:
                                 s_prog = SMALL_RETROGRADE_SCORE
                             else:
-                                s_prog = 0.0  # Meaningful impossible retrograde
+                                # We do not blindly reject (0.0). We return a strong penalty 
+                                # to reduce confidence or create an AMBIGUOUS result, unless we 
+                                # eventually add trip state logic that promotes it to LEGITIMATE_REVERSAL_SCORE.
+                                s_prog = MEANINGFUL_RETROGRADE_SCORE
                         else:
                             s_prog = 1.0
 
