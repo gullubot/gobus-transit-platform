@@ -2,7 +2,6 @@ import math
 from typing import List, Optional, Tuple
 
 from .config import (
-    CONTINUITY_SPEED_SCALE,
     MAX_IMPOSSIBLE_SPEED_MPS,
     MIN_ROUTE_MATCH_SCORE,
     MIN_SCORE_MARGIN,
@@ -18,7 +17,9 @@ from .config import (
     SEARCH_RADIUS_SAFETY_MARGIN_M,
     SPEED_CONSISTENCY_LARGE_MPS,
     SPEED_CONSISTENCY_MODERATE_MPS,
-    SUSPICIOUS_SPEED_THRESHOLD_MPS,
+    CONTINUITY_PROGRESS_SCALE,
+    SMALL_RETROGRADE_TOLERANCE_M,
+    SMALL_RETROGRADE_SCORE,
 )
 from .core_models import (
     Direction,
@@ -136,32 +137,18 @@ class RouteMatcher:
             if len(coords) < 2:
                 continue
 
-            closest_proj = None
-            closest_dist = float("inf")
-            closest_idx = 0
-            closest_seg_len = 0.0
-            accumulated_progress = 0.0
-            closest_progress = 0.0
+            lat_a, lon_a = coords[0]
+            lat_b, lon_b = coords[1]
 
-            for i in range(len(coords) - 1):
-                lat_a, lon_a = coords[i]
-                lat_b, lon_b = coords[i + 1]
+            p_lat, p_lon, dist, t, seg_len = project_and_distance(
+                packet.lat, packet.lon, lat_a, lon_a, lat_b, lon_b
+            )
 
-                p_lat, p_lon, dist, t, seg_len = project_and_distance(
-                    packet.lat, packet.lon, lat_a, lon_a, lat_b, lon_b
-                )
-
-                if dist < closest_dist:
-                    closest_dist = dist
-                    closest_proj = (p_lat, p_lon)
-                    closest_idx = i
-                    closest_seg_len = seg_len
-                    closest_progress = accumulated_progress + (t * seg_len)
-
-                accumulated_progress += seg_len
-
-            if closest_proj is None:
-                continue
+            closest_idx = candidate.segment_index
+            closest_dist = dist
+            closest_proj = (p_lat, p_lon)
+            closest_seg_len = seg_len
+            closest_progress = candidate.segment_progress_start_m + (t * seg_len)
 
             # 2. Score Candidate
             # Sdist
@@ -171,12 +158,7 @@ class RouteMatcher:
             # Shead
             s_head = None
             if packet.heading is not None and closest_seg_len > 0:
-                seg_heading = bearing(
-                    coords[closest_idx][0],
-                    coords[closest_idx][1],
-                    coords[closest_idx + 1][0],
-                    coords[closest_idx + 1][1],
-                )
+                seg_heading = bearing(lat_a, lon_a, lat_b, lon_b)
                 diff1 = abs(packet.heading - seg_heading) % 360
                 if diff1 > 180:
                     diff1 = 360 - diff1
@@ -195,9 +177,10 @@ class RouteMatcher:
 
             if previous_context and previous_context.route_id == candidate.route_id:
                 prev_prog = previous_context.route_progress_m
+                cand_prog_delta = closest_progress - prev_prog
 
                 if dt > 0:
-                    cand_speed = abs(closest_progress - prev_prog) / dt
+                    cand_speed = abs(cand_prog_delta) / dt
 
                     # Sspeed
                     if packet.speed_mps is not None:
@@ -214,31 +197,35 @@ class RouteMatcher:
                     # Sprog
                     if cand_speed > MAX_IMPOSSIBLE_SPEED_MPS:
                         s_prog = 0.0
-                    elif cand_speed > SUSPICIOUS_SPEED_THRESHOLD_MPS:
-                        s_prog = 0.5
                     else:
                         prev_dir = previous_context.direction
-                        if prev_dir == Direction.A_TO_B and closest_progress >= prev_prog:
-                            s_prog = 1.0
-                        elif prev_dir == Direction.B_TO_A and closest_progress <= prev_prog:
-                            s_prog = 1.0
-                        elif prev_dir == Direction.UNKNOWN:
-                            s_prog = 1.0
+                        is_retrograde = False
+
+                        if prev_dir == Direction.A_TO_B and cand_prog_delta < 0:
+                            is_retrograde = True
+                        elif prev_dir == Direction.B_TO_A and cand_prog_delta > 0:
+                            is_retrograde = True
+
+                        if is_retrograde:
+                            if abs(cand_prog_delta) <= SMALL_RETROGRADE_TOLERANCE_M:
+                                s_prog = SMALL_RETROGRADE_SCORE
+                            else:
+                                s_prog = 0.0  # Meaningful impossible retrograde
                         else:
-                            s_prog = 0.3
+                            s_prog = 1.0
 
                     # Scont
-                    expected_delta = 0.0
-                    ref_speed = packet.speed_mps if packet.speed_mps is not None else 0.0
-                    if previous_context.direction == Direction.A_TO_B:
-                        expected_delta = ref_speed * dt
-                    elif previous_context.direction == Direction.B_TO_A:
-                        expected_delta = -ref_speed * dt
+                    if packet.speed_mps is not None:
+                        expected_prog_delta = 0.0
+                        if previous_context.direction == Direction.A_TO_B:
+                            expected_prog_delta = packet.speed_mps * dt
+                        elif previous_context.direction == Direction.B_TO_A:
+                            expected_prog_delta = -packet.speed_mps * dt
 
-                    expected_prog = prev_prog + expected_delta
-                    error_m = abs(closest_progress - expected_prog)
-                    scale = CONTINUITY_SPEED_SCALE * max(dt, 1.0)
-                    s_cont = math.exp(-error_m / scale)
+                        error_m = abs(cand_prog_delta - expected_prog_delta)
+                        s_cont = math.exp(-error_m / CONTINUITY_PROGRESS_SCALE)
+                    else:
+                        s_cont = None  # Unavailable if no speed evidence
 
             # Weight Renormalization
             weights = {"dist": ROUTE_WEIGHT_DISTANCE}

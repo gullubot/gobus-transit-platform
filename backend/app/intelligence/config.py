@@ -64,8 +64,13 @@ ROUTE_WEIGHT_SPEED = 0.10
 MIN_ROUTE_MATCH_SCORE = 0.50
 MIN_SCORE_MARGIN = 0.10
 
-# Distance Score Scale
+# Score Scales and Tolerances
 ROUTE_DISTANCE_SCALE = 15.0  # Decays relative to max(accuracy, DISTANCE_SCALE)
+CONTINUITY_PROGRESS_SCALE = 50.0  # Error scaling for expected progress delta
+
+# Progression / Retrograde Handling
+SMALL_RETROGRADE_TOLERANCE_M = 15.0
+SMALL_RETROGRADE_SCORE = 0.30
 
 # Direction Engine
 DIRECTION_CONFIRMATION_OBSERVATIONS = 3

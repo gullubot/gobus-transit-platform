@@ -1,15 +1,16 @@
-from datetime import datetime, timedelta, timezone
-
 import pytest
+from datetime import datetime, timedelta, timezone
 
 from app.intelligence.core_models import (
     Direction,
     RouteCandidate,
     RouteMatchContext,
+    RouteMatchDiagnostic,
     RouteMatchStatus,
     TelemetryPacket,
 )
 from app.intelligence.route_matching import RouteMatcher, calculate_search_radius
+from app.intelligence.gps_validation import haversine_distance
 
 
 @pytest.fixture
@@ -41,6 +42,26 @@ def create_context(current_time, offset=-10, route_id="r1", progress=0.0, dir=Di
     )
 
 
+def make_candidates(route_id, coords):
+    """Helper to mock PostGIS returning individual segments with pre-calculated progress."""
+    candidates = []
+    accum = 0.0
+    for i in range(len(coords) - 1):
+        lat_a, lon_a = coords[i]
+        lat_b, lon_b = coords[i + 1]
+        dist = haversine_distance(lat_a, lon_a, lat_b, lon_b)
+        candidates.append(
+            RouteCandidate(
+                route_id=route_id,
+                geometry_coordinates=[coords[i], coords[i + 1]],
+                segment_index=i,
+                segment_progress_start_m=accum,
+            )
+        )
+        accum += dist
+    return candidates
+
+
 def test_search_radius():
     assert calculate_search_radius(10.0) == 50.0  # Base
     assert calculate_search_radius(60.0) == 90.0  # Acc factor
@@ -49,8 +70,7 @@ def test_search_radius():
 
 
 def test_exactly_on_route(current_time):
-    # Route from (12.0, 77.0) to (12.0, 77.01) [heading east]
-    candidates = [RouteCandidate(route_id="r1", geometry_coordinates=[(12.0, 77.0), (12.0, 77.01)])]
+    candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)])
     packet = create_packet(current_time, lat=12.0, lon=77.005)  # exactly in middle
     res = RouteMatcher.match_route(packet, candidates)
     assert res.status == RouteMatchStatus.MATCHED
@@ -58,7 +78,7 @@ def test_exactly_on_route(current_time):
 
 
 def test_lateral_noise(current_time):
-    candidates = [RouteCandidate(route_id="r1", geometry_coordinates=[(12.0, 77.0), (12.0, 77.01)])]
+    candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)])
 
     # ~5m noise (1 degree lat = 111km, 5m = 0.000045 degrees)
     packet_5m = create_packet(current_time, lat=12.000045, lon=77.005)
@@ -73,15 +93,14 @@ def test_lateral_noise(current_time):
     # ~100m noise
     packet_100m = create_packet(current_time, lat=12.00090, lon=77.005, acc=100.0)
     res_100m = RouteMatcher.match_route(packet_100m, candidates)
-    # Score might be low but could still match if it's the only one.
     assert res_100m.status in (RouteMatchStatus.MATCHED, RouteMatchStatus.NO_MATCH)
 
 
 def test_parallel_road(current_time):
-    candidates = [
-        RouteCandidate(route_id="r1", geometry_coordinates=[(12.0, 77.0), (12.0, 77.01)]),
-        RouteCandidate(route_id="r2", geometry_coordinates=[(12.001, 77.0), (12.001, 77.01)]),
-    ]
+    candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)]) + make_candidates(
+        "r2", [(12.001, 77.0), (12.001, 77.01)]
+    )
+
     # Move closer to r2 (12.001) so distance penalty is small enough to pass MIN_ROUTE_MATCH_SCORE
     packet = create_packet(current_time, lat=12.00095, lon=77.005)
     res = RouteMatcher.match_route(packet, candidates)
@@ -90,10 +109,10 @@ def test_parallel_road(current_time):
 
 
 def test_route_intersection(current_time):
-    candidates = [
-        RouteCandidate(route_id="east", geometry_coordinates=[(12.0, 77.0), (12.0, 77.01)]),
-        RouteCandidate(route_id="north", geometry_coordinates=[(11.99, 77.005), (12.01, 77.005)]),
-    ]
+    candidates = make_candidates("east", [(12.0, 77.0), (12.0, 77.01)]) + make_candidates(
+        "north", [(11.99, 77.005), (12.01, 77.005)]
+    )
+
     packet = create_packet(current_time, lat=12.0, lon=77.005, heading=90.0)
     res = RouteMatcher.match_route(packet, candidates)
     assert res.status == RouteMatchStatus.MATCHED
@@ -102,7 +121,8 @@ def test_route_intersection(current_time):
 
 def test_gps_gap_multi_segment(current_time):
     coords = [(12.0, 77.0), (12.0, 77.005), (12.0, 77.010), (12.0, 77.015)]
-    candidates = [RouteCandidate(route_id="r1", geometry_coordinates=coords)]
+    candidates = make_candidates("r1", coords)
+
     ctx = create_context(current_time, offset=-60, progress=0.0)
     packet = create_packet(current_time, lat=12.0, lon=77.012, speed=10.0)
     # The progress jump needs to be plausible over 60s. 60s * 10m/s = 600m.
@@ -113,17 +133,17 @@ def test_gps_gap_multi_segment(current_time):
 
 
 def test_ambiguous_candidate(current_time):
-    candidates = [
-        RouteCandidate(route_id="r1", geometry_coordinates=[(12.0, 77.0), (12.0, 77.01)]),
-        RouteCandidate(route_id="r2", geometry_coordinates=[(12.0, 77.0), (12.0, 77.01)]),
-    ]
+    candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)]) + make_candidates(
+        "r2", [(12.0, 77.0), (12.0, 77.01)]
+    )
+
     packet = create_packet(current_time, lat=12.0, lon=77.005, heading=90.0)
     res = RouteMatcher.match_route(packet, candidates)
     assert res.status == RouteMatchStatus.AMBIGUOUS
 
 
 def test_impossible_jump(current_time):
-    candidates = [RouteCandidate(route_id="r1", geometry_coordinates=[(12.0, 77.0), (12.0, 77.5)])]
+    candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.5)])
     ctx = create_context(current_time, offset=-1, progress=0.0)
     packet = create_packet(current_time, lat=12.0, lon=77.1, speed=10.0)
     res = RouteMatcher.match_route(packet, candidates, ctx)
@@ -131,7 +151,7 @@ def test_impossible_jump(current_time):
 
 
 def test_missing_features(current_time):
-    candidates = [RouteCandidate(route_id="r1", geometry_coordinates=[(12.0, 77.0), (12.0, 77.01)])]
+    candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)])
     packet = create_packet(current_time, lat=12.0, lon=77.005, acc=None, heading=None, speed=None)
     res = RouteMatcher.match_route(packet, candidates)
     assert res.status == RouteMatchStatus.MATCHED
@@ -144,11 +164,9 @@ def test_no_route_within_radius(current_time):
 
 def test_india_realism_u_turn(current_time):
     coords = [(12.0, 77.0), (12.0, 77.01), (12.0002, 77.01), (12.0002, 77.0)]
-    candidates = [RouteCandidate(route_id="r1", geometry_coordinates=coords)]
+    candidates = make_candidates("r1", coords)
 
     # Calculate exact progress at the target point to make the previous context plausible
-    from app.intelligence.gps_validation import haversine_distance
-
     seg0 = haversine_distance(12.0, 77.0, 12.0, 77.01)
     seg1 = haversine_distance(12.0, 77.01, 12.0002, 77.01)
     seg2_half = haversine_distance(12.0002, 77.01, 12.0002, 77.005)
@@ -162,3 +180,31 @@ def test_india_realism_u_turn(current_time):
     res = RouteMatcher.match_route(packet, candidates, ctx)
     assert res.status == RouteMatchStatus.MATCHED
     assert res.segment_index == 2
+
+
+def test_small_retrograde_tolerance(current_time):
+    # Test that a small backward jump within SMALL_RETROGRADE_TOLERANCE_M (15m) does not fail
+    candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)])
+
+    # Target point halfway
+    packet = create_packet(current_time, lat=12.0, lon=77.005, heading=90.0, speed=0.0)
+    # The progress of 77.005 is ~555m from start.
+    # Let's say previous progress was 565m. That means cand_prog_delta = -10m.
+    ctx = create_context(current_time, offset=-5, progress=565.0)
+
+    res = RouteMatcher.match_route(packet, candidates, ctx)
+    assert res.status == RouteMatchStatus.MATCHED
+
+
+def test_meaningful_impossible_retrograde(current_time):
+    # Backward jump > SMALL_RETROGRADE_TOLERANCE_M (15m) should fail matching due to Sprog = 0.0
+    candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)])
+
+    # Target point halfway (progress ~555m)
+    packet = create_packet(current_time, lat=12.0, lon=77.005, heading=90.0, speed=10.0)
+
+    # Previous progress was 655m. cand_prog_delta = -100m.
+    ctx = create_context(current_time, offset=-5, progress=655.0)
+
+    res = RouteMatcher.match_route(packet, candidates, ctx)
+    assert res.status == RouteMatchStatus.NO_MATCH

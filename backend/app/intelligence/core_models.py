@@ -79,8 +79,10 @@ class RouteMatchDiagnostic(Enum):
 @dataclass
 class RouteCandidate:
     route_id: str
-    # A LineString is a sequence of points (lat, lon).
+    # A LineString segment (exactly 2 points: start and end).
     geometry_coordinates: List[Tuple[float, float]]
+    segment_index: int = 0
+    segment_progress_start_m: float = 0.0
 
 
 @dataclass
