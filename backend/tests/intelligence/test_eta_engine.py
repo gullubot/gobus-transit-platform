@@ -245,3 +245,62 @@ def test_11_terminal_completion(engine, route_topology, mock_repo, base_time):
 
     assert res.eta_seconds == 0
     assert "AT_TARGET" in res.reason_codes
+
+
+def test_12_direction_b_to_a(engine, route_topology, mock_repo, base_time):
+    # Route in B_TO_A
+    c = _build_canonical(
+        direction=Direction.B_TO_A, 
+        progress=1200.0, 
+        speed_mps=10.0, 
+        observed=base_time
+    )
+    mock_repo.get_historical_segment_baseline.return_value = None
+    res = engine.calculate_eta(c, route_topology, "s2", 1200.0, "08:00", 1)
+    # wait, B_TO_A means distance decreases! But my route_topology has distance_from_start ascending.
+    # Actually, ETAEngine uses `target_stop.distance_from_start - canonical.route_progress_m`.
+    # For B_TO_A, it uses `canonical.route_progress_m - target_stop.distance_from_start`.
+    assert res.status == ETAStatus.LIVE
+    assert res.eta_seconds == 70  # (1200 - 500) / 10
+
+
+def test_13_missing_speed(engine, route_topology, mock_repo, base_time):
+    c = _build_canonical(progress=100.0, speed_mps=None, observed=base_time)
+    mock_repo.get_historical_segment_baseline.return_value = (100, 10)
+    res = engine.calculate_eta(c, route_topology, "s2", 1200.0, "08:00", 1)
+    assert res.status == ETAStatus.FALLBACK
+    assert res.fallback_level == 2
+
+
+def test_14_ewma_updates(engine, route_topology, mock_repo, base_time):
+    mock_repo.get_historical_segment_baseline.return_value = (100, 10)
+    # First call sets EWMA
+    c1 = _build_canonical(progress=100.0, speed_mps=20.0, observed=base_time)
+    engine.calculate_eta(c1, route_topology, "s2", 1200.0, "08:00", 1)
+
+    # Second call updates EWMA
+    c2 = _build_canonical(progress=200.0, speed_mps=10.0, observed=base_time)
+    res = engine.calculate_eta(c2, route_topology, "s2", 1200.0, "08:00", 1)
+
+    # EWMA = 0.35 * 10 + 0.65 * 20 = 16.5
+    # Hist = 5. Blend = 0.85*16.5 + 0.15*5 = 14.775
+    # Dist = 300. ETA = 300 / 14.775 = 20.3 -> 20s
+    assert res.eta_seconds == 20
+
+
+def test_15_offline_never_live(engine, route_topology, mock_repo, base_time):
+    c = _build_canonical(
+        state=CanonicalState.OFFLINE, progress=100.0, speed_mps=10.0, observed=base_time
+    )
+    mock_repo.get_historical_segment_baseline.return_value = (100, 10)
+    res = engine.calculate_eta(c, route_topology, "s2", 1200.0, "08:00", 1)
+    assert res.status == ETAStatus.FALLBACK
+    assert res.fallback_level == 2
+
+
+def test_16_abandoned_trip(engine, route_topology, mock_repo, base_time):
+    c = _build_canonical(
+        state=CanonicalState.NOT_ACTIVE, progress=100.0, speed_mps=10.0, observed=base_time
+    )
+    res = engine.calculate_eta(c, route_topology, "s2", 1200.0, "08:00", 1)
+    assert res.status == ETAStatus.UNAVAILABLE
