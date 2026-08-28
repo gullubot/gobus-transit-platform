@@ -1,5 +1,3 @@
-
-
 def get_candidate_segments_query() -> str:
     """
     Returns the PostGIS SQL query to retrieve candidate route segments.

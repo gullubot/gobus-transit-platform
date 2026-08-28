@@ -45,6 +45,8 @@ class BusCurrentState(Base):
 
     latitude: Mapped[float | None] = mapped_column(Float, nullable=True)
     longitude: Mapped[float | None] = mapped_column(Float, nullable=True)
+    speed: Mapped[float | None] = mapped_column(Float, nullable=True)
+    heading: Mapped[float | None] = mapped_column(Float, nullable=True)
 
     route_progress: Mapped[float | None] = mapped_column(Float, nullable=True)
     current_stop_id: Mapped[uuid.UUID | None] = mapped_column(
@@ -53,6 +55,7 @@ class BusCurrentState(Base):
     next_stop_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("stops.id"), nullable=True
     )
+    dwell_state: Mapped[str | None] = mapped_column(String(30), nullable=True)
 
     state: Mapped[str] = mapped_column(String(30), nullable=False)
     state_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
