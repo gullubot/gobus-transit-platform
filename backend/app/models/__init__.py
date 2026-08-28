@@ -30,6 +30,7 @@ from app.models.enums import (  # noqa: F401
 )
 
 # ── Models ───────────────────────────────────────────────────────────
+from app.models.historical import HistoricalRouteTravel, HistoricalSegmentTravel  # noqa: F401
 from app.models.organization import Organization  # noqa: F401
 from app.models.route import Route, RouteStop, Stop  # noqa: F401
 from app.models.service import DepotSchedule, Service, ServiceSchedule  # noqa: F401
