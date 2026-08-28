@@ -1,11 +1,12 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.intelligence.core_models import CanonicalStateContext
 from app.models.state import BusCurrentState
+from app.models.enums import Confidence
 
 
 def upsert_canonical_state(session: Session, context: CanonicalStateContext) -> None:
@@ -22,16 +23,20 @@ def upsert_canonical_state(session: Session, context: CanonicalStateContext) -> 
     row = session.execute(stmt).scalar_one_or_none()
 
     if row is None:
-        row = BusCurrentState(vehicle_id=vehicle_uuid, updated_at=datetime.utcnow())
+        row = BusCurrentState(vehicle_id=vehicle_uuid, updated_at=datetime.now(timezone.utc))
         session.add(row)
 
     # High-water mark protection at DB level:
     # If the DB row already has a newer canonical observation, we discard the stale update.
-    if (
-        row.last_observed_at
-        and context.last_observed_at
-        and context.last_observed_at < row.last_observed_at
-    ):
+    row_time = row.last_observed_at
+    ctx_time = context.last_observed_at
+    
+    if row_time and row_time.tzinfo is None:
+        row_time = row_time.replace(tzinfo=timezone.utc)
+    if ctx_time and ctx_time.tzinfo is None:
+        ctx_time = ctx_time.replace(tzinfo=timezone.utc)
+        
+    if row_time and ctx_time and ctx_time < row_time:
         return
 
     # Update canonical fields
@@ -52,9 +57,9 @@ def upsert_canonical_state(session: Session, context: CanonicalStateContext) -> 
 
     row.state = context.state.value if context.state else None
     # Assuming state_reason isn't populated currently by TrackerFusionEngine
-    row.confidence = context.confidence
+    row.confidence = Confidence(context.confidence) if context.confidence else None
     row.canonical_source = context.canonical_source
 
     row.last_observed_at = context.last_observed_at
     row.last_received_at = context.last_received_at
-    row.updated_at = datetime.utcnow()
+    row.updated_at = datetime.now(timezone.utc)
