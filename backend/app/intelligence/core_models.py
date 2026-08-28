@@ -289,6 +289,7 @@ class CanonicalStateContext:
     vehicle_id: str
     organization_id: Optional[str] = None
     trip_id: Optional[str] = None
+    trip_status: Optional[str] = None
     service_id: Optional[str] = None
     route_id: Optional[str] = None
     direction: Optional[str] = None

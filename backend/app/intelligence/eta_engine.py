@@ -71,8 +71,9 @@ class ETAEngine:
         total_route_distance: float,
         time_of_day_bucket: str,
         day_of_week: int,
+        now: Optional[datetime] = None,
     ) -> ETAResult:
-        now = datetime.now(timezone.utc)
+        now = now or datetime.now(timezone.utc)
 
         # 1. State / Freshness Fast Fails
         if canonical.state == CanonicalState.NOT_ACTIVE:
@@ -112,8 +113,11 @@ class ETAEngine:
             and canonical.dwell_state == DwellState.DWELL_AT_STOP
             and canonical.current_stop_id == target_stop_id
         ):
-            # Reached target explicitly. (Phase 4 handles completion drop, but if we are here and stopped at target, ETA is 0)
-            return self._build_zero(target_stop_id, now, canonical.last_observed_at)
+            if canonical.trip_status == "COMPLETED":
+                # Reached target explicitly and Phase 4 confirmed terminal completion.
+                return self._build_zero(target_stop_id, now, canonical.last_observed_at)
+            # If not explicitly COMPLETED, we must NOT automatically produce ETA=0.
+            # We let the standard segment accumulation run. If distance is 0, we'll enforce ETA >= 1 below.
 
         # 3. Path Segments
         sorted_stops = sorted(
@@ -341,6 +345,8 @@ class ETAEngine:
         )
 
         eta_sec = int(total_time_s)
+        if eta_sec == 0 and canonical.trip_status != "COMPLETED":
+            eta_sec = 30  # MUST NOT automatically be 0 if near terminal but NOT COMPLETED.
 
         base_var = (1.0 - final_conf) * eta_sec
         low_unc = base_var * 0.5

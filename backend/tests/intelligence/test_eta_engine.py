@@ -69,6 +69,7 @@ def _build_canonical(
     dwell: DwellState = DwellState.MOVING,
     conf: str = "HIGH",
     observed: datetime = None,
+    trip_status: str = None,
 ) -> CanonicalStateContext:
     return CanonicalStateContext(
         organization_id="org1",
@@ -83,6 +84,7 @@ def _build_canonical(
         state=state,
         confidence=conf,
         last_observed_at=observed or datetime.now(timezone.utc),
+        trip_status=trip_status,
     )
 
 
@@ -237,23 +239,41 @@ def test_10_negative_and_nan_protections(engine, route_topology, mock_repo, base
 
 
 def test_11_terminal_completion(engine, route_topology, mock_repo, base_time):
+    # progress=1190. target s3 at 1200. remaining=10m. DWELL_AT_STOP.
     c = _build_canonical(
-        progress=1200.0, speed_mps=0.0, dwell=DwellState.DWELL_AT_STOP, observed=base_time
+        progress=1190.0,
+        speed_mps=0.0,
+        dwell=DwellState.DWELL_AT_STOP,
+        observed=base_time,
+        trip_status="COMPLETED",
     )
     c.current_stop_id = "s3"
+
     res = engine.calculate_eta(c, route_topology, "s3", 1200.0, "08:00", 1)
 
     assert res.eta_seconds == 0
     assert "AT_TARGET" in res.reason_codes
 
 
+def test_11b_terminal_near_but_not_completed(engine, route_topology, mock_repo, base_time):
+    # AT_STOP near terminal, but NOT COMPLETED. ETA MUST NOT BE 0.
+    c = _build_canonical(
+        progress=1190.0,
+        speed_mps=0.0,
+        dwell=DwellState.DWELL_AT_STOP,
+        observed=base_time,
+        trip_status="NOT_COMPLETED",
+    )
+    c.current_stop_id = "s3"
+    mock_repo.get_historical_segment_baseline.return_value = (100, 10)
+    res = engine.calculate_eta(c, route_topology, "s3", 1200.0, "08:00", 1)
+    assert res.eta_seconds > 0
+
+
 def test_12_direction_b_to_a(engine, route_topology, mock_repo, base_time):
     # Route in B_TO_A
     c = _build_canonical(
-        direction=Direction.B_TO_A, 
-        progress=1200.0, 
-        speed_mps=10.0, 
-        observed=base_time
+        direction=Direction.B_TO_A, progress=1200.0, speed_mps=10.0, observed=base_time
     )
     mock_repo.get_historical_segment_baseline.return_value = None
     res = engine.calculate_eta(c, route_topology, "s2", 1200.0, "08:00", 1)
@@ -304,3 +324,33 @@ def test_16_abandoned_trip(engine, route_topology, mock_repo, base_time):
     )
     res = engine.calculate_eta(c, route_topology, "s2", 1200.0, "08:00", 1)
     assert res.status == ETAStatus.UNAVAILABLE
+
+
+def test_17_exact_uncertainty_formula(engine, route_topology, mock_repo, base_time):
+    # progress=100. target=s2 (dist 400m). speed=10m/s. eta=40s.
+    c = _build_canonical(progress=100.0, speed_mps=10.0, conf="MEDIUM", observed=base_time)
+    mock_repo.get_historical_segment_baseline.return_value = (100, 10)  # Provides fallback_level 0
+    res = engine.calculate_eta(c, route_topology, "s2", 1200.0, "08:00", 1)
+
+    # Blend speed = 0.85*10 + 0.15*4 = 9.1 m/s
+    # Dist = 400m. ETA = 400 / 9.1 = 43.9s -> 43s
+    # MEDIUM = 0.60
+    # base = (1 - 0.60) * 43 = 17.2
+    # low_unc = 17.2 * 0.5 = 8.6
+    # up_unc = 17.2 * 1.5 = 25.8
+    assert res.eta_seconds == 43
+    assert res.confidence_score == 0.60
+    assert res.lower_bound_seconds == int(43 - 8.6)
+    assert res.upper_bound_seconds == int(43 + 25.8)
+
+
+def test_18_zero_speed_does_not_fabricate_movement(engine, route_topology, mock_repo, base_time):
+    # zero speed must not be set to 1.0 m/s
+    c = _build_canonical(progress=100.0, speed_mps=0.0, observed=base_time)
+    mock_repo.get_historical_segment_baseline.return_value = (200, 20)  # 200s travel time
+    res = engine.calculate_eta(c, route_topology, "s2", 1200.0, "08:00", 1)
+
+    # if zero speed was overridden to 1 m/s, ETA would blend.
+    # since it's zero, it's skipped. fallback used!
+    assert res.fallback_level == 2
+    assert res.eta_seconds == 200  # entirely from historical segment
