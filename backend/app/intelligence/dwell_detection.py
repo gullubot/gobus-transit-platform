@@ -1,13 +1,11 @@
-from typing import Optional
 
 from .config import (
-    STOP_SPEED_THRESHOLD_MPS,
-    STOP_DWELL_CONFIRM_SECONDS,
-    NON_STOP_DWELL_CONFIRM_SECONDS,
-    DWELL_EXIT_SPEED_THRESHOLD_MPS,
-    MOVEMENT_CONFIRMATION_OBSERVATIONS,
     DWELL_EXIT_CONFIRMATION_OBSERVATIONS,
+    DWELL_EXIT_SPEED_THRESHOLD_MPS,
     LARGE_PROGRESS_EXIT_M,
+    NON_STOP_DWELL_CONFIRM_SECONDS,
+    STOP_DWELL_CONFIRM_SECONDS,
+    STOP_SPEED_THRESHOLD_MPS,
 )
 from .core_models import (
     DwellContext,
@@ -70,7 +68,7 @@ class DwellEngine:
                 context.previous_dwell_state = DwellState.MOVING
                 context.associated_stop_id = None
                 context.last_observed_at = packet.observed_at
-                
+
                 return DwellResult(
                     state=DwellState.MOVING,
                     duration_seconds=0.0,
@@ -80,7 +78,7 @@ class DwellEngine:
                 )
             else:
                 # Pending exit, maintain previous state (hysteresis)
-                pass 
+                pass
         else:
             # Low movement detected
             context.consecutive_movement_observations = 0
@@ -106,7 +104,7 @@ class DwellEngine:
         elif stop_result.state == StopState.UNKNOWN:
             state = DwellState.UNKNOWN
             context.associated_stop_id = None
-            
+
         # Update context
         context.previous_dwell_state = state
         context.last_observed_at = packet.observed_at

@@ -178,3 +178,49 @@ class DwellResult:
     associated_stop_id: Optional[str]
     confidence: float
     diagnostic_codes: List[str] = field(default_factory=list)
+
+
+# =================================================================
+# PHASE 4: TRIP INFERENCE & SCHEDULE ALIGNMENT
+# =================================================================
+
+class TripInferenceDiagnostic(Enum):
+    SCHEDULE_WINDOW_MATCH = "SCHEDULE_WINDOW_MATCH"
+    ORIGIN_PROXIMITY = "ORIGIN_PROXIMITY"
+    MOVEMENT_CONFIRMED = "MOVEMENT_CONFIRMED"
+    ROUTE_PROGRESSION_CONFIRMED = "ROUTE_PROGRESSION_CONFIRMED"
+    DIRECTION_CONFIRMED = "DIRECTION_CONFIRMED"
+    REPEATED_EVIDENCE = "REPEATED_EVIDENCE"
+    PERSISTENT_OFF_ROUTE = "PERSISTENT_OFF_ROUTE"
+    POSSIBLE_WRONG_TRIP = "POSSIBLE_WRONG_TRIP"
+    ASSIGNMENT_MISMATCH = "ASSIGNMENT_MISMATCH"
+    INFERENCE_TIMEOUT = "INFERENCE_TIMEOUT"
+    NO_ACTIVE_TRACKING_SESSION = "NO_ACTIVE_TRACKING_SESSION"
+    TRACKING_LOST = "TRACKING_LOST"
+    RECOVERY_OBSERVED = "RECOVERY_OBSERVED"
+    AMBIGUOUS_SCHEDULE_MATCH = "AMBIGUOUS_SCHEDULE_MATCH"
+
+
+@dataclass
+class TripInferenceContext:
+    trip_id: str
+    status: str  # TripStatus value
+    score: float = 0.0
+    score_timestamp: Optional[datetime] = None
+    suspected_start_at: Optional[datetime] = None
+    last_route_evidence_progress_m: Optional[float] = None
+    route_evidence_contribution: float = 0.0
+    stop_evidence_contribution: float = 0.0
+    tracking_lost_since: Optional[datetime] = None
+
+    @property
+    def is_tracking_lost(self) -> bool:
+        return self.tracking_lost_since is not None
+
+
+@dataclass
+class TripInferenceResult:
+    status: str  # TripStatus value
+    score: float
+    context: TripInferenceContext
+    diagnostics: List[TripInferenceDiagnostic] = field(default_factory=list)

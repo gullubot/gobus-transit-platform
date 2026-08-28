@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+
 import pytest
 
 from app.intelligence.core_models import (
@@ -11,12 +12,6 @@ from app.intelligence.core_models import (
     TelemetryPacket,
 )
 from app.intelligence.stop_progression import StopProgressionEngine
-from app.intelligence.config import (
-    BASE_STOP_TOLERANCE_M,
-    STOP_AT_ENTER_MARGIN_M,
-    STOP_AT_EXIT_MARGIN_M,
-    STOP_PASS_MARGIN_M,
-)
 
 
 @pytest.fixture
@@ -61,7 +56,7 @@ def test_exact_stop():
     stops = make_stops()
     packet = make_packet(12.0, 77.0, 0.0) # low speed
     match = make_match(100.0)
-    
+
     # Needs confirmed arrival or spatial proximity.
     # The spatial proximity is 0.0 (exact lat/lon match with s1).
     res = StopProgressionEngine.evaluate_progression(packet, match, stops)
@@ -74,7 +69,7 @@ def test_passing_stop():
     # Passed requires diff > tol + pass_margin (30 + 15 = 45m).
     # Progress = 146m. Diff = +46m > 45m.
     match = make_match(146.0)
-    
+
     ctx = StopProgressContext(stop_states={"s1": StopState.AT_STOP})
     res = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx)
     assert res.state == StopState.BEFORE_STOP # for s2
@@ -88,12 +83,12 @@ def test_enter_exit_hysteresis():
     # tol = 30. EXIT band = 30 + 10 = 40m.
     # Diff = 35m.
     match = make_match(135.0)
-    
+
     # If previously BEFORE, it shouldn't enter AT yet because 35m > 20m.
     ctx = StopProgressContext(stop_states={"s1": StopState.BEFORE_STOP})
     res1 = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx)
     assert res1.state == StopState.BEFORE_STOP
-    
+
     # If previously AT, it should remain AT because 35m <= 40m.
     ctx2 = StopProgressContext(stop_states={"s1": StopState.AT_STOP})
     res2 = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx2)
@@ -106,12 +101,12 @@ def test_b_to_a_direction():
     # We are at 1050m (before s3 at 1000m).
     packet = make_packet(12.0, 77.0, 10.0)
     match = make_match(1050.0, dir=Direction.B_TO_A)
-    
+
     res = StopProgressionEngine.evaluate_progression(packet, match, stops)
     # Stop 3 is 1000m. 1050m is > 1000m + (30 - 10) -> BEFORE_STOP for B_TO_A
     assert res.state == StopState.BEFORE_STOP
     assert res.next_stop_id == "s3"
-    
+
     # Progress 950m is passed s3.
     # Passed: current < stop - tol - margin = 1000 - 30 - 15 = 955m.
     # 950m < 955m, so passed.
@@ -128,7 +123,7 @@ def test_multi_stop_gap_strong_evidence():
     match = make_match(1100.0, conf=0.9)
     # Jumped from s1 (progress ~100m) straight to after s3.
     ctx = StopProgressContext(stop_states={"s1": StopState.PASSED_STOP, "s2": StopState.BEFORE_STOP, "s3": StopState.BEFORE_STOP})
-    
+
     res = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx)
     assert res.state == StopState.PASSED_STOP
     assert res.previous_stop_id == "s3"
@@ -139,7 +134,7 @@ def test_multi_stop_gap_weak_evidence():
     # Weak match confidence (0.4)
     match = make_match(1100.0, conf=0.4)
     ctx = StopProgressContext(stop_states={"s1": StopState.PASSED_STOP, "s2": StopState.BEFORE_STOP, "s3": StopState.BEFORE_STOP})
-    
+
     res = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx)
     # Should not fabricate PASSED_STOP for s2 and s3. Will return UNKNOWN.
     # The current state will be UNKNOWN because of the gap ambiguity.
@@ -151,7 +146,7 @@ def test_confirmed_passage_backward_noise():
     # Previously passed s1. Now noise pulls us back to 90m.
     match = make_match(90.0)
     ctx = StopProgressContext(stop_states={"s1": StopState.PASSED_STOP})
-    
+
     res = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx)
     # Must NOT revert to BEFORE_STOP for s1.
     assert res.previous_stop_id == "s1"

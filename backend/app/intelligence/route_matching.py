@@ -2,7 +2,9 @@ import math
 from typing import List, Optional, Tuple
 
 from .config import (
+    CONTINUITY_PROGRESS_SCALE,
     MAX_IMPOSSIBLE_SPEED_MPS,
+    MEANINGFUL_RETROGRADE_SCORE,
     MIN_ROUTE_MATCH_SCORE,
     MIN_SCORE_MARGIN,
     ROUTE_DISTANCE_SCALE,
@@ -15,13 +17,10 @@ from .config import (
     SEARCH_RADIUS_BASE_M,
     SEARCH_RADIUS_MAX_M,
     SEARCH_RADIUS_SAFETY_MARGIN_M,
+    SMALL_RETROGRADE_SCORE,
+    SMALL_RETROGRADE_TOLERANCE_M,
     SPEED_CONSISTENCY_LARGE_MPS,
     SPEED_CONSISTENCY_MODERATE_MPS,
-    CONTINUITY_PROGRESS_SCALE,
-    SMALL_RETROGRADE_TOLERANCE_M,
-    SMALL_RETROGRADE_SCORE,
-    MEANINGFUL_RETROGRADE_SCORE,
-    LEGITIMATE_REVERSAL_SCORE,
 )
 from .core_models import (
     Direction,
@@ -212,8 +211,8 @@ class RouteMatcher:
                             if abs(cand_prog_delta) <= SMALL_RETROGRADE_TOLERANCE_M:
                                 s_prog = SMALL_RETROGRADE_SCORE
                             else:
-                                # We do not blindly reject (0.0). We return a strong penalty 
-                                # to reduce confidence or create an AMBIGUOUS result, unless we 
+                                # We do not blindly reject (0.0). We return a strong penalty
+                                # to reduce confidence or create an AMBIGUOUS result, unless we
                                 # eventually add trip state logic that promotes it to LEGITIMATE_REVERSAL_SCORE.
                                 s_prog = MEANINGFUL_RETROGRADE_SCORE
                         else:

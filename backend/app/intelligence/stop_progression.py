@@ -1,15 +1,14 @@
-import math
-from typing import List, Optional, Tuple, Dict
+from typing import List, Optional
 
 from .config import (
     BASE_STOP_TOLERANCE_M,
-    STOP_ACCURACY_FACTOR,
     MAX_STOP_TOLERANCE_M,
+    MULTI_STOP_STRONG_MATCH_CONFIDENCE,
+    STOP_ACCURACY_FACTOR,
     STOP_AT_ENTER_MARGIN_M,
     STOP_AT_EXIT_MARGIN_M,
     STOP_PASS_MARGIN_M,
     STOP_SPATIAL_PROXIMITY_M,
-    MULTI_STOP_STRONG_MATCH_CONFIDENCE,
 )
 from .core_models import (
     Direction,
@@ -35,7 +34,7 @@ class StopProgressionEngine:
             # Wait, the rule is "Use the configured base tolerance when accuracy is unavailable."
             # If we use max(BASE, accuracy * FACTOR), if accuracy is missing, we just use BASE.
             return BASE_STOP_TOLERANCE_M
-            
+
         return min(
             MAX_STOP_TOLERANCE_M,
             max(BASE_STOP_TOLERANCE_M, accuracy_m * STOP_ACCURACY_FACTOR),
@@ -95,15 +94,15 @@ class StopProgressionEngine:
 
         # 3. Evaluate each stop in operational order
         current_progress = match.route_progress_m
-        
+
         # Track diagnostics
         diagnostics = []
 
         # Find the first operational stop that is NOT PASSED.
         # But wait, we must also handle multi-stop gap filling.
-        
+
         strong_evidence = (
-            match.match_confidence is not None 
+            match.match_confidence is not None
             and match.match_confidence >= MULTI_STOP_STRONG_MATCH_CONFIDENCE
             and match.direction != Direction.UNKNOWN
             and prev_context is not None
@@ -118,11 +117,11 @@ class StopProgressionEngine:
                 continue
 
             dist_delta = current_progress - stop.distance_from_start
-            
+
             # BEFORE / PASSED bounds depending on direction
             is_before = False
             is_passed = False
-            
+
             if match.direction == Direction.A_TO_B:
                 if current_progress < stop.distance_from_start - (tol - STOP_AT_ENTER_MARGIN_M):
                     is_before = True
@@ -137,16 +136,16 @@ class StopProgressionEngine:
             # AT_STOP logic
             in_enter_band = abs(dist_delta) <= (tol - STOP_AT_ENTER_MARGIN_M)
             in_exit_band = abs(dist_delta) <= (tol + STOP_AT_EXIT_MARGIN_M)
-            
+
             spatial_dist = haversine_distance(packet.lat, packet.lon, stop.lat, stop.lon)
-            
+
             # Trajectory approach check
             confirmed_approach = (prev_state == StopState.BEFORE_STOP and in_enter_band)
             stationary = (packet.speed_mps is not None and packet.speed_mps <= 0.55) # Assuming STOP_SPEED_THRESHOLD_MPS = 0.55
-            
+
             # Primary evaluation
             new_state = StopState.UNKNOWN
-            
+
             if prev_state == StopState.AT_STOP:
                 # REMAIN AT_STOP
                 if in_exit_band:
@@ -159,7 +158,7 @@ class StopProgressionEngine:
                         new_state = StopState.BEFORE_STOP
                     else:
                         # Technically in the intermediate margin, wait to commit.
-                        new_state = StopState.AT_STOP 
+                        new_state = StopState.AT_STOP
             else:
                 # Attempt to ENTER AT_STOP
                 if in_enter_band:
@@ -191,20 +190,20 @@ class StopProgressionEngine:
         current_stop_id = None
         next_stop_id = None
         previous_stop_id = None
-        
+
         # The "active" stop is the first one that is BEFORE_STOP or AT_STOP or UNKNOWN
         for i, stop in enumerate(ordered_stops):
             st = state_map.get(stop.id)
             if st == StopState.PASSED_STOP:
                 previous_stop_id = stop.id
                 continue
-            
+
             if st == StopState.AT_STOP:
                 current_stop_id = stop.id
                 if i + 1 < len(ordered_stops):
                     next_stop_id = ordered_stops[i+1].id
                 break
-            
+
             if st in (StopState.BEFORE_STOP, StopState.UNKNOWN):
                 next_stop_id = stop.id
                 break

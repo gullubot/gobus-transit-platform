@@ -1,16 +1,16 @@
-import pytest
 from datetime import datetime, timedelta, timezone
+
+import pytest
 
 from app.intelligence.core_models import (
     Direction,
     RouteCandidate,
     RouteMatchContext,
-    RouteMatchDiagnostic,
     RouteMatchStatus,
     TelemetryPacket,
 )
-from app.intelligence.route_matching import RouteMatcher, calculate_search_radius
 from app.intelligence.gps_validation import haversine_distance
+from app.intelligence.route_matching import RouteMatcher, calculate_search_radius
 
 
 @pytest.fixture
@@ -197,7 +197,7 @@ def test_small_retrograde_tolerance(current_time):
 
 
 def test_meaningful_impossible_retrograde(current_time):
-    # Backward jump > SMALL_RETROGRADE_TOLERANCE_M (15m) should fail matching 
+    # Backward jump > SMALL_RETROGRADE_TOLERANCE_M (15m) should fail matching
     # (or result in very low score) because Sprog drops to MEANINGFUL_RETROGRADE_SCORE
     # and Scont drops exponentially due to the large delta error.
     candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)])
@@ -217,13 +217,13 @@ def test_meaningful_impossible_retrograde(current_time):
 def test_b_to_a_traversal(current_time):
     # A bus actively operating in B_TO_A direction.
     candidates = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)])
-    
-    # Let's say previous progress was 1113m. 
+
+    # Let's say previous progress was 1113m.
     # It moves backwards (west). cand_prog_delta is negative.
     # Because direction is B_TO_A, expected_prog_delta is also negative!
     ctx = create_context(current_time, offset=-10, progress=1113.0, dir=Direction.B_TO_A)
-    packet = create_packet(current_time, lat=12.0, lon=77.009, heading=270.0, speed=10.0) 
-    
+    packet = create_packet(current_time, lat=12.0, lon=77.009, heading=270.0, speed=10.0)
+
     res = RouteMatcher.match_route(packet, candidates, ctx)
     assert res.status == RouteMatchStatus.MATCHED
 
@@ -231,17 +231,17 @@ def test_b_to_a_traversal(current_time):
 def test_ambiguous_reversal(current_time):
     # Candidate 1: Continuing straight on r1.
     candidates_r1 = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)])
-    
+
     # Previous context: moving East on r1 (A_TO_B).
     ctx = create_context(current_time, offset=-10, progress=555.0, route_id="r1", dir=Direction.A_TO_B)
-    
+
     # Packet shows a sudden jump backwards by 100m.
     # Because it's on r1, this is a MEANINGFUL_RETROGRADE.
     # The score drops to ~0.507. It's a MATCHED but with REDUCED CONFIDENCE.
     packet = create_packet(current_time, lat=12.0, lon=77.003, heading=270.0, speed=10.0)
-    
+
     res = RouteMatcher.match_route(packet, candidates_r1, ctx)
-    
+
     # The prompt explicitly requires "reduced confidence" or AMBIGUOUS.
     if res.status == RouteMatchStatus.MATCHED:
         assert res.match_confidence < 0.60
