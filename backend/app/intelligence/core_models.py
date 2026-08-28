@@ -225,3 +225,92 @@ class TripInferenceResult:
     score: float
     context: TripInferenceContext
     diagnostics: List[TripInferenceDiagnostic] = field(default_factory=list)
+
+
+# =================================================================
+# PHASE 5: TRACKER FUSION & CANONICAL BUS STATE
+# =================================================================
+
+
+class CanonicalState(Enum):
+    NOT_ACTIVE = "NOT_ACTIVE"
+    LIVE = "LIVE"
+    DEGRADED = "DEGRADED"
+    STALE = "STALE"
+    OFFLINE = "OFFLINE"
+
+
+class TrackerFusionDiagnostic(Enum):
+    STALE_DATA = "STALE_DATA"
+    OFFLINE = "OFFLINE"
+    LOW_RELIABILITY = "LOW_RELIABILITY"
+    DUPLICATE_PACKET = "DUPLICATE_PACKET"
+    HISTORICAL_PACKET = "HISTORICAL_PACKET"
+    MODERATE_DISAGREEMENT = "MODERATE_DISAGREEMENT"
+    LARGE_DISAGREEMENT = "LARGE_DISAGREEMENT"
+    IMPOSSIBLE_RECOVERY_SPEED = "IMPOSSIBLE_RECOVERY_SPEED"
+    SOURCE_SWITCH_HYSTERESIS_ACTIVE = "SOURCE_SWITCH_HYSTERESIS_ACTIVE"
+    RECOVERY_IN_PROGRESS = "RECOVERY_IN_PROGRESS"
+
+
+@dataclass
+class TrackerInput:
+    source_id: str
+    packet_id: str
+    observed_at: datetime
+    received_at: datetime
+    lat: float
+    lon: float
+    accuracy_m: Optional[float]
+    speed_mps: Optional[float]
+    heading: Optional[float]
+    gps_validation: ValidationReport
+    route_match: RouteMatchResult
+    stop_progression: StopProgressResult
+    dwell_result: DwellResult
+    trip_inference: TripInferenceResult
+    session_health: float  # [0, 1]
+
+
+@dataclass
+class TrackerState:
+    # State for a single tracker
+    source_id: str
+    last_packet_id: Optional[str] = None
+    last_observed_at: Optional[datetime] = None
+    last_reliability: float = 0.0
+    consecutive_valid_observations: int = 0
+    consecutive_recovery_observations: int = 0
+    is_trusted: bool = False
+
+
+@dataclass
+class CanonicalStateContext:
+    vehicle_id: str
+    trip_id: Optional[str] = None
+    service_id: Optional[str] = None
+    route_id: Optional[str] = None
+    direction: Optional[str] = None
+
+    canonical_source: Optional[str] = None
+    last_observed_at: Optional[datetime] = None
+    last_received_at: Optional[datetime] = None
+
+    lat: Optional[float] = None
+    lon: Optional[float] = None
+    speed_mps: Optional[float] = None
+    heading: Optional[float] = None
+
+    route_progress_m: Optional[float] = None
+    current_stop_id: Optional[str] = None
+    next_stop_id: Optional[str] = None
+    dwell_state: DwellState = DwellState.UNKNOWN
+
+    state: CanonicalState = CanonicalState.OFFLINE
+    confidence: str = "LOW"  # string representing Confidence enum
+
+    # Internal fusion state
+    trackers: dict[str, TrackerState] = field(default_factory=dict)
+    recovery_mode_active: bool = False
+    consecutive_source_switch_observations: int = 0
+    candidate_source_id: Optional[str] = None
