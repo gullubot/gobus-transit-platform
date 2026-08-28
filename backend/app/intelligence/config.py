@@ -174,3 +174,34 @@ CANONICAL_CONFIDENCE_LOW_THRESHOLD = 0.00
 # Recovery
 MAX_PLAUSIBLE_RECOVERY_SPEED_MPS = 33.3
 RECOVERY_CONFIRMATION_OBSERVATIONS = 2
+
+# =================================================================
+# PHASE 6: ETA ENGINE
+# =================================================================
+
+# Numerical Safeguards
+ETA_MIN_SECONDS = 0
+ETA_MAX_SECONDS = 28800
+MIN_EFFECTIVE_SPEED_MPS = 1.0
+MAX_EFFECTIVE_SPEED_MPS = 33.3
+
+# Speed Model
+ETA_EWMA_ALPHA = 0.35
+
+# Historical Data
+ETA_HISTORICAL_MIN_SAMPLES = 20
+
+# Blending Weights
+ETA_WEIGHT_LIVE_CURR = 0.85
+ETA_WEIGHT_LIVE_HIST = 0.15
+ETA_WEIGHT_DEGRADED_CURR = 0.40
+ETA_WEIGHT_DEGRADED_HIST = 0.60
+
+# Uncertainty Widening (seconds)
+ETA_DEGRADED_UNCERTAINTY_MIN = 120.0
+ETA_DWELL_NON_STOP_UNCERTAINTY_MIN = 300.0
+
+# Base Canonical Confidence Numeric Mapping
+ETA_CONFIDENCE_HIGH = 0.85
+ETA_CONFIDENCE_MEDIUM = 0.60
+ETA_CONFIDENCE_LOW = 0.30

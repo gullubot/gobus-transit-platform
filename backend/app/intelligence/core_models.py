@@ -287,6 +287,7 @@ class TrackerState:
 @dataclass
 class CanonicalStateContext:
     vehicle_id: str
+    organization_id: Optional[str] = None
     trip_id: Optional[str] = None
     service_id: Optional[str] = None
     route_id: Optional[str] = None
@@ -314,3 +315,29 @@ class CanonicalStateContext:
     recovery_mode_active: bool = False
     consecutive_source_switch_observations: int = 0
     candidate_source_id: Optional[str] = None
+
+
+# =================================================================
+# PHASE 6: ETA ENGINE
+# =================================================================
+
+
+class ETAStatus(Enum):
+    LIVE = "LIVE"
+    DEGRADED = "DEGRADED"
+    FALLBACK = "FALLBACK"
+    UNAVAILABLE = "UNAVAILABLE"
+
+
+@dataclass
+class ETAResult:
+    target_stop_id: str
+    eta_seconds: int
+    lower_bound_seconds: int
+    upper_bound_seconds: int
+    confidence_score: float
+    status: ETAStatus
+    fallback_level: int
+    reason_codes: List[str] = field(default_factory=list)
+    generated_at: Optional[datetime] = None
+    source_observed_at: Optional[datetime] = None
