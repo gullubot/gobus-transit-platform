@@ -233,7 +233,9 @@ def test_ambiguous_reversal(current_time):
     candidates_r1 = make_candidates("r1", [(12.0, 77.0), (12.0, 77.01)])
 
     # Previous context: moving East on r1 (A_TO_B).
-    ctx = create_context(current_time, offset=-10, progress=555.0, route_id="r1", dir=Direction.A_TO_B)
+    ctx = create_context(
+        current_time, offset=-10, progress=555.0, route_id="r1", dir=Direction.A_TO_B
+    )
 
     # Packet shows a sudden jump backwards by 100m.
     # Because it's on r1, this is a MEANINGFUL_RETROGRADE.

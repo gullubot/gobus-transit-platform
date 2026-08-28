@@ -20,6 +20,7 @@ from app.models.enums import TrackingSessionStatus, TripStatus
 
 logger = logging.getLogger(__name__)
 
+
 class TripInferenceEngine:
     """
     Evaluates whether an assigned scheduled trip is genuinely operating.
@@ -42,12 +43,9 @@ class TripInferenceEngine:
         is_operator_end_trip: bool = False,
         tracking_loss_duration_sec: float = 0.0,
     ) -> TripInferenceResult:
-
         if not context:
             context = TripInferenceContext(
-                trip_id=assigned_trip_id,
-                status=TripStatus.PLANNED,
-                score=0.0
+                trip_id=assigned_trip_id, status=TripStatus.PLANNED, score=0.0
             )
 
         diagnostics: List[TripInferenceDiagnostic] = []
@@ -76,26 +74,36 @@ class TripInferenceEngine:
 
             if is_terminal_stop and stop_progress.state == StopState.PASSED_STOP:
                 # Need correct direction. If direction matches or authoritative matches
-                if direction == authoritative_trip_direction or authoritative_trip_direction is None:
+                if (
+                    direction == authoritative_trip_direction
+                    or authoritative_trip_direction is None
+                ):
                     context.status = TripStatus.COMPLETED
                     return self._build_result(context, diagnostics)
 
             # Note: 95% progress fallback must be explicitly paired with terminal vicinity/dwell,
             # handled here if data available.
-            if (route_match.route_progress_m and
-                stop_progress.route_progress_m and
-                route_match.route_progress_m > 0):
+            if (
+                route_match.route_progress_m
+                and stop_progress.route_progress_m
+                and route_match.route_progress_m > 0
+            ):
                 pass
 
             # Check ABANDONED (Path A: Telemetry Loss)
             if tracking_loss_duration_sec > 0:
                 loss_min = tracking_loss_duration_sec / 60.0
-                if loss_min > (config.ABANDONMENT_TELEMETRY_TIMEOUT_MIN + config.ABANDONMENT_RECOVERY_GRACE_MIN):
+                if loss_min > (
+                    config.ABANDONMENT_TELEMETRY_TIMEOUT_MIN + config.ABANDONMENT_RECOVERY_GRACE_MIN
+                ):
                     context.status = TripStatus.ABANDONED
                     return self._build_result(context, diagnostics)
 
             # Check ABANDONED (Path B: Unexpected Stop)
-            if dwell.state == DwellState.DWELL_NON_STOP and (dwell.duration_seconds / 60.0) >= config.UNEXPECTED_STOP_ABANDONMENT_MIN:
+            if (
+                dwell.state == DwellState.DWELL_NON_STOP
+                and (dwell.duration_seconds / 60.0) >= config.UNEXPECTED_STOP_ABANDONMENT_MIN
+            ):
                 # Not terminal, no progress.
                 if not is_terminal_stop:
                     context.status = TripStatus.ABANDONED
@@ -118,9 +126,12 @@ class TripInferenceEngine:
                 positive_evidence_this_tick = True
 
             # Origin Proximity (+15)
-            if route_match.route_progress_m is not None and route_match.route_progress_m < config.ORIGIN_PROXIMITY_M:
+            if (
+                route_match.route_progress_m is not None
+                and route_match.route_progress_m < config.ORIGIN_PROXIMITY_M
+            ):
                 diagnostics.append(TripInferenceDiagnostic.ORIGIN_PROXIMITY)
-                if score < 30: # If we just started
+                if score < 30:  # If we just started
                     score += 15
                     positive_evidence_this_tick = True
 
@@ -145,17 +156,22 @@ class TripInferenceEngine:
                     # Establish baseline, do not award +5 yet.
                 else:
                     if route_match.route_progress_m is not None:
-                        delta = abs(route_match.route_progress_m - context.last_route_evidence_progress_m)
+                        delta = abs(
+                            route_match.route_progress_m - context.last_route_evidence_progress_m
+                        )
                         if delta >= config.ROUTE_EVIDENCE_MIN_PROGRESS_DELTA_M:
                             context.last_route_evidence_progress_m = route_match.route_progress_m
-                            if context.route_evidence_contribution < config.ROUTE_MATCH_MAX_CONTRIBUTION:
+                            if (
+                                context.route_evidence_contribution
+                                < config.ROUTE_MATCH_MAX_CONTRIBUTION
+                            ):
                                 context.route_evidence_contribution += 5
                                 score += 5
                                 positive_evidence_this_tick = True
                         else:
                             diagnostics.append(TripInferenceDiagnostic.REPEATED_EVIDENCE)
             else:
-                score -= 10 # -10 per NO_MATCH
+                score -= 10  # -10 per NO_MATCH
 
             # Direction (+15)
             if direction != Direction.UNKNOWN:
@@ -170,7 +186,7 @@ class TripInferenceEngine:
             if not positive_evidence_this_tick and context.score_timestamp:
                 elapsed_min = (obs_time - context.score_timestamp).total_seconds() / 60.0
                 if elapsed_min > 0:
-                    score -= (config.EVIDENCE_DECAY_PER_MINUTE * elapsed_min)
+                    score -= config.EVIDENCE_DECAY_PER_MINUTE * elapsed_min
 
             if positive_evidence_this_tick:
                 context.score_timestamp = obs_time
@@ -190,13 +206,17 @@ class TripInferenceEngine:
                 # SUSPECTED_START -> ACTIVE
                 direction_ok = True
                 if config.DIRECTION_REQUIRED_FOR_ACTIVE:
-                    direction_ok = (direction != Direction.UNKNOWN) or (authoritative_trip_direction is not None)
+                    direction_ok = (direction != Direction.UNKNOWN) or (
+                        authoritative_trip_direction is not None
+                    )
 
-                if (score >= config.ACTIVE_THRESHOLD and
-                    is_in_window and
-                    dwell.state == DwellState.MOVING and
-                    route_match.status == RouteMatchStatus.MATCHED and
-                    direction_ok):
+                if (
+                    score >= config.ACTIVE_THRESHOLD
+                    and is_in_window
+                    and dwell.state == DwellState.MOVING
+                    and route_match.status == RouteMatchStatus.MATCHED
+                    and direction_ok
+                ):
                     context.status = TripStatus.ACTIVE
 
                 # SUSPECTED_START -> PLANNED (False start reset)
@@ -204,17 +224,18 @@ class TripInferenceEngine:
                     context.status = TripStatus.PLANNED
                     context.suspected_start_at = None
                 elif context.suspected_start_at:
-                    duration_suspected = (obs_time - context.suspected_start_at).total_seconds() / 60.0
+                    duration_suspected = (
+                        obs_time - context.suspected_start_at
+                    ).total_seconds() / 60.0
                     if duration_suspected > config.MAX_SUSPECTED_DURATION_MIN:
                         context.status = TripStatus.PLANNED
                         context.suspected_start_at = None
 
         return self._build_result(context, diagnostics)
 
-    def _build_result(self, context: TripInferenceContext, diagnostics: List[TripInferenceDiagnostic]) -> TripInferenceResult:
+    def _build_result(
+        self, context: TripInferenceContext, diagnostics: List[TripInferenceDiagnostic]
+    ) -> TripInferenceResult:
         return TripInferenceResult(
-            status=context.status,
-            score=context.score,
-            context=context,
-            diagnostics=diagnostics
+            status=context.status, score=context.score, context=context, diagnostics=diagnostics
         )

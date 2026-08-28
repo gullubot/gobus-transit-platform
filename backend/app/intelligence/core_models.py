@@ -184,6 +184,7 @@ class DwellResult:
 # PHASE 4: TRIP INFERENCE & SCHEDULE ALIGNMENT
 # =================================================================
 
+
 class TripInferenceDiagnostic(Enum):
     SCHEDULE_WINDOW_MATCH = "SCHEDULE_WINDOW_MATCH"
     ORIGIN_PROXIMITY = "ORIGIN_PROXIMITY"

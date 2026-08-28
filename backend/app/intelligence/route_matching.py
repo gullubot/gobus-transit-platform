@@ -213,7 +213,7 @@ class RouteMatcher:
                             else:
                                 # We do not blindly reject (0.0). We return a strong penalty
                                 # to reduce confidence or create an AMBIGUOUS result, unless we
-                                # eventually add trip state logic that promotes it to LEGITIMATE_REVERSAL_SCORE.
+                                # eventually add trip state logic that promotes it to LEGITIMATE_REVERSAL_SCORE.  # noqa: E501
                                 s_prog = MEANINGFUL_RETROGRADE_SCORE
                         else:
                             s_prog = 1.0

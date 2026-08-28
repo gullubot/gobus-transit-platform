@@ -18,6 +18,7 @@ from app.intelligence.stop_progression import StopProgressionEngine
 def current_time():
     return datetime(2026, 1, 1, 12, 0, tzinfo=timezone.utc)
 
+
 def make_stops():
     return [
         RouteStop("s1", 1, 100.0, 60, 12.0, 77.0),
@@ -25,8 +26,17 @@ def make_stops():
         RouteStop("s3", 3, 1000.0, 180, 12.008, 77.0),
     ]
 
+
 def make_packet(lat, lon, speed, acc=10.0):
-    return TelemetryPacket(lat=lat, lon=lon, observed_at=datetime.now(timezone.utc), accuracy_m=acc, speed_mps=speed, heading=0.0)
+    return TelemetryPacket(
+        lat=lat,
+        lon=lon,
+        observed_at=datetime.now(timezone.utc),
+        accuracy_m=acc,
+        speed_mps=speed,
+        heading=0.0,
+    )
+
 
 def make_match(progress, dir=Direction.A_TO_B, conf=0.9):
     return RouteMatchResult(
@@ -41,6 +51,7 @@ def make_match(progress, dir=Direction.A_TO_B, conf=0.9):
         direction=dir,
     )
 
+
 def test_approaching_stop():
     stops = make_stops()
     # Tol = 30m. Enter margin = 10m.
@@ -52,9 +63,10 @@ def test_approaching_stop():
     assert res.state == StopState.BEFORE_STOP
     assert res.next_stop_id == "s1"
 
+
 def test_exact_stop():
     stops = make_stops()
-    packet = make_packet(12.0, 77.0, 0.0) # low speed
+    packet = make_packet(12.0, 77.0, 0.0)  # low speed
     match = make_match(100.0)
 
     # Needs confirmed arrival or spatial proximity.
@@ -62,6 +74,7 @@ def test_exact_stop():
     res = StopProgressionEngine.evaluate_progression(packet, match, stops)
     assert res.state == StopState.AT_STOP
     assert res.current_stop_id == "s1"
+
 
 def test_passing_stop():
     stops = make_stops()
@@ -72,9 +85,10 @@ def test_passing_stop():
 
     ctx = StopProgressContext(stop_states={"s1": StopState.AT_STOP})
     res = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx)
-    assert res.state == StopState.BEFORE_STOP # for s2
+    assert res.state == StopState.BEFORE_STOP  # for s2
     assert res.previous_stop_id == "s1"
     assert res.next_stop_id == "s2"
+
 
 def test_enter_exit_hysteresis():
     stops = make_stops()
@@ -93,6 +107,7 @@ def test_enter_exit_hysteresis():
     ctx2 = StopProgressContext(stop_states={"s1": StopState.AT_STOP})
     res2 = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx2)
     assert res2.state == StopState.AT_STOP
+
 
 def test_b_to_a_direction():
     stops = make_stops()
@@ -113,32 +128,47 @@ def test_b_to_a_direction():
     match2 = make_match(950.0, dir=Direction.B_TO_A)
     ctx = StopProgressContext(stop_states={"s3": StopState.AT_STOP})
     res2 = StopProgressionEngine.evaluate_progression(packet, match2, stops, ctx)
-    assert res2.state == StopState.BEFORE_STOP # for s2
+    assert res2.state == StopState.BEFORE_STOP  # for s2
     assert res2.previous_stop_id == "s3"
     assert res2.next_stop_id == "s2"
+
 
 def test_multi_stop_gap_strong_evidence():
     stops = make_stops()
     packet = make_packet(12.0, 77.0, 10.0)
     match = make_match(1100.0, conf=0.9)
     # Jumped from s1 (progress ~100m) straight to after s3.
-    ctx = StopProgressContext(stop_states={"s1": StopState.PASSED_STOP, "s2": StopState.BEFORE_STOP, "s3": StopState.BEFORE_STOP})
+    ctx = StopProgressContext(
+        stop_states={
+            "s1": StopState.PASSED_STOP,
+            "s2": StopState.BEFORE_STOP,
+            "s3": StopState.BEFORE_STOP,
+        }
+    )
 
     res = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx)
     assert res.state == StopState.PASSED_STOP
     assert res.previous_stop_id == "s3"
+
 
 def test_multi_stop_gap_weak_evidence():
     stops = make_stops()
     packet = make_packet(12.0, 77.0, 10.0)
     # Weak match confidence (0.4)
     match = make_match(1100.0, conf=0.4)
-    ctx = StopProgressContext(stop_states={"s1": StopState.PASSED_STOP, "s2": StopState.BEFORE_STOP, "s3": StopState.BEFORE_STOP})
+    ctx = StopProgressContext(
+        stop_states={
+            "s1": StopState.PASSED_STOP,
+            "s2": StopState.BEFORE_STOP,
+            "s3": StopState.BEFORE_STOP,
+        }
+    )
 
     res = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx)
     # Should not fabricate PASSED_STOP for s2 and s3. Will return UNKNOWN.
     # The current state will be UNKNOWN because of the gap ambiguity.
     assert "WEAK_GAP_EVIDENCE" in res.diagnostic_codes
+
 
 def test_confirmed_passage_backward_noise():
     stops = make_stops()
@@ -150,5 +180,5 @@ def test_confirmed_passage_backward_noise():
     res = StopProgressionEngine.evaluate_progression(packet, match, stops, ctx)
     # Must NOT revert to BEFORE_STOP for s1.
     assert res.previous_stop_id == "s1"
-    assert res.state == StopState.BEFORE_STOP # for s2!
+    assert res.state == StopState.BEFORE_STOP  # for s2!
     assert res.next_stop_id == "s2"

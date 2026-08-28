@@ -1,4 +1,3 @@
-
 from .config import (
     DWELL_EXIT_CONFIRMATION_OBSERVATIONS,
     DWELL_EXIT_SPEED_THRESHOLD_MPS,
@@ -42,7 +41,10 @@ class DwellEngine:
 
         # Handle Large Progress Exit first
         large_progress_jump = False
-        if stop_result.route_progress_m is not None and context.previous_route_progress_m is not None:
+        if (
+            stop_result.route_progress_m is not None
+            and context.previous_route_progress_m is not None
+        ):
             delta_prog = abs(stop_result.route_progress_m - context.previous_route_progress_m)
             if delta_prog >= LARGE_PROGRESS_EXIT_M and stop_result.progression_confidence >= 0.75:
                 large_progress_jump = True
@@ -61,7 +63,10 @@ class DwellEngine:
                 else:
                     context.consecutive_movement_observations = 1
 
-            if context.consecutive_movement_observations >= DWELL_EXIT_CONFIRMATION_OBSERVATIONS or large_progress_jump:
+            if (
+                context.consecutive_movement_observations >= DWELL_EXIT_CONFIRMATION_OBSERVATIONS
+                or large_progress_jump
+            ):
                 # Confirmed Moving
                 context.stationary_since = None
                 context.last_moving_at = packet.observed_at
@@ -97,7 +102,10 @@ class DwellEngine:
         if duration >= STOP_DWELL_CONFIRM_SECONDS and stop_result.state == StopState.AT_STOP:
             state = DwellState.DWELL_AT_STOP
             context.associated_stop_id = stop_result.current_stop_id
-        elif duration >= NON_STOP_DWELL_CONFIRM_SECONDS and stop_result.state in (StopState.BEFORE_STOP, StopState.PASSED_STOP):
+        elif duration >= NON_STOP_DWELL_CONFIRM_SECONDS and stop_result.state in (
+            StopState.BEFORE_STOP,
+            StopState.PASSED_STOP,
+        ):
             # Must NOT be UNKNOWN
             state = DwellState.DWELL_NON_STOP
             context.associated_stop_id = None

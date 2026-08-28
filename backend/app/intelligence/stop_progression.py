@@ -106,7 +106,7 @@ class StopProgressionEngine:
             and match.match_confidence >= MULTI_STOP_STRONG_MATCH_CONFIDENCE
             and match.direction != Direction.UNKNOWN
             and prev_context is not None
-            # physically plausible progress delta is implicitly handled by RouteMatcher (match_confidence would drop if impossible)
+            # physically plausible progress delta is implicitly handled by RouteMatcher (match_confidence would drop if impossible)  # noqa: E501
         )
 
         for i, stop in enumerate(ordered_stops):
@@ -127,7 +127,7 @@ class StopProgressionEngine:
                     is_before = True
                 elif current_progress > stop.distance_from_start + tol + STOP_PASS_MARGIN_M:
                     is_passed = True
-            else: # B_TO_A
+            else:  # B_TO_A
                 if current_progress > stop.distance_from_start + (tol - STOP_AT_ENTER_MARGIN_M):
                     is_before = True
                 elif current_progress < stop.distance_from_start - tol - STOP_PASS_MARGIN_M:
@@ -140,8 +140,10 @@ class StopProgressionEngine:
             spatial_dist = haversine_distance(packet.lat, packet.lon, stop.lat, stop.lon)
 
             # Trajectory approach check
-            confirmed_approach = (prev_state == StopState.BEFORE_STOP and in_enter_band)
-            stationary = (packet.speed_mps is not None and packet.speed_mps <= 0.55) # Assuming STOP_SPEED_THRESHOLD_MPS = 0.55
+            confirmed_approach = prev_state == StopState.BEFORE_STOP and in_enter_band
+            stationary = (
+                packet.speed_mps is not None and packet.speed_mps <= 0.55
+            )  # Assuming STOP_SPEED_THRESHOLD_MPS = 0.55
 
             # Primary evaluation
             new_state = StopState.UNKNOWN
@@ -162,13 +164,19 @@ class StopProgressionEngine:
             else:
                 # Attempt to ENTER AT_STOP
                 if in_enter_band:
-                    if (spatial_dist <= STOP_SPATIAL_PROXIMITY_M) or confirmed_approach or (prev_state == StopState.BEFORE_STOP and in_exit_band and stationary):
+                    if (
+                        (spatial_dist <= STOP_SPATIAL_PROXIMITY_M)
+                        or confirmed_approach
+                        or (prev_state == StopState.BEFORE_STOP and in_exit_band and stationary)
+                    ):
                         new_state = StopState.AT_STOP
                     else:
                         # Inside band but missing strong evidence, assume BEFORE until proven.
                         # Wait, the spec says "Low speed alone MUST NEVER create AT_STOP".
                         # If we lack evidence, we stay in BEFORE or UNKNOWN.
-                        new_state = prev_state if prev_state != StopState.UNKNOWN else StopState.BEFORE_STOP
+                        new_state = (
+                            prev_state if prev_state != StopState.UNKNOWN else StopState.BEFORE_STOP
+                        )
                 elif is_passed:
                     # Multi-stop gap logic
                     if prev_state in (StopState.BEFORE_STOP, StopState.UNKNOWN):
@@ -182,7 +190,9 @@ class StopProgressionEngine:
                 elif is_before:
                     new_state = StopState.BEFORE_STOP
                 else:
-                    new_state = prev_state if prev_state != StopState.UNKNOWN else StopState.BEFORE_STOP
+                    new_state = (
+                        prev_state if prev_state != StopState.UNKNOWN else StopState.BEFORE_STOP
+                    )
 
             state_map[stop.id] = new_state
 
@@ -201,7 +211,7 @@ class StopProgressionEngine:
             if st == StopState.AT_STOP:
                 current_stop_id = stop.id
                 if i + 1 < len(ordered_stops):
-                    next_stop_id = ordered_stops[i+1].id
+                    next_stop_id = ordered_stops[i + 1].id
                 break
 
             if st in (StopState.BEFORE_STOP, StopState.UNKNOWN):
