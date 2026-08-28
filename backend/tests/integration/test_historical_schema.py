@@ -8,18 +8,15 @@ import uuid
 import pytest
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
+from app.db.database import engine
 from app.models.enums import OrganizationStatus, OrganizationType, RouteStatus, StopStatus
 from app.models.historical import HistoricalRouteTravel, HistoricalSegmentTravel
 from app.models.organization import Organization
 from app.models.route import Route, Stop
 
 pytestmark = pytest.mark.integration
-
-
-from sqlalchemy.orm import Session
-
-from app.db.database import engine
 
 
 @pytest.fixture
@@ -169,7 +166,8 @@ def test_organization_isolation(db, test_data):
     # Because of the composite unique constraint containing organization_id,
     # the exact same route context under a DIFFERENT organization_id would be a different row.
     # However, foreign keys enforce that route_id belongs to org1? Wait, postgres does not natively
-    # enforce that the route_id belongs to the organization_id unless there is a composite foreign key.
+    # enforce that the route_id belongs to the organization_id unless there is
+    # a composite foreign key.
     # Our schema currently links to organizations(id) and routes(id) separately.
     pass
 

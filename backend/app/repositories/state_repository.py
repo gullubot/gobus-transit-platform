@@ -5,8 +5,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.intelligence.core_models import CanonicalStateContext
-from app.models.state import BusCurrentState
 from app.models.enums import Confidence
+from app.models.state import BusCurrentState
 
 
 def upsert_canonical_state(session: Session, context: CanonicalStateContext) -> None:
@@ -30,12 +30,12 @@ def upsert_canonical_state(session: Session, context: CanonicalStateContext) -> 
     # If the DB row already has a newer canonical observation, we discard the stale update.
     row_time = row.last_observed_at
     ctx_time = context.last_observed_at
-    
+
     if row_time and row_time.tzinfo is None:
         row_time = row_time.replace(tzinfo=timezone.utc)
     if ctx_time and ctx_time.tzinfo is None:
         ctx_time = ctx_time.replace(tzinfo=timezone.utc)
-        
+
     if row_time and ctx_time and ctx_time < row_time:
         return
 

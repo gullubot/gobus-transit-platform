@@ -115,7 +115,10 @@ class Stop(Base):
     organization = relationship("Organization", back_populates="stops", lazy="select")
     route_stops = relationship("RouteStop", back_populates="stop", lazy="select")
 
-    __table_args__ = (UniqueConstraint("organization_id", "stop_code", name="uq_stops_org_code"),)
+    __table_args__ = (
+        UniqueConstraint("organization_id", "stop_code", name="uq_stops_org_code"),
+        UniqueConstraint("id", "organization_id", name="uq_stops_id_org"),
+    )
 
     def __repr__(self) -> str:
         return f"<Stop {self.stop_code!r} ({self.name})>"
