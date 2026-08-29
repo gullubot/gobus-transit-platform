@@ -12,6 +12,7 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.intelligence.orchestrator import IntelligenceOrchestrator
 from app.models.device import Device
 from app.models.enums import DeviceStatus, TrackingSessionStatus, ValidationStatus
 from app.models.tracking import TrackingEvent, TrackingSession
@@ -189,6 +190,15 @@ def ingest_telemetry_batch(
                 device.gps_permission_status = last_pkt.gps_status
 
     db.commit()
+
+    if events_to_add:
+        try:
+            orchestrator = IntelligenceOrchestrator(db)
+            orchestrator.process_telemetry_batch(session, events_to_add)
+        except Exception as e:
+            # We must not fail the ACK response due to intelligence processing errors
+            import logging
+            logging.getLogger(__name__).error(f"Error in IntelligenceOrchestrator: {e}")
 
     return TrackingBatchResponse(
         accepted=accepted,
