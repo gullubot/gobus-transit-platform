@@ -38,7 +38,7 @@ def _clamp(val: float, min_val: float, max_val: float) -> float:
 class ETAEngine:
     def __init__(self, repo: HistoricalETARepository):
         self.repo = repo
-        # Store EWMAs per vehicle (in a real app, this would be in Redis/DB, keeping in memory for prototype logic)
+        # Store EWMAs per vehicle (in a real app, this would be in Redis/DB, keeping in memory for prototype logic)  # noqa: E501
         self._vehicle_ewma: Dict[str, float] = {}
 
     def _update_ewma(self, vehicle_id: str, current_speed: Optional[float]) -> Optional[float]:
@@ -117,7 +117,7 @@ class ETAEngine:
                 # Reached target explicitly and Phase 4 confirmed terminal completion.
                 return self._build_zero(target_stop_id, now, canonical.last_observed_at)
             # If not explicitly COMPLETED, we must NOT automatically produce ETA=0.
-            # We let the standard segment accumulation run. If distance is 0, we'll enforce ETA >= 1 below.
+            # We let the standard segment accumulation run. If distance is 0, we'll enforce ETA >= 1 below.  # noqa: E501
 
         # 3. Path Segments
         sorted_stops = sorted(
@@ -217,7 +217,7 @@ class ETAEngine:
                 # If we are mid-segment, we apply the speed to the remaining distance.
                 # To get historical speed, we need full segment distance. Let's approximate full
                 # segment distance as seg_dist if it's the first partial segment.
-                # Wait, the spec says `historical_segment_speed_mps = segment_distance_m / median_travel_seconds`.
+                # Wait, the spec says `historical_segment_speed_mps = segment_distance_m / median_travel_seconds`.  # noqa: E501
                 # Let's assume we can compute the segment distance.
                 if i == 0 and len(future_stops) > 1:
                     # Partial segment. We need full distance.
@@ -272,7 +272,7 @@ class ETAEngine:
                 segment_speed = None
 
             if segment_speed is not None:
-                # Apply MIN_EFFECTIVE_SPEED_MPS strictly as denominator protection, not to fabricate motion.
+                # Apply MIN_EFFECTIVE_SPEED_MPS strictly as denominator protection, not to fabricate motion.  # noqa: E501
                 safe_speed = max(MIN_EFFECTIVE_SPEED_MPS, segment_speed)
                 total_time_s += seg_dist / safe_speed
 
@@ -280,7 +280,7 @@ class ETAEngine:
                     total_time_s += hist_segment[1]  # add intermediate destination dwell
             else:
                 # Need LEVEL 3 (Route) or LEVEL 4 (Schedule) for the remaining distance.
-                # If we are here, we abandon segment iteration and use route fallback for the ENTIRE remaining journey.
+                # If we are here, we abandon segment iteration and use route fallback for the ENTIRE remaining journey.  # noqa: E501
                 hist_route_time = self.repo.get_historical_route_baseline(
                     canonical.organization_id,
                     canonical.route_id,

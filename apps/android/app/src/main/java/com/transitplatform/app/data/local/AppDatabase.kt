@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [TrackingPacketEntity::class], version = 1, exportSchema = false)
+@Database(entities = [TrackingPacketEntity::class, CrowdingReportEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun trackingPacketDao(): TrackingPacketDao
+    abstract fun crowdingDao(): CrowdingDao
 
     companion object {
         @Volatile

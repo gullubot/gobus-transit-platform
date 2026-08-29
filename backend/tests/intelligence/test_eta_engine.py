@@ -156,7 +156,7 @@ def test_05_intermediate_dwell_included_destination_excluded(
     # 400m to s2, 700m from s2 to s3
     res = engine.calculate_eta(c, route_topology, "s3", 1200.0, "08:00", 1)
 
-    # Segment 1 (curr to s2): 400m. hist speed = 400/40 = 10. Blend: 0.85*10 + 0.15*10 = 10. Time = 40s.
+    # Segment 1 (curr to s2): 400m. hist speed = 400/40 = 10. Blend: 0.85*10 + 0.15*10 = 10. Time = 40s.  # noqa: E501
     # Intermediate dwell at s2 = 20s.
     # Segment 2 (s2 to s3): 700m. hist speed = 700/70 = 10. Blend: 10. Time = 70s.
     # Destination dwell at s3 (30s) is EXCLUDED.
@@ -277,7 +277,7 @@ def test_12_direction_b_to_a(engine, route_topology, mock_repo, base_time):
     )
     mock_repo.get_historical_segment_baseline.return_value = None
     res = engine.calculate_eta(c, route_topology, "s2", 1200.0, "08:00", 1)
-    # wait, B_TO_A means distance decreases! But my route_topology has distance_from_start ascending.
+    # wait, B_TO_A means distance decreases! But my route_topology has distance_from_start ascending.  # noqa: E501
     # Actually, ETAEngine uses `target_stop.distance_from_start - canonical.route_progress_m`.
     # For B_TO_A, it uses `canonical.route_progress_m - target_stop.distance_from_start`.
     assert res.status == ETAStatus.LIVE

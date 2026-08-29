@@ -12,6 +12,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes.auth import router as auth_router
+from app.api.routes.crowding import router as crowding_router
 from app.api.routes.health import router as health_router
 from app.api.routes.operator import router as operator_router
 from app.api.routes.tracking import router as tracking_router
@@ -60,8 +61,10 @@ async def add_request_id(request: Request, call_next):
     return response
 
 
-# ── Routes ───────────────────────────────────────────────────────────
+
+# ── API Routes ───────────────────────────────────────────────────────
 app.include_router(health_router)
 app.include_router(auth_router)
 app.include_router(operator_router)
 app.include_router(tracking_router)
+app.include_router(crowding_router)

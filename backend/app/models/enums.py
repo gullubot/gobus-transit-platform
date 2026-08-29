@@ -77,6 +77,24 @@ class TrackingSessionStatus(str, enum.Enum):
     ENDED = "ENDED"
 
 
+class CrowdingState(str, enum.Enum):
+    """Categorical crowding states."""
+
+    UNKNOWN = "UNKNOWN"
+    LOW = "LOW"
+    MODERATE = "MODERATE"
+    HIGH = "HIGH"
+    FULL = "FULL"
+
+
+class CrowdingSource(str, enum.Enum):
+    """Source of the crowding evidence."""
+
+    OPERATOR = "OPERATOR"
+    PASSENGER = "PASSENGER"
+    HISTORICAL = "HISTORICAL"
+
+
 class TripStatus(str, enum.Enum):
     PLANNED = "PLANNED"
     SUSPECTED_START = "SUSPECTED_START"

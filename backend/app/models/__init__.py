@@ -9,6 +9,7 @@ can discover them through a single import.
 # ── Enums ────────────────────────────────────────────────────────────
 from app.models.alert import ServiceAlert  # noqa: F401
 from app.models.audit import AuditLog  # noqa: F401
+from app.models.crowding import CrowdingReport  # noqa: F401
 from app.models.device import Device  # noqa: F401
 from app.models.enums import (  # noqa: F401
     AlertScope,

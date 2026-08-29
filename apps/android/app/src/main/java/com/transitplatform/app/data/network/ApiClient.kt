@@ -268,11 +268,44 @@ class ApiClient(private var baseUrl: String = "http://10.0.2.2:8000") {
                 retryable = retryableList,
                 rejected = emptyList()
             )
-            Result.success(ack)
+            return@withContext Result.success(ack)
         } catch (e: Exception) {
-            Result.failure(e)
+            return@withContext Result.failure(e)
         }
     }
+    
+    suspend fun uploadCrowdingReport(
+        token: String,
+        reportId: String,
+        vehicleId: String,
+        crowdingState: String,
+        confidence: Float,
+        observedAt: String
+    ): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val json = JSONObject().apply {
+                put("report_id", reportId)
+                put("vehicle_id", vehicleId)
+                put("crowding_state", crowdingState)
+                put("confidence", confidence)
+                put("observed_at", observedAt)
+            }
+            val request = Request.Builder()
+                .url("$baseUrl/api/crowding/reports")
+                .post(json.toString().toRequestBody(jsonMediaType))
+                .header("Authorization", "Bearer $token")
+                .build()
+
+            val response = client.newCall(request).execute()
+            if (!response.isSuccessful) {
+                return@withContext Result.failure(IOException("Upload failed (${response.code})"))
+            }
+            return@withContext Result.success(Unit)
+        } catch (e: Exception) {
+            return@withContext Result.failure(e)
+        }
+    }
+
 
     suspend fun sendHeartbeat(
         token: String,

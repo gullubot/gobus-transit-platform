@@ -25,6 +25,7 @@ from sqlalchemy import (
     ForeignKeyConstraint,
     Index,
     String,
+    UniqueConstraint,
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -116,6 +117,7 @@ class Trip(Base):
             name="fk_trips_org_service",
         ),
         Index("ix_trips_operating_date", "operating_date"),
+        UniqueConstraint("id", "organization_id", name="uq_trips_id_org"),
     )
 
     def __repr__(self) -> str:
