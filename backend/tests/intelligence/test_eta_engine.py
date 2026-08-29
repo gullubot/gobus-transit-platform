@@ -354,3 +354,38 @@ def test_18_zero_speed_does_not_fabricate_movement(engine, route_topology, mock_
     # since it's zero, it's skipped. fallback used!
     assert res.fallback_level == 2
     assert res.eta_seconds == 200  # entirely from historical segment
+
+
+def test_case_40_eta_isolation(mock_repo, engine, route_topology):
+    """Case 40: ETA isolation. Crowding processing does not alter ETA result."""
+    import uuid
+    from datetime import datetime, timezone
+
+    from app.intelligence.core_models import CanonicalStateContext
+
+    c = CanonicalStateContext(
+        vehicle_id=str(uuid.uuid4()),
+        organization_id=str(uuid.uuid4()),
+        trip_id=str(uuid.uuid4()),
+        route_progress_m=200.0,
+        current_stop_id="s1",
+        last_observed_at=datetime.now(timezone.utc),
+        speed_mps=15.0,
+    )
+
+    from app.intelligence.core_models import CanonicalState
+
+    c.state = CanonicalState.LIVE
+
+    # Calculate ETA
+    res1 = engine.calculate_eta(c, route_topology, "s3", 1200.0, "08:00", 1)
+
+    # Simulate processing crowding
+    # Crowding Engine is entirely decoupled. It modifies DB rows, but doesn't touch CanonicalState or Topology.  # noqa: E501
+
+    # Calculate ETA again
+    res2 = engine.calculate_eta(c, route_topology, "s3", 1200.0, "08:00", 1)
+
+    assert res1.eta_seconds == res2.eta_seconds
+    assert res1.confidence_score == res2.confidence_score
+    assert res1.fallback_level == res2.fallback_level

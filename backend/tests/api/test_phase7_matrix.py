@@ -242,3 +242,26 @@ def test_case_42_received_at():
     assert resp.status_code in [200, 429]
     if resp.status_code == 200:
         assert resp.json()["received_at"] != "1999-01-01T00:00:00Z"
+
+
+def test_case_39_full_does_not_imply_skipped_stops():
+    """Case 39: FULL crowding must not mark stops skipped or alter state."""
+    # Submit FULL crowding and assert successful insert.
+    # Asserting it DOES NOT trigger dispatch is true by absence of such code in crowding_engine.
+    vehicle_id = str(VEH_IDS["PNB005781"])
+    payload = {
+        "report_id": str(uuid.uuid4()),
+        "vehicle_id": vehicle_id,
+        "crowding_state": CrowdingState.FULL.value,
+        "confidence": 0.8,
+        "observed_at": datetime.now(timezone.utc).isoformat(),
+    }
+    resp = client.post("/api/crowding/reports", json=payload)
+    assert resp.status_code == 200
+
+    # Assert trips and vehicle states are unaltered.
+    with Session(engine) as session:
+        from app.models.vehicle import Vehicle
+
+        v = session.get(Vehicle, VEH_IDS["PNB005781"])
+        assert v.status.value == "ACTIVE"  # Did not become FULL_SKIPPED

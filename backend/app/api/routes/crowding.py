@@ -178,8 +178,6 @@ def submit_crowding_report(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-
-
 @router.get(
     "/api/passenger/vehicles/{vehicle_id}/crowding", response_model=PassengerCrowdingResponse
 )

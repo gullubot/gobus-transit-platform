@@ -220,3 +220,15 @@ def test_trip_composite_unique_constraint(db_session, setup_test_data):
     # The DB will throw if it wasn't uniquely constrained on the parent side.
     # The constraints fk_crowding_org_trip proves it exists on parent side.
     pass
+
+
+def test_case_37_38_schema_no_route_id_no_stop_id():
+    """Case 37, 38: Assert crowding_reports has no route_id and no stop_id."""
+    from sqlalchemy import inspect
+
+    from app.db.database import engine
+
+    insp = inspect(engine)
+    columns = [c["name"] for c in insp.get_columns("crowding_reports")]
+    assert "route_id" not in columns
+    assert "stop_id" not in columns

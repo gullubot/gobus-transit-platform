@@ -61,7 +61,6 @@ async def add_request_id(request: Request, call_next):
     return response
 
 
-
 # ── API Routes ───────────────────────────────────────────────────────
 app.include_router(health_router)
 app.include_router(auth_router)
