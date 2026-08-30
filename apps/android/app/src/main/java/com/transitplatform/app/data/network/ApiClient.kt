@@ -19,7 +19,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-class ApiClient(private var baseUrl: String = "http://10.0.2.2:8000") {
+class ApiClient(private var baseUrl: String = com.transitplatform.app.BuildConfig.BASE_URL) {
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS)

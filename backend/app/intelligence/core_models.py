@@ -316,6 +316,7 @@ class CanonicalStateContext:
     recovery_mode_active: bool = False
     consecutive_source_switch_observations: int = 0
     candidate_source_id: Optional[str] = None
+    engine_contexts: Optional[dict] = None
 
 
 # =================================================================

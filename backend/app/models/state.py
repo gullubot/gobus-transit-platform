@@ -8,7 +8,7 @@ import uuid
 from datetime import datetime, timezone
 
 from sqlalchemy import Enum, Float, ForeignKey, Index, Integer, String
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.database import Base
@@ -65,6 +65,7 @@ class BusCurrentState(Base):
     )
 
     canonical_source: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    engine_contexts: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
 
     last_observed_at: Mapped[datetime | None] = mapped_column(nullable=True)
     last_received_at: Mapped[datetime | None] = mapped_column(nullable=True)

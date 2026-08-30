@@ -24,7 +24,7 @@ data class ReadinessCheckState(
 
 data class OperatorUiState(
     val currentScreen: ScreenState = ScreenState.LOGIN,
-    val baseUrl: String = "http://10.0.2.2:8000",
+    val baseUrl: String = com.transitplatform.app.BuildConfig.BASE_URL,
     val token: String? = null,
     val userProfile: LoginResponse? = null,
     val assignment: AssignmentResponse? = null,

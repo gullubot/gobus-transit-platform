@@ -141,10 +141,16 @@ def ingest_telemetry_batch(
             duplicates.append(packet.packet_id)
             continue
 
+        # Track for within-batch deduplication
+        existing_packet_ids.add(packet.packet_id)
+
         # 3. Device sequence deduplication within session
         if packet.device_sequence in existing_sequences:
             duplicates.append(packet.packet_id)
             continue
+
+        # Track for within-batch deduplication
+        existing_sequences.add(packet.device_sequence)
 
         # 4. Valid and new observation — create immutable TrackingEvent
         event = TrackingEvent(
@@ -198,7 +204,10 @@ def ingest_telemetry_batch(
         except Exception as e:
             # We must not fail the ACK response due to intelligence processing errors
             import logging
-            logging.getLogger(__name__).error(f"Error in IntelligenceOrchestrator: {e}")
+
+            logging.getLogger(__name__).error(
+                f"Error in IntelligenceOrchestrator: {e}", exc_info=True
+            )
 
     return TrackingBatchResponse(
         accepted=accepted,

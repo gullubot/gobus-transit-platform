@@ -77,6 +77,9 @@ class ForegroundTrackingService : Service(), LocationListener {
     private var syncJob: Job? = null
     private var heartbeatJob: Job? = null
 
+    private var trackingStartTime: Long = 0L
+    private var lastGpsTime: Long = 0L
+
     companion object {
         const val ACTION_START = "com.transitplatform.app.START_TRACKING"
         const val ACTION_STOP = "com.transitplatform.app.STOP_TRACKING"
@@ -182,6 +185,9 @@ class ForegroundTrackingService : Service(), LocationListener {
     private fun startTrackingEngine() {
         val currentSession = sessionId ?: return
 
+        trackingStartTime = System.currentTimeMillis()
+        lastGpsTime = 0L
+
         serviceScope.launch {
             val maxSeq = database.trackingPacketDao().getMaxSequenceForSession(currentSession) ?: 0
             sequenceCounter.set(maxSeq)
@@ -252,6 +258,23 @@ class ForegroundTrackingService : Service(), LocationListener {
 
     override fun onLocationChanged(location: Location) {
         val currentSession = sessionId ?: return
+
+        val currentTime = System.currentTimeMillis()
+        if (location.provider == LocationManager.GPS_PROVIDER) {
+            lastGpsTime = currentTime
+        } else if (location.provider == LocationManager.NETWORK_PROVIDER) {
+            if (lastGpsTime == 0L) {
+                // Bootstrapping phase: Give GPS 10 seconds to get the first lock
+                if (currentTime - trackingStartTime < 10000L) {
+                    return
+                }
+            } else {
+                // We have a recent GPS lock. Suppress NETWORK_PROVIDER if GPS was active in last 10s.
+                if (currentTime - lastGpsTime < 10000L) {
+                    return
+                }
+            }
+        }
 
         val seq = sequenceCounter.incrementAndGet()
         val isoFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).apply {

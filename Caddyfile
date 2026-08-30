@@ -1,0 +1,6 @@
+# Caddyfile for Staging Prototype
+# Replace placeholder with actual domain name during deployment
+
+{$DOMAIN_NAME} {
+    reverse_proxy api:8000
+}

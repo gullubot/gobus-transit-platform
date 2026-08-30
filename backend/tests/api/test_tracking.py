@@ -8,24 +8,16 @@ out-of-order handling, and device heartbeat.
 import uuid
 from datetime import datetime, timezone
 
-import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db.database import engine
-from app.db.seed import TRIP_PLANNED_ID, seed_dev_data
+from app.db.seed import TRIP_PLANNED_ID
 from app.main import app
 from app.models.tracking import TrackingEvent
 
 client = TestClient(app)
-
-
-@pytest.fixture(autouse=True)
-def ensure_seed():
-    """Ensure database has seed data before each test."""
-    with Session(engine) as session:
-        seed_dev_data(session)
 
 
 def get_authenticated_driver_headers() -> tuple[dict[str, str], str]:
@@ -134,6 +126,61 @@ def test_duplicate_packet_deduplication():
     assert str(pkt) not in resp2.json()["accepted"]
 
 
+def test_intra_batch_duplicate_sequence_deduplication():
+    """Batch with duplicate sequence numbers handles idempotency without rolling back the whole batch."""
+    headers, session_id = get_authenticated_driver_headers()
+    now = datetime.now(timezone.utc).isoformat()
+    pkt1 = uuid.uuid4()
+    pkt2 = uuid.uuid4()
+    pkt3 = uuid.uuid4()
+
+    payload = {
+        "session_id": session_id,
+        "packets": [
+            {
+                "packet_id": str(pkt1),
+                "latitude": 30.7333,
+                "longitude": 76.7794,
+                "observed_at": now,
+                "device_sequence": 100,
+            },
+            {
+                "packet_id": str(pkt2),
+                "latitude": 30.7334,
+                "longitude": 76.7795,
+                "observed_at": now,
+                "device_sequence": 100,  # Duplicate sequence!
+            },
+            {
+                "packet_id": str(pkt3),
+                "latitude": 30.7335,
+                "longitude": 76.7796,
+                "observed_at": now,
+                "device_sequence": 101,
+            },
+        ],
+    }
+
+    resp = client.post("/api/tracking/batch", json=payload, headers=headers)
+    assert resp.status_code == 200
+    data = resp.json()
+    assert str(pkt1) in data["accepted"]
+    assert str(pkt3) in data["accepted"]
+    assert str(pkt2) in data["duplicates"]
+    assert str(pkt2) not in data["accepted"]
+
+    # Verify server created exactly 2 packets
+    with Session(engine) as session:
+        events = (
+            session.execute(
+                select(TrackingEvent).where(TrackingEvent.packet_id.in_([pkt1, pkt2, pkt3]))
+            )
+            .scalars()
+            .all()
+        )
+        assert len(events) == 2
+
+
 def test_partial_batch_with_invalid_coordinates_handled():
     """Batch with mixed valid and invalid coordinate packets acknowledges both accordingly."""
     headers, session_id = get_authenticated_driver_headers()
@@ -149,14 +196,14 @@ def test_partial_batch_with_invalid_coordinates_handled():
                 "latitude": 30.7333,
                 "longitude": 76.7794,
                 "observed_at": now,
-                "device_sequence": 20,
+                "device_sequence": 110,
             },
             {
                 "packet_id": str(invalid_pkt),
                 "latitude": 195.0,  # Invalid latitude (> 90)
                 "longitude": 76.7794,
                 "observed_at": now,
-                "device_sequence": 21,
+                "device_sequence": 111,
             },
         ],
     }
@@ -276,7 +323,7 @@ def test_duplicate_device_sequence_handling():
                     "latitude": 30.7333,
                     "longitude": 76.7794,
                     "observed_at": now,
-                    "device_sequence": 50,
+                    "device_sequence": 120,
                 }
             ],
         },
@@ -285,7 +332,7 @@ def test_duplicate_device_sequence_handling():
     assert resp1.status_code == 200
     assert str(pkt1) in resp1.json()["accepted"]
 
-    # Ingest sequence 50 with a different packet_id (e.g. re-serialized packet)
+    # Ingest sequence 120 with a different packet_id (e.g. re-serialized packet)
     resp2 = client.post(
         "/api/tracking/batch",
         json={
@@ -296,7 +343,7 @@ def test_duplicate_device_sequence_handling():
                     "latitude": 30.7333,
                     "longitude": 76.7794,
                     "observed_at": now,
-                    "device_sequence": 50,
+                    "device_sequence": 120,
                 }
             ],
         },

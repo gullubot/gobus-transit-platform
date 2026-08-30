@@ -63,3 +63,5 @@ def upsert_canonical_state(session: Session, context: CanonicalStateContext) -> 
     row.last_observed_at = context.last_observed_at
     row.last_received_at = context.last_received_at
     row.updated_at = datetime.now(timezone.utc)
+    if hasattr(context, "engine_contexts"):
+        row.engine_contexts = context.engine_contexts

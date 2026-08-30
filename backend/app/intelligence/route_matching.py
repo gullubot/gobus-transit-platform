@@ -317,7 +317,7 @@ class RouteMatcher:
         # Direction inference
         new_dir = Direction.UNKNOWN
         if previous_context and previous_context.route_id == best_candidate["route_id"]:
-            new_dir, _, _ = DirectionEngine.infer_direction_state(
+            new_dir, _, _, _ = DirectionEngine.infer_direction_state(
                 best_candidate["progress_m"], previous_context
             )
 

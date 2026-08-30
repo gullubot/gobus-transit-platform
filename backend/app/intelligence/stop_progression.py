@@ -226,6 +226,12 @@ class StopProgressionEngine:
         elif previous_stop_id:
             overall_state = StopState.PASSED_STOP
 
+        if prev_context is not None:
+            prev_context.stop_states = state_map
+            prev_context.current_stop_id = current_stop_id
+            prev_context.next_stop_id = next_stop_id
+            prev_context.previous_stop_id = previous_stop_id
+
         return StopProgressResult(
             state=overall_state,
             current_stop_id=current_stop_id,
