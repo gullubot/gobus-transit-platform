@@ -23,6 +23,15 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_access_token_expire_minutes: int = 1440  # 24 hours for daily shift
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        if self.app_env != "development" and self.jwt_secret == "transit_dev_jwt_secret_key_change_in_production":
+            raise ValueError("JWT_SECRET must be explicitly set for production/demo environments. Do not use the development fallback.")
+
+    # Routing Provider
+    routing_provider: str = "osrm"
+    osrm_base_url: str = "https://router.project-osrm.org"
+
     # CORS
     cors_origins: str = "http://localhost:5173,http://localhost:3000"
 

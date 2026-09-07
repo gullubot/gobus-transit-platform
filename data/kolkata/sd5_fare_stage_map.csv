@@ -1,0 +1,8 @@
+through_stop_sequence,through_stop_name,fare_inr,provenance,note
+8,Kamalgazi More,10,USER_PROVIDED,Stop-stage fare; exact km slab boundaries to be derived from stored route distance.
+12,Garia More / Garia Bazar,12,USER_PROVIDED,Stop-stage fare; exact km slab boundaries to be derived from stored route distance.
+19,Tollygunge Tram Depot / Metro,15,USER_PROVIDED,Stop-stage fare; exact km slab boundaries to be derived from stored route distance.
+24,Taratala Crossing,18,USER_PROVIDED,Stop-stage fare; exact km slab boundaries to be derived from stored route distance.
+27,Behala Chowrasta,20,USER_PROVIDED,Stop-stage fare; exact km slab boundaries to be derived from stored route distance.
+33,Thakurpukur (3A Terminus),22,USER_PROVIDED,Stop-stage fare; exact km slab boundaries to be derived from stored route distance.
+40,Kharibaria Terminus,25,USER_PROVIDED,Stop-stage fare; exact km slab boundaries to be derived from stored route distance.

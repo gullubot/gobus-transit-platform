@@ -14,13 +14,13 @@ dependencies = [
     "geoalchemy2>=0.15.0",
     "pyjwt>=2.10.0",
     "pwdlib[argon2]>=0.2.0",
+    "httpx==0.28.1",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest==8.4.1",
     "pytest-asyncio==1.0.0",
-    "httpx==0.28.1",
     "ruff==0.11.12",
 ]
 

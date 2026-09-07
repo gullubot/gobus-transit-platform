@@ -2,8 +2,17 @@
 # Environment & Secrets
 # ============================
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
 
 # ============================
 # Python
@@ -20,6 +29,7 @@ build/
 .venv/
 venv/
 env/
+ENV/
 .python-version
 .pytest_cache/
 .mypy_cache/
@@ -27,9 +37,11 @@ env/
 htmlcov/
 .coverage
 coverage.xml
+*.cover
+nosetests.xml
 
 # ============================
-# Node.js
+# Node.js & Frontend
 # ============================
 node_modules/
 npm-debug.log*
@@ -37,9 +49,14 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 .npm
+.eslintcache
+.stylelintcache
+.turbo/
+apps/admin-web/temp.js
+apps/passenger-web/scratch_*.css
 
 # ============================
-# Android / Gradle
+# Android / Kotlin / Gradle
 # ============================
 *.apk
 *.aab
@@ -49,31 +66,51 @@ pnpm-debug.log*
 *.jar
 !gradle/wrapper/gradle-wrapper.jar
 .gradle/
+.kotlin/
 local.properties
 captures/
 .externalNativeBuild/
 .cxx/
+**/build/
 
 # ============================
-# IDE
+# Database & Local Backups
+# ============================
+backups/
+*.dump
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+# ============================
+# IDE & OS
 # ============================
 .idea/
 *.iml
+*.iws
+*.ipr
 .vscode/
 *.swp
 *.swo
 *~
 .DS_Store
 Thumbs.db
+ehthumbs.db
 
 # ============================
 # Docker
 # ============================
 docker-volumes/
+.docker/
 
 # ============================
-# OS
+# Logs & Debug Artifacts
 # ============================
 *.log
 *.tmp
 *.bak
+*_error*.txt
+*_errors*.txt
+*test_out*.txt
+lint_output.txt

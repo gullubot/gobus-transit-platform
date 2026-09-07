@@ -1,0 +1,5 @@
+source_id,source_name,url,type,used_for
+KBOP,Kolkata Bus-O-Pedia,https://www.kolbusopedia.com/bus-routes,public route directory,"private, minibus, special/suburban route identities and via lists"
+WBTD,West Bengal Transport Department,https://transport.wb.gov.in/,official government,government route/depot context
+MASTER123,Prior V1+V2+V3 master research supplied by user,,prior research package,preserve prior research context
+SD5USER,Product Owner SD5 specification,,user-provided,"hero service, 40 stops, operations, fare stages"

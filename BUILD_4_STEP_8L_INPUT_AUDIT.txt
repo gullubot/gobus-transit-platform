@@ -1,0 +1,58 @@
+# BUILD 4 - STEP 8L INPUT AUDIT
+Date: 2026-09-01
+
+## 1. Files Found in `data/kolkata/`
+- `DATASET_MANIFEST.md`
+- `MASTER_KOLKATA_RESEARCH_PACKAGE.json`
+- `PRE_INGESTION_REVIEW.md`
+- `master_kolkata_route_catalogue.csv`
+- `master_kolkata_stops.csv`
+- `sd5_demo_route.csv`
+- `sd5_demo_service.csv`
+- `sd5_fare_stage_map.csv`
+- `sources.csv`
+
+## 2. Row Counts and Columns
+- **master_kolkata_stops.csv**
+  - Records: 297
+  - Columns: `stop_name`, `latitude`, `longitude`, `coordinate_status`, `source`
+- **master_kolkata_route_catalogue.csv**
+  - Records: 199
+  - Columns: `route_number`, `origin`, `destination`, `category`, `status`, `confidence`, `via`, `source`
+- **sd5_demo_route.csv**
+  - Records: 40
+  - Columns: `sequence`, `stop_name`, `latitude`, `longitude`, `provenance`
+- **sd5_demo_service.csv**
+  - Records: 1
+  - Columns: `service_id`, `service_name`, `vehicle_type`, `direction`, `days`, `first_bus`, `last_bus`, `peak_frequency_min`, `normal_frequency_min`, `peak_periods`, `provenance`
+- **sd5_fare_stage_map.csv**
+  - Records: 7
+  - Columns: `through_stop_sequence`, `through_stop_name`, `fare_inr`, `provenance`, `note`
+
+## 3. Source / Provenance
+- General Kolkata Routes/Stops come from "Kolkata Bus-O-Pedia / prior research" and are marked with coordinate statuses like `TO_ENRICH` or `PRIOR_RESEARCH_COORDINATE`.
+- SD5 Service, Route, and Fares are explicitly marked as `USER_PROVIDED`.
+
+## 4. Model Mapping & Proposed Import Behavior
+- **Organization**: A new Organization "Kolkata Transit Authority" will be generated deterministically via UUID5.
+- **Stop**: `stop_name` -> `Stop.name` and `Stop.stop_code`. `latitude`/`longitude` map directly. Null coordinates will be defaulted to (0.0, 0.0) or skipped if strict. *Decision*: Create Stops with `(0, 0)` for `TO_ENRICH` coordinates if PostGIS allows, or generate a central Kolkata default coordinate (e.g., 22.5726, 88.3639) to satisfy `NOT NULL` PostGIS point geometry requirements.
+- **Route**: `route_number` -> `Route.route_code`. `origin` to `destination` -> `Route.route_name`. 
+- **RouteStop**: The SD5 exactly 40 stops will map to `RouteStop` with `sequence_number`. We will compute `distance_from_start` iteratively using the Haversine formula based on the provided latitudes and longitudes, ensuring monotonic distances.
+- **Service**: Maps from SD5 service file. `service_id` -> `Service.service_code`. `service_name` -> `Service.service_name`.
+- **ServiceSchedule**: The SD5 `first_bus` (05:00) and `last_bus` (20:30) map to `start_time` and `end_time`. We will map `normal_frequency_min` to `typical_interval_minutes`. 
+- **FareConfiguration & FareSlab**: The 7 stages map to 7 `FareSlab` entries under an SD5 `FareConfiguration`. We will derive the `min_distance_km` and `max_distance_km` boundaries using the computed `distance_from_start` of the corresponding `RouteStop` entries (e.g., if Kamalgazi More is at 5.5km, the 10 INR slab is from 0.0 to 5.5km).
+
+## 5. Unsupported Fields
+The following fields exist in the CSVs but do NOT have corresponding columns in the current GoBus schema. They will be ignored to comply with the "Do not create new schema" rule:
+- `provenance`, `confidence`, `coordinate_status`, `source`, `category`, `via`, `peak_periods`, `peak_frequency_min`.
+
+## 6. Missing Required Fields / Conflicts
+- **Stops Coordinates**: Some stops in the master list have missing `latitude`/`longitude` (marked `TO_ENRICH`). PostGIS `location` column is `nullable=False`. We will assign a default placeholder coordinate (e.g. 22.5726, 88.3639 - Kolkata Center) to these so they can be saved, or skip them if they are not part of an active route.
+- **Route Geometry**: The master routes do not contain geometry points. We will generate a generic LineString `(0 0, 0.0001 0.0001)` for generic routes without coordinate paths to satisfy the `Geometry(LINESTRING)` constraint. SD5's route geometry will be a precise `LINESTRING` built from its 40 stops.
+
+## 7. Import Behavior
+- **Kolkata Organization**: Deterministic UUID5 based on namespace.
+- **SD5 Records**: Strictly imported with exact 40 stops, Haversine-computed distances, both directions (A_TO_B and B_TO_A), and distance-based fare slabs derived from exact stop sequence distances.
+- **Dry Run Mode**: Supported via command-line arg (`--dry-run`), parsing and checking validations but not committing the transaction.
+- **Transaction**: The entire script runs inside a single `Session.begin()` that rolls back on any error.
+- **Idempotency**: Lookup by `stop_code` and `route_code` under the Kolkata organization ensures reruns do not duplicate entities.

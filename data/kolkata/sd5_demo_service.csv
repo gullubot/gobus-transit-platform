@@ -1,0 +1,2 @@
+service_id,service_name,vehicle_type,direction,days,first_bus,last_bus,peak_frequency_min,normal_frequency_min,peak_periods,provenance
+SD5,SD5,STANDARD_NON_AC_PRIVATE_BUS,BOTH,DAILY,05:00,20:30-21:00,15,30-35,08:30-11:30;17:00-20:00,USER_PROVIDED

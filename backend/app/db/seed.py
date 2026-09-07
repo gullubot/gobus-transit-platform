@@ -1,11 +1,9 @@
 """
-Transit Platform — Development Seed Data.
+Transit Platform — Integration Test Fixture Data.
 
-BUILD 1: DEMO / DEVELOPMENT DATA ONLY.
-This is NOT real government transport data.
-
-Provides a minimal coherent dataset to validate domain relationships.
-Designed to be deterministic, repeatable, and idempotent.
+STRICTLY FOR AUTOMATED TESTS TARGETING 'transit_platform_test'.
+NEVER RUN AGAINST LIVE 'transit_platform'.
+Protected by assert_testing_database(db).
 """
 
 import uuid
@@ -13,6 +11,7 @@ from datetime import date, datetime, time, timezone
 
 from sqlalchemy.orm import Session
 
+from app.db.guard import assert_testing_database
 from app.db.session import SessionLocal
 from app.models.device import Device
 from app.models.enums import (
@@ -35,6 +34,7 @@ from app.models.service import DepotSchedule, Service, ServiceSchedule
 from app.models.trip import Trip, TripAssignment, TripStateHistory
 from app.models.user import OperatorProfile, User
 from app.models.vehicle import Vehicle
+from app.models.fare import FareConfiguration, FareSlab
 
 # ═══════════════════════════════════════════════════════════════════════
 # DETERMINISTIC UUIDs — reproducible across seed runs
@@ -106,6 +106,14 @@ RS_IDS.update(
 TSH_PLANNED_ID = uuid.UUID("92000000-0000-0000-0000-000000000001")
 TSH_COMPLETED_ID = uuid.UUID("92000000-0000-0000-0000-000000000002")
 
+# Fares
+FARE_CONFIG_ID = uuid.UUID("A0000000-0000-0000-0000-000000000001")
+FARE_SLAB_IDS = [
+    uuid.UUID("A1000000-0000-0000-0000-000000000001"),
+    uuid.UUID("A1000000-0000-0000-0000-000000000002"),
+    uuid.UUID("A1000000-0000-0000-0000-000000000003"),
+]
+
 NOW = datetime.now(timezone.utc)
 
 
@@ -142,6 +150,7 @@ def seed_dev_data(db: Session) -> dict[str, int]:
 
     Returns a dict of entity -> count seeded.
     """
+    assert_testing_database(db)
     counts: dict[str, int] = {}
 
     # ── Organization ─────────────────────────────────────────────────
@@ -160,6 +169,105 @@ def seed_dev_data(db: Session) -> dict[str, int]:
         counts["organizations"] = 1
     else:
         counts["organizations"] = 0
+
+    # ── Users ────────────────────────────────────────────────────────
+    from app.core.security import get_password_hash
+
+    demo_password_hash = get_password_hash("operator123")
+    users_created = 0
+    users_data = [
+        (USER_DRIVER_ID, "Demo Driver", UserRole.DRIVER, "driver@demo.com"),
+        (USER_CONDUCTOR_ID, "Demo Conductor", UserRole.CONDUCTOR, "conductor@demo.com"),
+        (USER_FLEET_ADMIN_ID, "Fleet Admin", UserRole.FLEET_ADMIN, "fleet@demo.com"),
+        (USER_DEPOT_ADMIN_ID, "Depot Admin", UserRole.DEPOT_ADMIN, "depot@demo.com"),
+    ]
+    for uid, uname, role, email in users_data:
+        user = db.get(User, uid)
+        if user is None:
+            db.add(
+                User(
+                    id=uid,
+                    organization_id=ORG_ID,
+                    name=uname,
+                    email=email,
+                    role=role,
+                    password_hash=demo_password_hash,
+                    status="ACTIVE",
+                    created_at=NOW,
+                    updated_at=NOW,
+                )
+            )
+            users_created += 1
+        else:
+            if not user.password_hash:
+                user.password_hash = demo_password_hash
+            if not user.email:
+                user.email = email
+    db.flush()
+    counts["users"] = users_created
+
+    # ── Operator Profiles ────────────────────────────────────────────
+    ops_created = 0
+    if db.get(OperatorProfile, OP_DRIVER_ID) is None:
+        db.add(
+            OperatorProfile(
+                id=OP_DRIVER_ID,
+                user_id=USER_DRIVER_ID,
+                employee_code="DRV001",
+                operator_type="DRIVER",
+                verification_status=VerificationStatus.VERIFIED,
+                created_at=NOW,
+                updated_at=NOW,
+            )
+        )
+        ops_created += 1
+    if db.get(OperatorProfile, OP_CONDUCTOR_ID) is None:
+        db.add(
+            OperatorProfile(
+                id=OP_CONDUCTOR_ID,
+                user_id=USER_CONDUCTOR_ID,
+                employee_code="CND001",
+                operator_type="CONDUCTOR",
+                verification_status=VerificationStatus.VERIFIED,
+                created_at=NOW,
+                updated_at=NOW,
+            )
+        )
+        ops_created += 1
+    db.flush()
+    counts["operator_profiles"] = ops_created
+
+    # ── Devices ──────────────────────────────────────────────────────
+    devs_created = 0
+    if db.get(Device, DEV_DRIVER_ID) is None:
+        db.add(
+            Device(
+                id=DEV_DRIVER_ID,
+                organization_id=ORG_ID,
+                device_name="Demo Driver Phone",
+                platform="ANDROID",
+                status=DeviceStatus.ACTIVE,
+                created_at=NOW,
+                updated_at=NOW,
+            )
+        )
+        devs_created += 1
+    if db.get(Device, DEV_CONDUCTOR_ID) is None:
+        db.add(
+            Device(
+                id=DEV_CONDUCTOR_ID,
+                organization_id=ORG_ID,
+                device_name="Demo Conductor Phone",
+                platform="ANDROID",
+                status=DeviceStatus.ACTIVE,
+                created_at=NOW,
+                updated_at=NOW,
+            )
+        )
+        devs_created += 1
+    db.flush()
+    counts["devices"] = devs_created
+
 
     # ── Stops ────────────────────────────────────────────────────────
     stops_created = 0
@@ -284,6 +392,45 @@ def seed_dev_data(db: Session) -> dict[str, int]:
     db.flush()
     counts["vehicles"] = vehs_created
 
+    # ── Fares ────────────────────────────────────────────────────────
+    fares_created = 0
+    if db.get(FareConfiguration, FARE_CONFIG_ID) is None:
+        db.add(
+            FareConfiguration(
+                id=FARE_CONFIG_ID,
+                organization_id=ORG_ID,
+                name="Base Fare Schedule 2026",
+                currency="INR",
+                is_active=True,
+                effective_from=date(2026, 1, 1),
+                created_by=USER_FLEET_ADMIN_ID,
+                created_at=NOW,
+                updated_at=NOW,
+            )
+        )
+        db.flush()
+        
+        slabs_data = [
+            (FARE_SLAB_IDS[0], 0.0, 2.0, 10.0),
+            (FARE_SLAB_IDS[1], 2.0, 5.0, 15.0),
+            (FARE_SLAB_IDS[2], 5.0, None, 20.0),
+        ]
+        
+        for sid, min_dist, max_dist, amt in slabs_data:
+            if db.get(FareSlab, sid) is None:
+                db.add(
+                    FareSlab(
+                        id=sid,
+                        fare_configuration_id=FARE_CONFIG_ID,
+                        min_distance_km=min_dist,
+                        max_distance_km=max_dist,
+                        fare_amount=amt,
+                    )
+                )
+        db.flush()
+        fares_created += 1
+    counts["fare_configurations"] = fares_created
+
     # ── Services ─────────────────────────────────────────────────────
     svcs_created = 0
     if db.get(Service, SVC_AC4B_ID) is None:
@@ -292,6 +439,7 @@ def seed_dev_data(db: Session) -> dict[str, int]:
                 id=SVC_AC4B_ID,
                 organization_id=ORG_ID,
                 route_id=ROUTE_R1_ID,
+                fare_configuration_id=FARE_CONFIG_ID,
                 service_code="AC4B",
                 service_name="AC4B City Center Express",
                 status=ServiceStatus.ACTIVE,
@@ -307,6 +455,7 @@ def seed_dev_data(db: Session) -> dict[str, int]:
                 id=SVC_SD5_ID,
                 organization_id=ORG_ID,
                 route_id=ROUTE_R2_ID,
+                fare_configuration_id=FARE_CONFIG_ID,
                 service_code="SD5",
                 service_name="SD5 Airport Shuttle",
                 status=ServiceStatus.ACTIVE,
@@ -318,99 +467,7 @@ def seed_dev_data(db: Session) -> dict[str, int]:
     db.flush()
     counts["services"] = svcs_created
 
-    # ── Users ────────────────────────────────────────────────────────
-    from app.core.security import get_password_hash
 
-    demo_password_hash = get_password_hash("operator123")
-    users_created = 0
-    users_data = [
-        (USER_DRIVER_ID, "Demo Driver", UserRole.DRIVER),
-        (USER_CONDUCTOR_ID, "Demo Conductor", UserRole.CONDUCTOR),
-        (USER_FLEET_ADMIN_ID, "Fleet Admin", UserRole.FLEET_ADMIN),
-        (USER_DEPOT_ADMIN_ID, "Depot Admin", UserRole.DEPOT_ADMIN),
-    ]
-    for uid, uname, role in users_data:
-        user = db.get(User, uid)
-        if user is None:
-            db.add(
-                User(
-                    id=uid,
-                    organization_id=ORG_ID,
-                    name=uname,
-                    role=role,
-                    password_hash=demo_password_hash,
-                    status="ACTIVE",
-                    created_at=NOW,
-                    updated_at=NOW,
-                )
-            )
-            users_created += 1
-        elif not user.password_hash:
-            user.password_hash = demo_password_hash
-    db.flush()
-    counts["users"] = users_created
-
-    # ── Operator Profiles ────────────────────────────────────────────
-    ops_created = 0
-    if db.get(OperatorProfile, OP_DRIVER_ID) is None:
-        db.add(
-            OperatorProfile(
-                id=OP_DRIVER_ID,
-                user_id=USER_DRIVER_ID,
-                employee_code="DRV001",
-                operator_type="DRIVER",
-                verification_status=VerificationStatus.VERIFIED,
-                created_at=NOW,
-                updated_at=NOW,
-            )
-        )
-        ops_created += 1
-    if db.get(OperatorProfile, OP_CONDUCTOR_ID) is None:
-        db.add(
-            OperatorProfile(
-                id=OP_CONDUCTOR_ID,
-                user_id=USER_CONDUCTOR_ID,
-                employee_code="CND001",
-                operator_type="CONDUCTOR",
-                verification_status=VerificationStatus.VERIFIED,
-                created_at=NOW,
-                updated_at=NOW,
-            )
-        )
-        ops_created += 1
-    db.flush()
-    counts["operator_profiles"] = ops_created
-
-    # ── Devices ──────────────────────────────────────────────────────
-    devs_created = 0
-    if db.get(Device, DEV_DRIVER_ID) is None:
-        db.add(
-            Device(
-                id=DEV_DRIVER_ID,
-                organization_id=ORG_ID,
-                device_name="Demo Driver Phone",
-                platform="ANDROID",
-                status=DeviceStatus.ACTIVE,
-                created_at=NOW,
-                updated_at=NOW,
-            )
-        )
-        devs_created += 1
-    if db.get(Device, DEV_CONDUCTOR_ID) is None:
-        db.add(
-            Device(
-                id=DEV_CONDUCTOR_ID,
-                organization_id=ORG_ID,
-                device_name="Demo Conductor Phone",
-                platform="ANDROID",
-                status=DeviceStatus.ACTIVE,
-                created_at=NOW,
-                updated_at=NOW,
-            )
-        )
-        devs_created += 1
-    db.flush()
-    counts["devices"] = devs_created
 
     # ── Service Schedule ─────────────────────────────────────────────
     scheds_created = 0
@@ -420,8 +477,8 @@ def seed_dev_data(db: Session) -> dict[str, int]:
                 id=SCHED_SVC_ID,
                 service_id=SVC_AC4B_ID,
                 direction=Direction.A_TO_B,
-                start_time=time(6, 0),
-                end_time=time(22, 0),
+                start_time=time(0, 0),
+                end_time=time(23, 59),
                 typical_interval_minutes=15,
                 days_of_week=[1, 2, 3, 4, 5, 6],
                 effective_from=date(2026, 1, 1),
@@ -559,32 +616,7 @@ def seed_dev_data(db: Session) -> dict[str, int]:
     db.flush()
     counts["trip_state_history"] = tsh_created
 
+    # (Fares moved up before services)
+
     db.commit()
     return counts
-
-
-def run_seed() -> None:
-    """Entry point for seeding development data."""
-    print("=" * 60)
-    print("TRANSIT PLATFORM - DEVELOPMENT SEED DATA")
-    print("WARNING: DEMO / DEVELOPMENT DATA ONLY")
-    print("=" * 60)
-    db = SessionLocal()
-    try:
-        counts = seed_dev_data(db)
-        print("\nSeed results:")
-        for entity, count in counts.items():
-            marker = "[CREATED]" if count > 0 else "[EXISTS]"
-            print(f"  {entity:25s} {count:3d}  {marker}")
-        total = sum(counts.values())
-        print(f"\n  Total records created: {total}")
-        print("=" * 60)
-    except Exception:
-        db.rollback()
-        raise
-    finally:
-        db.close()
-
-
-if __name__ == "__main__":
-    run_seed()

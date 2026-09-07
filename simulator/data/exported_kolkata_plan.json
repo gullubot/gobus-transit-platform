@@ -1,0 +1,445 @@
+{
+  "service_date": "2026-09-03",
+  "timezone": "Asia/Kolkata",
+  "state": "DAY_READY",
+  "total_duration_s": 13800.0,
+  "first_departure": "2026-09-03T05:30:00+05:30",
+  "final_arrival": "2026-09-03T09:20:00+05:30",
+  "fleet_coverage": {
+    "total_vehicles": 4,
+    "active_vehicles_with_duties": 4,
+    "idle_vehicles_without_duties": 0,
+    "max_simultaneous_vehicles": 3,
+    "total_scheduled_trips": 7
+  },
+  "service_coverages": [
+    {
+      "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+      "service_code": "SD5",
+      "service_name": "SD5",
+      "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+      "direction": "A_TO_B",
+      "first_departure": "2026-09-03T05:30:00+05:30",
+      "final_departure": "2026-09-03T08:15:00+05:30",
+      "trip_count": 2,
+      "headway_minutes": 165
+    },
+    {
+      "service_id": "40000000-0000-0000-0000-000000000001",
+      "service_code": "AC4B",
+      "service_name": "AC4B",
+      "route_id": "20000000-0000-0000-0000-000000000001",
+      "direction": "A_TO_B",
+      "first_departure": "2026-09-03T06:00:00+05:30",
+      "final_departure": "2026-09-03T06:15:00+05:30",
+      "trip_count": 2,
+      "headway_minutes": 15
+    },
+    {
+      "service_id": "40000000-0000-0000-0000-000000000002",
+      "service_code": "SD5-SHUTTLE",
+      "service_name": "SD5-SHUTTLE",
+      "route_id": "20000000-0000-0000-0000-000000000002",
+      "direction": "A_TO_B",
+      "first_departure": "2026-09-03T06:30:00+05:30",
+      "final_departure": "2026-09-03T06:30:00+05:30",
+      "trip_count": 1,
+      "headway_minutes": null
+    },
+    {
+      "service_id": "40000000-0000-0000-0000-000000000001",
+      "service_code": "AC4B",
+      "service_name": "AC4B",
+      "route_id": "20000000-0000-0000-0000-000000000001",
+      "direction": "B_TO_A",
+      "first_departure": "2026-09-03T06:35:00+05:30",
+      "final_departure": "2026-09-03T06:35:00+05:30",
+      "trip_count": 1,
+      "headway_minutes": null
+    },
+    {
+      "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+      "service_code": "SD5",
+      "service_name": "SD5",
+      "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+      "direction": "B_TO_A",
+      "first_departure": "2026-09-03T06:50:00+05:30",
+      "final_departure": "2026-09-03T06:50:00+05:30",
+      "trip_count": 1,
+      "headway_minutes": null
+    }
+  ],
+  "vehicle_duties": {
+    "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e": {
+      "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+      "vehicle_number": "WB04-DEMO-001",
+      "vehicle_type": "AC_BUS",
+      "trip_count": 3,
+      "state": "IDLE",
+      "first_departure": "2026-09-03T05:30:00+05:30",
+      "final_arrival": "2026-09-03T09:20:00+05:30",
+      "trips": [
+        {
+          "trip_id": "42c1eb19-f580-49e4-a052-1eba1b478e60",
+          "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+          "service_code": "SD5",
+          "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+          "route_code": "SD5",
+          "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+          "vehicle_number": "WB04-DEMO-001",
+          "operator_code": "O-001",
+          "direction": "A_TO_B",
+          "operating_date": "2026-09-03",
+          "planned_start": "2026-09-03T05:30:00+05:30",
+          "planned_end": "2026-09-03T06:35:00+05:30",
+          "duration_seconds": 3900.0,
+          "state": "PENDING",
+          "actual_start": null,
+          "actual_end": null,
+          "error_message": null
+        },
+        {
+          "trip_id": "42c1eb19-f580-49e4-a052-1eba1b478e61",
+          "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+          "service_code": "SD5",
+          "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+          "route_code": "SD5",
+          "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+          "vehicle_number": "WB04-DEMO-001",
+          "operator_code": "O-002",
+          "direction": "B_TO_A",
+          "operating_date": "2026-09-03",
+          "planned_start": "2026-09-03T06:50:00+05:30",
+          "planned_end": "2026-09-03T07:55:00+05:30",
+          "duration_seconds": 3900.0,
+          "state": "PENDING",
+          "actual_start": null,
+          "actual_end": null,
+          "error_message": null
+        },
+        {
+          "trip_id": "42c1eb19-f580-49e4-a052-1eba1b478e62",
+          "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+          "service_code": "SD5",
+          "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+          "route_code": "SD5",
+          "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+          "vehicle_number": "WB04-DEMO-001",
+          "operator_code": "O-003",
+          "direction": "A_TO_B",
+          "operating_date": "2026-09-03",
+          "planned_start": "2026-09-03T08:15:00+05:30",
+          "planned_end": "2026-09-03T09:20:00+05:30",
+          "duration_seconds": 3900.0,
+          "state": "PENDING",
+          "actual_start": null,
+          "actual_end": null,
+          "error_message": null
+        }
+      ]
+    },
+    "50000000-0000-0000-0000-000000000001": {
+      "vehicle_id": "50000000-0000-0000-0000-000000000001",
+      "vehicle_number": "PNB005234",
+      "vehicle_type": "BUS",
+      "trip_count": 2,
+      "state": "IDLE",
+      "first_departure": "2026-09-03T06:00:00+05:30",
+      "final_arrival": "2026-09-03T07:00:00+05:30",
+      "trips": [
+        {
+          "trip_id": "90000000-0000-0000-0000-000000000001",
+          "service_id": "40000000-0000-0000-0000-000000000001",
+          "service_code": "AC4B",
+          "route_id": "20000000-0000-0000-0000-000000000001",
+          "route_code": "R1",
+          "vehicle_id": "50000000-0000-0000-0000-000000000001",
+          "vehicle_number": "PNB005234",
+          "operator_code": "DRV001",
+          "direction": "A_TO_B",
+          "operating_date": "2026-09-03",
+          "planned_start": "2026-09-03T06:00:00+05:30",
+          "planned_end": "2026-09-03T06:25:00+05:30",
+          "duration_seconds": 1500.0,
+          "state": "PENDING",
+          "actual_start": null,
+          "actual_end": null,
+          "error_message": null
+        },
+        {
+          "trip_id": "90000000-0000-0000-0000-000000000011",
+          "service_id": "40000000-0000-0000-0000-000000000001",
+          "service_code": "AC4B",
+          "route_id": "20000000-0000-0000-0000-000000000001",
+          "route_code": "R1",
+          "vehicle_id": "50000000-0000-0000-0000-000000000001",
+          "vehicle_number": "PNB005234",
+          "operator_code": "DRV002",
+          "direction": "B_TO_A",
+          "operating_date": "2026-09-03",
+          "planned_start": "2026-09-03T06:35:00+05:30",
+          "planned_end": "2026-09-03T07:00:00+05:30",
+          "duration_seconds": 1500.0,
+          "state": "PENDING",
+          "actual_start": null,
+          "actual_end": null,
+          "error_message": null
+        }
+      ]
+    },
+    "50000000-0000-0000-0000-000000000002": {
+      "vehicle_id": "50000000-0000-0000-0000-000000000002",
+      "vehicle_number": "PNB005781",
+      "vehicle_type": "BUS",
+      "trip_count": 1,
+      "state": "IDLE",
+      "first_departure": "2026-09-03T06:15:00+05:30",
+      "final_arrival": "2026-09-03T06:40:00+05:30",
+      "trips": [
+        {
+          "trip_id": "90000000-0000-0000-0000-000000000002",
+          "service_id": "40000000-0000-0000-0000-000000000001",
+          "service_code": "AC4B",
+          "route_id": "20000000-0000-0000-0000-000000000001",
+          "route_code": "R1",
+          "vehicle_id": "50000000-0000-0000-0000-000000000002",
+          "vehicle_number": "PNB005781",
+          "operator_code": "DRV003",
+          "direction": "A_TO_B",
+          "operating_date": "2026-09-03",
+          "planned_start": "2026-09-03T06:15:00+05:30",
+          "planned_end": "2026-09-03T06:40:00+05:30",
+          "duration_seconds": 1500.0,
+          "state": "PENDING",
+          "actual_start": null,
+          "actual_end": null,
+          "error_message": null
+        }
+      ]
+    },
+    "50000000-0000-0000-0000-000000000003": {
+      "vehicle_id": "50000000-0000-0000-0000-000000000003",
+      "vehicle_number": "PNB006421",
+      "vehicle_type": "MINI_BUS",
+      "trip_count": 1,
+      "state": "IDLE",
+      "first_departure": "2026-09-03T06:30:00+05:30",
+      "final_arrival": "2026-09-03T06:55:00+05:30",
+      "trips": [
+        {
+          "trip_id": "90000000-0000-0000-0000-000000000003",
+          "service_id": "40000000-0000-0000-0000-000000000002",
+          "service_code": "SD5-SHUTTLE",
+          "route_id": "20000000-0000-0000-0000-000000000002",
+          "route_code": "R2",
+          "vehicle_id": "50000000-0000-0000-0000-000000000003",
+          "vehicle_number": "PNB006421",
+          "operator_code": "DRV004",
+          "direction": "A_TO_B",
+          "operating_date": "2026-09-03",
+          "planned_start": "2026-09-03T06:30:00+05:30",
+          "planned_end": "2026-09-03T06:55:00+05:30",
+          "duration_seconds": 1500.0,
+          "state": "PENDING",
+          "actual_start": null,
+          "actual_end": null,
+          "error_message": null
+        }
+      ]
+    }
+  },
+  "operator_duties": {
+    "O-001": {
+      "operator_code": "O-001",
+      "operator_name": "Demo Operator 1",
+      "trip_count": 1,
+      "assigned_trip_ids": [
+        "42c1eb19-f580-49e4-a052-1eba1b478e60"
+      ]
+    },
+    "O-002": {
+      "operator_code": "O-002",
+      "operator_name": "Relief Operator 2",
+      "trip_count": 1,
+      "assigned_trip_ids": [
+        "42c1eb19-f580-49e4-a052-1eba1b478e61"
+      ]
+    },
+    "O-003": {
+      "operator_code": "O-003",
+      "operator_name": "Evening Operator 3",
+      "trip_count": 1,
+      "assigned_trip_ids": [
+        "42c1eb19-f580-49e4-a052-1eba1b478e62"
+      ]
+    },
+    "DRV001": {
+      "operator_code": "DRV001",
+      "operator_name": "Demo Driver 1",
+      "trip_count": 1,
+      "assigned_trip_ids": [
+        "90000000-0000-0000-0000-000000000001"
+      ]
+    },
+    "DRV002": {
+      "operator_code": "DRV002",
+      "operator_name": "Relief Driver 2",
+      "trip_count": 1,
+      "assigned_trip_ids": [
+        "90000000-0000-0000-0000-000000000011"
+      ]
+    },
+    "DRV003": {
+      "operator_code": "DRV003",
+      "operator_name": "Evening Driver 3",
+      "trip_count": 1,
+      "assigned_trip_ids": [
+        "90000000-0000-0000-0000-000000000002"
+      ]
+    },
+    "DRV004": {
+      "operator_code": "DRV004",
+      "operator_name": "Feeder Driver 4",
+      "trip_count": 1,
+      "assigned_trip_ids": [
+        "90000000-0000-0000-0000-000000000003"
+      ]
+    }
+  },
+  "trips": [
+    {
+      "trip_id": "42c1eb19-f580-49e4-a052-1eba1b478e60",
+      "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+      "service_code": "SD5",
+      "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+      "route_code": "SD5",
+      "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+      "vehicle_number": "WB04-DEMO-001",
+      "operator_code": "O-001",
+      "direction": "A_TO_B",
+      "operating_date": "2026-09-03",
+      "planned_start": "2026-09-03T05:30:00+05:30",
+      "planned_end": "2026-09-03T06:35:00+05:30",
+      "duration_seconds": 3900.0,
+      "state": "PENDING",
+      "actual_start": null,
+      "actual_end": null,
+      "error_message": null
+    },
+    {
+      "trip_id": "90000000-0000-0000-0000-000000000001",
+      "service_id": "40000000-0000-0000-0000-000000000001",
+      "service_code": "AC4B",
+      "route_id": "20000000-0000-0000-0000-000000000001",
+      "route_code": "R1",
+      "vehicle_id": "50000000-0000-0000-0000-000000000001",
+      "vehicle_number": "PNB005234",
+      "operator_code": "DRV001",
+      "direction": "A_TO_B",
+      "operating_date": "2026-09-03",
+      "planned_start": "2026-09-03T06:00:00+05:30",
+      "planned_end": "2026-09-03T06:25:00+05:30",
+      "duration_seconds": 1500.0,
+      "state": "PENDING",
+      "actual_start": null,
+      "actual_end": null,
+      "error_message": null
+    },
+    {
+      "trip_id": "90000000-0000-0000-0000-000000000002",
+      "service_id": "40000000-0000-0000-0000-000000000001",
+      "service_code": "AC4B",
+      "route_id": "20000000-0000-0000-0000-000000000001",
+      "route_code": "R1",
+      "vehicle_id": "50000000-0000-0000-0000-000000000002",
+      "vehicle_number": "PNB005781",
+      "operator_code": "DRV003",
+      "direction": "A_TO_B",
+      "operating_date": "2026-09-03",
+      "planned_start": "2026-09-03T06:15:00+05:30",
+      "planned_end": "2026-09-03T06:40:00+05:30",
+      "duration_seconds": 1500.0,
+      "state": "PENDING",
+      "actual_start": null,
+      "actual_end": null,
+      "error_message": null
+    },
+    {
+      "trip_id": "90000000-0000-0000-0000-000000000003",
+      "service_id": "40000000-0000-0000-0000-000000000002",
+      "service_code": "SD5-SHUTTLE",
+      "route_id": "20000000-0000-0000-0000-000000000002",
+      "route_code": "R2",
+      "vehicle_id": "50000000-0000-0000-0000-000000000003",
+      "vehicle_number": "PNB006421",
+      "operator_code": "DRV004",
+      "direction": "A_TO_B",
+      "operating_date": "2026-09-03",
+      "planned_start": "2026-09-03T06:30:00+05:30",
+      "planned_end": "2026-09-03T06:55:00+05:30",
+      "duration_seconds": 1500.0,
+      "state": "PENDING",
+      "actual_start": null,
+      "actual_end": null,
+      "error_message": null
+    },
+    {
+      "trip_id": "90000000-0000-0000-0000-000000000011",
+      "service_id": "40000000-0000-0000-0000-000000000001",
+      "service_code": "AC4B",
+      "route_id": "20000000-0000-0000-0000-000000000001",
+      "route_code": "R1",
+      "vehicle_id": "50000000-0000-0000-0000-000000000001",
+      "vehicle_number": "PNB005234",
+      "operator_code": "DRV002",
+      "direction": "B_TO_A",
+      "operating_date": "2026-09-03",
+      "planned_start": "2026-09-03T06:35:00+05:30",
+      "planned_end": "2026-09-03T07:00:00+05:30",
+      "duration_seconds": 1500.0,
+      "state": "PENDING",
+      "actual_start": null,
+      "actual_end": null,
+      "error_message": null
+    },
+    {
+      "trip_id": "42c1eb19-f580-49e4-a052-1eba1b478e61",
+      "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+      "service_code": "SD5",
+      "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+      "route_code": "SD5",
+      "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+      "vehicle_number": "WB04-DEMO-001",
+      "operator_code": "O-002",
+      "direction": "B_TO_A",
+      "operating_date": "2026-09-03",
+      "planned_start": "2026-09-03T06:50:00+05:30",
+      "planned_end": "2026-09-03T07:55:00+05:30",
+      "duration_seconds": 3900.0,
+      "state": "PENDING",
+      "actual_start": null,
+      "actual_end": null,
+      "error_message": null
+    },
+    {
+      "trip_id": "42c1eb19-f580-49e4-a052-1eba1b478e62",
+      "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+      "service_code": "SD5",
+      "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+      "route_code": "SD5",
+      "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+      "vehicle_number": "WB04-DEMO-001",
+      "operator_code": "O-003",
+      "direction": "A_TO_B",
+      "operating_date": "2026-09-03",
+      "planned_start": "2026-09-03T08:15:00+05:30",
+      "planned_end": "2026-09-03T09:20:00+05:30",
+      "duration_seconds": 3900.0,
+      "state": "PENDING",
+      "actual_start": null,
+      "actual_end": null,
+      "error_message": null
+    }
+  ],
+  "events_count": 14
+}

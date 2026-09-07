@@ -8,6 +8,7 @@ import uuid
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import delete
 from sqlalchemy.orm import Session
 
 from app.core.security import create_access_token
@@ -67,6 +68,9 @@ def test_get_operator_assignment_success():
     assert data["direction"] == "A_TO_B"
     assert data["operator_role"] == "DRIVER"
     assert data["assigned_device_status"] == "ACTIVE"
+    assert data["vehicle_type"] == "BUS"
+    assert data["origin_stop_name"] == "City Center"
+    assert data["destination_stop_name"] == "Tech Park"
 
 
 def test_start_and_end_trip_tracking_lifecycle():
@@ -171,3 +175,148 @@ def test_inactive_device_rejected_from_tracking():
             if device:
                 device.status = DeviceStatus.ACTIVE
                 session.commit()
+
+
+def test_get_operator_todays_trips_chronological_and_is_next():
+    """Verify Today's Trips returns today's trips chronologically, excludes yesterday, and flags correct is_next."""
+    from datetime import date, datetime, timedelta, timezone
+    from app.models.trip import Trip, TripAssignment
+    from app.models.enums import Direction, TripStatus, AssignmentStatus, UserRole, VerificationStatus
+    from app.models.user import User, OperatorProfile
+    from app.db.seed import ORG_ID, SVC_AC4B_ID, ROUTE_R1_ID, VEH_IDS
+
+    today = date.today()
+    now = datetime.now(timezone.utc)
+    chrono_driver_id = uuid.uuid4()
+
+    with Session(engine) as session:
+        # Create isolated driver user
+        test_driver = User(
+            id=chrono_driver_id,
+            organization_id=ORG_ID,
+            role=UserRole.DRIVER,
+            name="Chrono Test Driver",
+            phone="+919999900001",
+            status="ACTIVE",
+        )
+        test_profile = OperatorProfile(
+            user_id=chrono_driver_id,
+            employee_code="DRV_TEST_CHRONO",
+            operator_type="DRIVER",
+            verification_status=VerificationStatus.VERIFIED,
+        )
+        session.add(test_driver)
+        session.add(test_profile)
+
+        # Create 3 trips for today: 1 completed earlier, 1 upcoming planned, 1 later planned
+        trip_completed = Trip(
+            organization_id=ORG_ID,
+            service_id=SVC_AC4B_ID,
+            vehicle_id=VEH_IDS["PNB005234"],
+            route_id=ROUTE_R1_ID,
+            direction=Direction.A_TO_B,
+            operating_date=today,
+            planned_start_at=now - timedelta(hours=3),
+            actual_start_at=now - timedelta(hours=3),
+            actual_end_at=now - timedelta(hours=2),
+            status=TripStatus.COMPLETED,
+        )
+        trip_next = Trip(
+            organization_id=ORG_ID,
+            service_id=SVC_AC4B_ID,
+            vehicle_id=VEH_IDS["PNB005234"],
+            route_id=ROUTE_R1_ID,
+            direction=Direction.A_TO_B,
+            operating_date=today,
+            planned_start_at=now + timedelta(hours=1),
+            status=TripStatus.PLANNED,
+        )
+        trip_later = Trip(
+            organization_id=ORG_ID,
+            service_id=SVC_AC4B_ID,
+            vehicle_id=VEH_IDS["PNB005234"],
+            route_id=ROUTE_R1_ID,
+            direction=Direction.B_TO_A,
+            operating_date=today,
+            planned_start_at=now + timedelta(hours=4),
+            status=TripStatus.PLANNED,
+        )
+        session.add_all([trip_completed, trip_next, trip_later])
+        session.flush()
+
+        session.add_all([
+            TripAssignment(
+                trip_id=trip_completed.id,
+                user_id=chrono_driver_id,
+                role="DRIVER",
+                assigned_at=now - timedelta(hours=4),
+                status=AssignmentStatus.ENDED,
+            ),
+            TripAssignment(
+                trip_id=trip_next.id,
+                user_id=chrono_driver_id,
+                role="DRIVER",
+                assigned_at=now - timedelta(hours=4),
+                status=AssignmentStatus.ASSIGNED,
+            ),
+            TripAssignment(
+                trip_id=trip_later.id,
+                user_id=chrono_driver_id,
+                role="DRIVER",
+                assigned_at=now - timedelta(hours=4),
+                status=AssignmentStatus.ASSIGNED,
+            ),
+        ])
+        session.commit()
+
+        next_id = trip_next.id
+        completed_id = trip_completed.id
+        later_id = trip_later.id
+
+    try:
+        token = create_access_token(str(chrono_driver_id), claims={"role": "DRIVER", "org_id": str(ORG_ID)})
+        response = client.get(
+            "/api/operator/me/trips",
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        assert response.status_code == 200
+        trips = response.json()
+        assert len(trips) == 3
+
+        # Check chronological ordering
+        assert [t["trip_id"] for t in trips] == [str(completed_id), str(next_id), str(later_id)]
+
+        # Check is_next flag
+        for t in trips:
+            if t["trip_id"] == str(next_id):
+                assert t["is_next"] is True
+            elif t["trip_id"] == str(completed_id):
+                assert t["is_next"] is False
+                assert t["trip_status"] == "COMPLETED"
+            elif t["trip_id"] == str(later_id):
+                assert t["is_next"] is False
+                # Check B_TO_A terminal stop reversal
+                assert t["direction"] == "B_TO_A"
+                assert t["origin_stop_name"] == "Tech Park"
+                assert t["destination_stop_name"] == "City Center"
+
+        # At most one trip is next
+        assert sum(1 for t in trips if t["is_next"]) == 1
+    finally:
+        with Session(engine) as session:
+            session.execute(delete(TripAssignment).where(TripAssignment.user_id == chrono_driver_id))
+            session.execute(delete(Trip).where(Trip.id.in_([completed_id, next_id, later_id])))
+            session.execute(delete(OperatorProfile).where(OperatorProfile.user_id == chrono_driver_id))
+            session.execute(delete(User).where(User.id == chrono_driver_id))
+            session.commit()
+
+
+def test_get_operator_todays_trips_unassigned_returns_empty():
+    """Verify an operator with no assigned trips today receives an empty list."""
+    token = get_conductor_token()
+    response = client.get(
+        "/api/operator/me/trips",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert response.status_code == 200
+    assert response.json() == []

@@ -56,6 +56,8 @@ class BusCurrentState(Base):
         UUID(as_uuid=True), ForeignKey("stops.id"), nullable=True
     )
     dwell_state: Mapped[str | None] = mapped_column(String(30), nullable=True)
+    eta_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    eta_status: Mapped[str | None] = mapped_column(String(30), nullable=True)
 
     state: Mapped[str] = mapped_column(String(30), nullable=False)
     state_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)

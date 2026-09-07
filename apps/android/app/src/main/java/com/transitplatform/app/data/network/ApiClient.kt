@@ -5,6 +5,8 @@ import com.transitplatform.app.data.model.AssignmentResponse
 import com.transitplatform.app.data.model.BatchAckResponse
 import com.transitplatform.app.data.model.HeartbeatResponse
 import com.transitplatform.app.data.model.LoginResponse
+import com.transitplatform.app.data.model.OperatorIssueResponse
+import com.transitplatform.app.data.model.OperatorTripResponse
 import com.transitplatform.app.data.model.TripEndResponse
 import com.transitplatform.app.data.model.TripStartResponse
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +20,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
+
+open class ApiException(val statusCode: Int, message: String) : IOException(message)
 
 class ApiClient(private var baseUrl: String = com.transitplatform.app.BuildConfig.BASE_URL) {
 
@@ -75,7 +79,7 @@ class ApiClient(private var baseUrl: String = com.transitplatform.app.BuildConfi
         }
     }
 
-    suspend fun getAssignment(token: String): Result<AssignmentResponse> = withContext(Dispatchers.IO) {
+    suspend fun getAssignment(token: String): Result<AssignmentResponse?> = withContext(Dispatchers.IO) {
         try {
             val request = Request.Builder()
                 .url("$baseUrl/api/operator/me/assignment")
@@ -86,13 +90,19 @@ class ApiClient(private var baseUrl: String = com.transitplatform.app.BuildConfi
             val response = client.newCall(request).execute()
             val body = response.body?.string() ?: ""
 
+            if (response.code == 404) {
+                // Operator is authenticated, but has no scheduled duty assignment
+                return@withContext Result.success(null)
+            }
+
             if (!response.isSuccessful) {
                 val errorMsg = try {
-                    JSONObject(body).optString("detail", "Failed to fetch assignment (${response.code})")
+                    val raw = JSONObject(body).optString("detail", "")
+                    if (raw.isNotBlank()) raw else "Couldn't load today's duty (${response.code})"
                 } catch (e: Exception) {
-                    "Failed to fetch assignment (${response.code})"
+                    "Couldn't load today's duty (${response.code})"
                 }
-                return@withContext Result.failure(IOException(errorMsg))
+                return@withContext Result.failure(ApiException(response.code, errorMsg))
             }
 
             val obj = JSONObject(body)
@@ -115,9 +125,70 @@ class ApiClient(private var baseUrl: String = com.transitplatform.app.BuildConfi
                 assigned_device_id = if (obj.has("assigned_device_id") && !obj.isNull("assigned_device_id")) obj.getString("assigned_device_id") else null,
                 assigned_device_status = if (obj.has("assigned_device_status") && !obj.isNull("assigned_device_status")) obj.getString("assigned_device_status") else null,
                 active_tracking_session_id = if (obj.has("active_tracking_session_id") && !obj.isNull("active_tracking_session_id")) obj.getString("active_tracking_session_id") else null,
-                tracking_session_status = if (obj.has("tracking_session_status") && !obj.isNull("tracking_session_status")) obj.getString("tracking_session_status") else null
+                tracking_session_status = if (obj.has("tracking_session_status") && !obj.isNull("tracking_session_status")) obj.getString("tracking_session_status") else null,
+                vehicle_registration = if (obj.has("vehicle_registration") && !obj.isNull("vehicle_registration")) obj.getString("vehicle_registration") else null,
+                vehicle_type = if (obj.has("vehicle_type") && !obj.isNull("vehicle_type")) obj.getString("vehicle_type") else null,
+                origin_stop_name = if (obj.has("origin_stop_name") && !obj.isNull("origin_stop_name")) obj.getString("origin_stop_name") else null,
+                destination_stop_name = if (obj.has("destination_stop_name") && !obj.isNull("destination_stop_name")) obj.getString("destination_stop_name") else null,
+                route_distance_km = if (obj.has("route_distance_km") && !obj.isNull("route_distance_km")) obj.getDouble("route_distance_km") else null
             )
             Result.success(assignment)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getTodaysTrips(token: String): Result<List<OperatorTripResponse>> = withContext(Dispatchers.IO) {
+        try {
+            val request = Request.Builder()
+                .url("$baseUrl/api/operator/me/trips")
+                .addHeader("Authorization", "Bearer $token")
+                .get()
+                .build()
+
+            val response = client.newCall(request).execute()
+            val body = response.body?.string() ?: ""
+
+            if (!response.isSuccessful) {
+                val errorMsg = try {
+                    val raw = JSONObject(body).optString("detail", "")
+                    if (raw.isNotBlank()) raw else "Couldn't load today's trips (${response.code})"
+                } catch (e: Exception) {
+                    "Couldn't load today's trips (${response.code})"
+                }
+                return@withContext Result.failure(ApiException(response.code, errorMsg))
+            }
+
+            val array = JSONArray(body)
+            val list = mutableListOf<OperatorTripResponse>()
+            for (i in 0 until array.length()) {
+                val obj = array.getJSONObject(i)
+                list.add(
+                    OperatorTripResponse(
+                        trip_id = obj.getString("trip_id"),
+                        assignment_id = obj.getString("assignment_id"),
+                        service_code = obj.getString("service_code"),
+                        service_name = obj.getString("service_name"),
+                        route_code = obj.getString("route_code"),
+                        route_name = obj.getString("route_name"),
+                        direction = obj.getString("direction"),
+                        vehicle_number = obj.getString("vehicle_number"),
+                        vehicle_registration = if (obj.has("vehicle_registration") && !obj.isNull("vehicle_registration")) obj.getString("vehicle_registration") else null,
+                        vehicle_type = if (obj.has("vehicle_type") && !obj.isNull("vehicle_type")) obj.getString("vehicle_type") else null,
+                        planned_start_at = obj.getString("planned_start_at"),
+                        actual_start_at = if (obj.has("actual_start_at") && !obj.isNull("actual_start_at")) obj.getString("actual_start_at") else null,
+                        actual_end_at = if (obj.has("actual_end_at") && !obj.isNull("actual_end_at")) obj.getString("actual_end_at") else null,
+                        trip_status = obj.getString("trip_status"),
+                        assignment_status = obj.getString("assignment_status"),
+                        operator_role = obj.getString("operator_role"),
+                        origin_stop_name = if (obj.has("origin_stop_name") && !obj.isNull("origin_stop_name")) obj.getString("origin_stop_name") else null,
+                        destination_stop_name = if (obj.has("destination_stop_name") && !obj.isNull("destination_stop_name")) obj.getString("destination_stop_name") else null,
+                        route_distance_km = if (obj.has("route_distance_km") && !obj.isNull("route_distance_km")) obj.getDouble("route_distance_km") else null,
+                        is_next = obj.optBoolean("is_next", false)
+                    )
+                )
+            }
+            Result.success(list)
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -337,6 +408,7 @@ class ApiClient(private var baseUrl: String = com.transitplatform.app.BuildConfi
 
             val obj = JSONObject(body)
             val result = HeartbeatResponse(
+                device_id = if (obj.has("device_id") && !obj.isNull("device_id")) obj.getString("device_id") else "",
                 status = obj.getString("status"),
                 received_at = obj.getString("received_at"),
                 device_status = obj.getString("device_status"),
@@ -347,4 +419,52 @@ class ApiClient(private var baseUrl: String = com.transitplatform.app.BuildConfi
             Result.failure(e)
         }
     }
+
+    suspend fun reportOperatorIssue(
+        token: String,
+        tripId: String,
+        issueType: String,
+        message: String,
+        severity: String = "WARNING"
+    ): Result<OperatorIssueResponse> = withContext(Dispatchers.IO) {
+        try {
+            val json = JSONObject().apply {
+                put("issue_type", issueType)
+                put("message", message)
+                put("severity", severity)
+            }
+            val request = Request.Builder()
+                .url("$baseUrl/api/operator/trips/$tripId/issues")
+                .addHeader("Authorization", "Bearer $token")
+                .post(json.toString().toRequestBody(jsonMediaType))
+                .build()
+
+            val response = client.newCall(request).execute()
+            val body = response.body?.string() ?: ""
+
+            if (!response.isSuccessful) {
+                return@withContext Result.failure(IOException("Report issue failed (${response.code}): $body"))
+            }
+
+            val obj = JSONObject(body)
+            val result = OperatorIssueResponse(
+                alert_id = obj.getString("alert_id"),
+                trip_id = obj.getString("trip_id"),
+                service_id = if (obj.has("service_id") && !obj.isNull("service_id")) obj.getString("service_id") else null,
+                route_id = if (obj.has("route_id") && !obj.isNull("route_id")) obj.getString("route_id") else null,
+                scope = obj.getString("scope"),
+                status = obj.getString("status"),
+                type = obj.getString("type"),
+                severity = obj.getString("severity"),
+                title = obj.getString("title"),
+                message = obj.getString("message"),
+                created_at = obj.getString("created_at"),
+                created_by = if (obj.has("created_by") && !obj.isNull("created_by")) obj.getString("created_by") else null
+            )
+            Result.success(result)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }
+

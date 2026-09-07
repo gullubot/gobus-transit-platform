@@ -1,0 +1,101 @@
+{
+  "service_date": "2026-09-03",
+  "timezone": "Asia/Kolkata",
+  "metadata": {
+    "test_stage": "STAGE_C_FOUR_VEHICLES_CONCURRENT_LIVE"
+  },
+  "vehicles": [
+    {
+      "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+      "vehicle_number": "WB04-DEMO-001",
+      "vehicle_type": "AC_BUS"
+    },
+    {
+      "vehicle_id": "50000000-0000-0000-0000-000000000001",
+      "vehicle_number": "PNB005234",
+      "vehicle_type": "BUS"
+    },
+    {
+      "vehicle_id": "50000000-0000-0000-0000-000000000002",
+      "vehicle_number": "PNB005781",
+      "vehicle_type": "BUS"
+    },
+    {
+      "vehicle_id": "50000000-0000-0000-0000-000000000003",
+      "vehicle_number": "PNB006421",
+      "vehicle_type": "BUS"
+    }
+  ],
+  "operators": [
+    {
+      "operator_code": "O-001",
+      "operator_name": "Demo Operator 1"
+    },
+    {
+      "operator_code": "DRV001",
+      "operator_name": "Demo Driver 1"
+    },
+    {
+      "operator_code": "DRV003",
+      "operator_name": "Demo Driver 3"
+    },
+    {
+      "operator_code": "DRV004",
+      "operator_name": "Demo Driver 4"
+    }
+  ],
+  "trips": [
+    {
+      "trip_id": "42c1eb19-f580-49e4-a052-1eba1b478e60",
+      "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+      "service_code": "SD5",
+      "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+      "route_code": "SD5",
+      "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+      "vehicle_number": "WB04-DEMO-001",
+      "operator_code": "O-001",
+      "direction": "A_TO_B",
+      "planned_start": "2026-09-03T05:00:00+05:30",
+      "planned_end": "2026-09-03T06:05:00+05:30"
+    },
+    {
+      "trip_id": "90000000-0000-0000-0000-000000000001",
+      "service_id": "40000000-0000-0000-0000-000000000001",
+      "service_code": "AC4B",
+      "route_id": "20000000-0000-0000-0000-000000000001",
+      "route_code": "R1",
+      "vehicle_id": "50000000-0000-0000-0000-000000000001",
+      "vehicle_number": "PNB005234",
+      "operator_code": "DRV001",
+      "direction": "A_TO_B",
+      "planned_start": "2026-09-03T05:00:00+05:30",
+      "planned_end": "2026-09-03T05:25:00+05:30"
+    },
+    {
+      "trip_id": "90000000-0000-0000-0000-000000000002",
+      "service_id": "40000000-0000-0000-0000-000000000001",
+      "service_code": "AC4B",
+      "route_id": "20000000-0000-0000-0000-000000000001",
+      "route_code": "R1",
+      "vehicle_id": "50000000-0000-0000-0000-000000000002",
+      "vehicle_number": "PNB005781",
+      "operator_code": "DRV003",
+      "direction": "B_TO_A",
+      "planned_start": "2026-09-03T05:00:00+05:30",
+      "planned_end": "2026-09-03T05:25:00+05:30"
+    },
+    {
+      "trip_id": "90000000-0000-0000-0000-000000000003",
+      "service_id": "40000000-0000-0000-0000-000000000002",
+      "service_code": "SD5",
+      "route_id": "20000000-0000-0000-0000-000000000002",
+      "route_code": "R2",
+      "vehicle_id": "50000000-0000-0000-0000-000000000003",
+      "vehicle_number": "PNB006421",
+      "operator_code": "DRV004",
+      "direction": "A_TO_B",
+      "planned_start": "2026-09-03T05:00:00+05:30",
+      "planned_end": "2026-09-03T05:35:00+05:30"
+    }
+  ]
+}

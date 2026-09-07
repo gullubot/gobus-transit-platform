@@ -1,0 +1,17 @@
+:80 {
+    # ──────────────────────────────────────────────
+    # Reverse Proxy for FastAPI Backend
+    # ──────────────────────────────────────────────
+    handle /api/* {
+        reverse_proxy api:8000
+    }
+
+    # ──────────────────────────────────────────────
+    # Serve Admin Web (Static Assets)
+    # ──────────────────────────────────────────────
+    handle {
+        root * /usr/share/caddy
+        file_server
+        try_files {path} /index.html
+    }
+}

@@ -1,0 +1,35 @@
+{
+  "service_date": "2026-09-03",
+  "timezone": "Asia/Kolkata",
+  "metadata": {
+    "test_stage": "STAGE_A_SINGLE_VEHICLE_SINGLE_TRIP"
+  },
+  "vehicles": [
+    {
+      "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+      "vehicle_number": "WB04-DEMO-001",
+      "vehicle_type": "AC_BUS"
+    }
+  ],
+  "operators": [
+    {
+      "operator_code": "O-001",
+      "operator_name": "Demo Operator 1"
+    }
+  ],
+  "trips": [
+    {
+      "trip_id": "42c1eb19-f580-49e4-a052-1eba1b478e60",
+      "service_id": "1fc2351a-2902-570c-a664-632414aa46ac",
+      "service_code": "SD5",
+      "route_id": "fefc79a0-69ed-5092-bc0c-ff88e45e3c6c",
+      "route_code": "SD5",
+      "vehicle_id": "8360c3dd-1995-4c69-bce6-5e1d9f4c8e6e",
+      "vehicle_number": "WB04-DEMO-001",
+      "operator_code": "O-001",
+      "direction": "A_TO_B",
+      "planned_start": "2026-09-03T05:00:00+05:30",
+      "planned_end": "2026-09-03T06:05:00+05:30"
+    }
+  ]
+}

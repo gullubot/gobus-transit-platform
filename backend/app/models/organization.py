@@ -20,6 +20,7 @@ class Organization(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
+    city: Mapped[str] = mapped_column(String(100), nullable=False, default="Kolkata", index=True)
     type: Mapped[OrganizationType] = mapped_column(
         Enum(OrganizationType, name="organizationtype", create_constraint=False),
         nullable=False,

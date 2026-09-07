@@ -59,9 +59,13 @@ class Service(Base):
         default=lambda: datetime.now(timezone.utc),
         onupdate=lambda: datetime.now(timezone.utc),
     )
+    fare_configuration_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("fare_configurations.id"), nullable=True, index=True
+    )
 
     # ── Relationships ────────────────────────────────────────────────
     organization = relationship("Organization", back_populates="services", lazy="select")
+    fare_configuration = relationship("FareConfiguration", lazy="select")
     route = relationship(
         "Route",
         back_populates="services",
@@ -71,6 +75,13 @@ class Service(Base):
     )
     service_schedules = relationship("ServiceSchedule", back_populates="service", lazy="select")
     depot_schedules = relationship("DepotSchedule", back_populates="service", lazy="select")
+    service_vehicles = relationship(
+        "ServiceVehicle",
+        back_populates="service",
+        lazy="select",
+        primaryjoin="Service.id == ServiceVehicle.service_id",
+        foreign_keys="[ServiceVehicle.service_id]",
+    )
     trips = relationship(
         "Trip",
         back_populates="service",

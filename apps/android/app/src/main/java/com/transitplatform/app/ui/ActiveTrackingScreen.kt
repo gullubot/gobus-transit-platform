@@ -3,14 +3,19 @@ package com.transitplatform.app.ui
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.CloudDone
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.GpsFixed
+import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -26,7 +31,15 @@ import com.transitplatform.app.service.LiveTrackingStatus
 @Composable
 fun ActiveTrackingScreen(
     uiState: OperatorUiState,
-    onEndTripClicked: () -> Unit
+    onEndTripClicked: () -> Unit,
+    onShowReportIssue: () -> Unit = {},
+    onShowCrowdLevel: () -> Unit = {},
+    onReportIssue: (String, String, String) -> Unit = { _, _, _ -> },
+    onSelectCrowdLevel: (OperatorCrowdLevel) -> Unit = {},
+    onDismissIssueDialog: () -> Unit = {},
+    onDismissCrowdSheet: () -> Unit = {},
+    onClearIssueSuccess: () -> Unit = {},
+    onClearCrowdSuccess: () -> Unit = {}
 ) {
     val liveStatus by ForegroundTrackingService.trackingStatus.collectAsState()
     val assignment = uiState.assignment
@@ -52,7 +65,11 @@ fun ActiveTrackingScreen(
                 .padding(20.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
+            ) {
                 // Tracking Active Header
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -218,25 +235,137 @@ fun ActiveTrackingScreen(
                 }
             }
 
-            // End Tracking Button
-            Button(
-                onClick = onEndTripClicked,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-            ) {
-                Icon(Icons.Default.Stop, contentDescription = null, modifier = Modifier.size(28.dp))
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "END TRIP TRACKING",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                // Success Banners
+                if (uiState.issueReportSuccessMessage != null) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(10.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFE8F5E9))
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(10.dp).fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
+                                Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Color(0xFF2E7D32), modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(text = uiState.issueReportSuccessMessage, fontSize = 12.sp, color = Color(0xFF1B5E20), fontWeight = FontWeight.Medium)
+                            }
+                            TextButton(onClick = onClearIssueSuccess) {
+                                Text("Dismiss", fontSize = 11.sp, color = Color(0xFF2E7D32))
+                            }
+                        }
+                    }
+                }
+
+                if (uiState.crowdReportSuccessMessage != null) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(10.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFE3F2FD))
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(10.dp).fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
+                                Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Color(0xFF0277BD), modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(text = uiState.crowdReportSuccessMessage, fontSize = 12.sp, color = Color(0xFF01579B), fontWeight = FontWeight.Medium)
+                            }
+                            TextButton(onClick = onClearCrowdSuccess) {
+                                Text("Dismiss", fontSize = 11.sp, color = Color(0xFF0277BD))
+                            }
+                        }
+                    }
+                }
+
+                // In-App Action Buttons: [ REPORT ISSUE ] [ CROWD LEVEL ]
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Button(
+                        onClick = onShowReportIssue,
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(50.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE65100))
+                    ) {
+                        Icon(Icons.Default.Warning, contentDescription = null, modifier = Modifier.size(18.dp), tint = Color.White)
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = "REPORT ISSUE",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                    }
+
+                    Button(
+                        onClick = onShowCrowdLevel,
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(50.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0277BD))
+                    ) {
+                        Icon(Icons.Default.Groups, contentDescription = null, modifier = Modifier.size(18.dp), tint = Color.White)
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = "CROWD LEVEL",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                    }
+                }
+
+                // End Tracking Button
+                Button(
+                    onClick = onEndTripClicked,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(54.dp),
+                    shape = RoundedCornerShape(14.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Icon(Icons.Default.Stop, contentDescription = null, modifier = Modifier.size(26.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "END TRIP TRACKING",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                }
             }
         }
+    }
+
+    // Overlays: Report Issue Dialog & Crowd Level Sheet
+    if (uiState.isReportIssueDialogVisible) {
+        ReportIssueDialog(
+            isSubmitting = uiState.isSubmittingIssue,
+            errorMessage = uiState.errorMessage,
+            onSubmit = onReportIssue,
+            onDismiss = onDismissIssueDialog
+        )
+    }
+
+    if (uiState.isCrowdLevelSheetVisible) {
+        CrowdLevelSheet(
+            isSubmitting = uiState.isSubmittingCrowd,
+            currentSelection = uiState.lastSelectedCrowdLevel,
+            onSelectCrowdLevel = onSelectCrowdLevel,
+            onDismiss = onDismissCrowdSheet
+        )
     }
 }
 

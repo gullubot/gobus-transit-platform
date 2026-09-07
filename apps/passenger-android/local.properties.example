@@ -1,0 +1,5 @@
+## Android SDK location (adjust to your local path)
+sdk.dir=/path/to/android/sdk
+
+## Backend API base URL for passenger mobile app
+DEBUG_BASE_URL=http://10.0.2.2:8000

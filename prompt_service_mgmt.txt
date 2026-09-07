@@ -1,0 +1,584 @@
+<USER_REQUEST>
+BUILD — SERVICE MANAGEMENT UI + SERVICE-SPECIFIC FARE CONFIGURATION
+
+We are now working on the Admin Web "Services" section.
+
+The Route Management section is currently satisfactory and should NOT be changed except where a shared reusable component is genuinely required.
+
+This task is ONLY for Service Management and the Service Creation flow.
+
+============================================================
+CORE PRODUCT MODEL — MUST FOLLOW
+============================================================
+
+A Service is a passenger-facing transport service that operates on exactly ONE existing Route.
+
+The relationship is:
+
+Organization
+    ↓
+Route
+    ↓
+Service
+    ↓
+Service-specific Fare Configuration
+
+IMPORTANT:
+
+- Route does NOT own fares.
+- Service owns/uses its own fare configuration.
+- Different Services may use the same Route and still have different fare configurations.
+- A Service must select exactly one existing Route.
+- Fare must be configured for the Service.
+- Passenger fare calculation later uses:
+    service_id + origin_stop_id + destination_stop_id
+  and the backend derives the route and that Service's fare configuration.
+- The frontend must NEVER calculate the final passenger fare.
+
+Do not revert to route-level fare configuration.
+Do not attach a fare configuration to Route.
+
+============================================================
+1. SERVICE CODE VS SERVICE NAME
+============================================================
+
+Use two clearly separated fields.
+
+SERVICE CODE:
+- Internal/admin unique identifier.
+- Must be unique within the organization.
+- Alphanumeric / human-readable.
+- Do NOT describe it as a random identifier.
+- Good examples:
+    SVC-SD5
+    SVC-AC4B
+    SVC-001
+- Validation should prevent duplicate codes.
+
+SERVICE NAME:
+- Main human-facing service identifier/name.
+- This is what passengers primarily see.
+- Examples:
+    SD5
+    AC4B
+    S1
+    Express Morning
+- Do not force the passenger-facing Service Name to be random or UUID-like.
+
+Preserve the existing backend field/model naming where possible.
+Do not rename backend fields unnecessarily if the current API already has service_code and service_name.
+
+============================================================
+2. SERVICE LIST PAGE
+============================================================
+
+Keep the existing dark GoBus Admin visual language.
+
+The Services page should show:
+
+- Service Code
+- Service Name
+- Associated Route
+- Fare Configuration / Fare Status
+- Actions
+
+Example:
+
+CODE        NAME     ASSOCIATED ROUTE                FARE
+SVC-SD5     SD5      R-KOL-001 — Esplanade → Garia    Configured
+
+Actions can remain:
+- Edit
+- Delete
+
+Do not fabricate services.
+Use the existing backend data.
+
+If there are currently zero Services, keep the current empty state.
+
+============================================================
+3. CREATE NEW SERVICE MODAL
+============================================================
+
+Replace the current simplistic creation form with a cleaner structured creation modal.
+
+The modal should contain three clearly separated sections:
+
+SECTION A — SERVICE DETAILS
+SECTION B — ROUTE SELECTION
+SECTION C — INITIAL FARE CONFIGURATION
+
+Keep the styling consistent with the existing Route creation modal.
+
+The modal must be responsive and safely scrollable.
+
+Use one outer modal-body scroll.
+Do NOT create the same nested scrolling/overflow problems that existed in Route creation.
+
+Header should remain visually fixed/stable.
+Footer actions should remain usable.
+
+============================================================
+4. SECTION A — SERVICE DETAILS
+============================================================
+
+Fields:
+
+Service Code
+Service Name
+
+Example placeholders:
+
+Service Code:
+"SVC-SD5"
+
+Service Name:
+"SD5"
+
+Validation:
+- required
+- trim whitespace
+- Service Code must be unique within organization
+- reasonable maximum length
+- Service Name required
+- prevent accidental blank/whitespace submission
+
+Show clear inline validation messages.
+
+Do not make Service Code a UUID.
+Do not auto-generate a meaningless random string.
+
+Optionally provide a small helper text:
+
+"Internal unique identifier for this service."
+
+For Service Name:
+
+"Passenger-facing service name/number."
+
+============================================================
+5. SECTION B — ROUTE SELECTION
+============================================================
+
+The Route field must NOT be a basic unrestricted HTML select.
+
+Create a reusable searchable RouteSelect component similar in behavior/design to the StopSelect already implemented in Route Management.
+
+ONLY EXISTING ROUTES MAY BE SELECTED.
+
+There must be no:
+- Create Route
+- Create New Route
+- inline route creation
+
+inside this control.
+
+Route search must search existing routes using useful identifiers, at minimum:
+
+- Route Code
+- Route Name
+
+Where available, it may also match other existing route metadata.
+
+Each result should clearly display:
+
+Route Code
+Route Name
+
+For example:
+
+R-KOL-001
+Esplanade → Garia
+
+or:
+
+R-KOL-001 — Esplanade → Garia
+
+Once selected, show the selected route clearly in the field.
+
+The dropdown/popup MUST be viewport-safe:
+- must not be clipped by the modal
+- must not disappear outside the browser viewport
+- should support internal scrolling when many routes exist
+- must work correctly while the outer modal itself scrolls
+- should support keyboard navigation where practical
+
+If there are no Routes, show a clear prerequisite message:
+
+"No routes available. Create a Route before adding a Service."
+
+In that case:
+- Route selection is disabled
+- Service creation cannot succeed without a Route
+
+Backend remains authoritative.
+
+============================================================
+6. SECTION C — INITIAL FARE CONFIGURATION
+============================================================
+
+IMPORTANT:
+
+Fare configuration must be part of Service creation.
+
+Do NOT keep the old concept:
+
+"Fare Configuration (Optional)"
+"None (Use default)"
+
+That does not match the product model.
+
+Instead provide a dedicated subsection/card inside the Create Service modal titled something like:
+
+"Initial Fare Configuration"
+
+Explain briefly:
+
+"Set the distance-based fare slabs used by this service."
+
+The Admin should be able to add multiple distance slabs before creating the Service.
+
+Each slab must contain:
+
+- Minimum Distance (km)
+- Maximum Distance (km)
+- Ticket Price
+
+Example:
+
+Distance Range     Ticket Price
+0–5 km             ₹10
+5–10 km            ₹15
+10–15 km           ₹20
+15–20 km            ₹25
+
+Use a clear row-based editor.
+
+Provide:
++ Add Fare Slab
+
+Each row should have:
+[Min km] [Max km] [Ticket Price] [Remove]
+
+The first/default row may start with sensible empty values or:
+0 → 5
+but do not invent actual fare values unless existing project defaults already define them.
+
+The Admin must explicitly enter the actual fare values.
+
+============================================================
+7. FARE SLAB VALIDATION
+============================================================
+
+Validation is critical.
+
+Fare slabs must:
+
+- have valid numeric distances
+- have positive/appropriate ticket prices
+- have minimum distance < maximum distance
+- not overlap
+- not contain invalid ranges
+- not contain duplicate ranges
+- be ordered by minimum distance
+- produce a continuous usable distance chart
+
+Prevent examples such as:
+
+0–10
+5–15
+
+because they overlap.
+
+Also prevent:
+
+10–5
+
+Prevent negative distances.
+
+Do not silently fix invalid values.
+
+Show clear validation messages next to the affected slab.
+
+The UI may automatically sort/display slabs by minimum distance for clarity, but must not silently alter the user's entered values.
+
+============================================================
+8. FARE CONFIGURATION OWNERSHIP
+============================================================
+
+When the Service is created:
+
+1. Create the Service against the selected existing Route.
+2. Create/attach the new Service-specific Fare Configuration.
+3. Create its fare slabs.
+4. Ensure the resulting fare configuration is associated with THIS SERVICE, not the Route.
+
+Prefer a transactional backend operation if the existing architecture supports it.
+
+IMPORTANT:
+
+Do not create the Service successfully while silently failing to create its required initial fare configuration.
+
+If either Service creation or Fare Configuration creation fails:
+- do not leave an inconsistent half-created record if the backend transaction architecture can prevent it
+- show a useful error to Admin
+
+Use the existing backend service/repository/schema architecture rather than bypassing it.
+
+============================================================
+9. FARE CONFIGURATION UI DESIGN
+============================================================
+
+Make the fare section visually similar to the ordered-stop editor used in Route creation.
+
+Suggested layout:
+
+------------------------------------------------
+Initial Fare Configuration
+
+Distance-based fare slabs for this service.
+
+[ Min km ] [ Max km ] [ Ticket Price ] [ Remove ]
+[ Min km ] [ Max km ] [ Ticket Price ] [ Remove ]
+[ Min km ] [ Max km ] [ Ticket Price ] [ Remove ]
+
+             + Add Fare Slab
+------------------------------------------------
+
+Show a small summary if useful:
+
+"3 fare slabs configured"
+
+Do not overcrowd the modal.
+
+Make the fare section scroll naturally with the modal body.
+
+============================================================
+10. CREATE BUTTON BEHAVIOR
+============================================================
+
+The Create Service button should only enable/succeed when:
+
+- Service Code is valid
+- Service Name is valid
+- Existing Route is selected
+- At least one valid fare slab exists
+- Fare slabs pass overlap/range validation
+
+During submit:
+
+- disable duplicate submission
+- show submitting/loading state
+- call the correct existing backend API
+- handle API errors gracefully
+- refresh the Services list after success
+- close the modal only after confirmed successful creation
+
+DO NOT fake successful creation in frontend state.
+
+============================================================
+11. EXISTING BACKEND ARCHITECTURE
+============================================================
+
+Before modifying code:
+
+Inspect the existing Service, FareConfiguration, FareSlab/FareRule models, schemas, routes, and service layer.
+
+Reuse the existing architecture wherever possible.
+
+Do NOT create duplicate fare models if the required service-specific model already exists.
+
+Do NOT revert the previously completed service-specific fare architecture correction.
+
+The backend remains authoritative.
+
+If the backend currently exposes separate endpoints for:
+- service creation
+- fare configuration creation
+then compose them safely.
+
+If the current architecture can support one transactional service-create operation with initial fare configuration, prefer that.
+
+Do not introduce unnecessary architectural rewrites.
+
+============================================================
+12. DATA SAFETY — EXTREMELY IMPORTANT
+============================================================
+
+THE LIVE `transit_platform` DATABASE CONTAINS REAL PRODUCT DATA.
+
+DO NOT:
+
+- reset database
+- truncate database
+- seed database
+- clean database
+- delete existing Stops
+- bulk-update Stops
+- rewrite existing Stops
+- recreate existing Routes
+- modify existing Services unintentionally
+- run destructive scripts
+- run clean_database.py
+- use the live database as a test reset target
+
+ALL destructive testing MUST target `transit_platform_test`.
+
+For this UI implementation, prefer non-destructive testing.
+
+The existing manually corrected Stop dataset is a protected baseline.
+
+DO NOT modify existing Stop data at all.
+
+============================================================
+13. ROUTE DATA PROTECTION
+============================================================
+
+The Route Management UI is currently satisfactory.
+
+Do not redesign or refactor it unnecessarily.
+
+The Service Route selector should consume existing Route records only.
+
+Do not alter:
+- Route geometry
+- Route stop sequences
+- route distance
+- route coordinates
+- route stop data
+
+while implementing this task.
+
+============================================================
+14. PASSENGER SEMANTICS
+============================================================
+
+Make sure the implementation respects this product rule:
+
+Service Name is the passenger-visible service identifier.
+
+For example:
+
+SD5
+AC4B
+
+A passenger may later choose:
+
+SD5
+Origin: Stop A
+Destination: Stop D
+
+The backend uses that Service's route and that Service's fare chart to determine the fare.
+
+The Admin Web must not calculate the passenger's final fare.
+
+============================================================
+15. EDIT SERVICE
+============================================================
+
+If an Edit Service flow already exists, inspect it.
+
+For this task, make sure it does not reintroduce route-level fare ownership.
+
+If editing fare configuration is already supported, preserve it.
+
+Do not expand the scope into a complete Service management redesign unless required for correctness.
+
+============================================================
+16. RESPONSIVE / MODAL QUALITY
+============================================================
+
+Test at the same desktop viewport used for the current Admin portal.
+
+Specifically verify:
+
+- modal fits within viewport
+- modal body scrolls correctly
+- no content overlaps
+- route dropdown is not clipped
+- fare slab rows remain usable
+- buttons remain accessible
+- error messages do not break the layout
+- long Route Code/Name values do not destroy the layout
+- many fare slabs remain usable
+
+Do not repeat the previous Route modal overflow issue.
+
+============================================================
+17. TESTING
+============================================================
+
+After implementation, verify manually and with existing tests where appropriate:
+
+A. Open Services
+B. Click Add New Service
+C. Confirm Service Code and Service Name fields
+D. Open Route selector
+E. Search by Route Code
+F. Search by Route Name
+G. Select an existing Route
+H. Add multiple fare slabs
+I. Validate invalid/overlapping slabs
+J. Correct the slabs
+K. Create Service
+L. Confirm Service appears in list
+M. Confirm associated Route is correct
+N. Confirm Service-specific Fare Configuration exists
+O. Refresh page
+P. Confirm Service remains present
+Q. Confirm fare configuration remains attached to that Service
+R. Confirm no existing Stop/Route product data was modified
+
+Also test with zero Routes if possible using the test database/environment, not by deleting live product data.
+
+============================================================
+18. BUILD VERIFICATION
+============================================================
+
+Run the appropriate Admin Web build.
+
+Run relevant backend tests.
+
+Do not run destructive database cleanup.
+
+Do not claim success unless the application actually builds and the relevant flow is verified.
+
+============================================================
+19. FINAL REPORT
+============================================================
+
+Report:
+
+- files changed
+- frontend changes
+- backend changes
+- exact Service/Fare API behavior used
+- validation implemented
+- tests run
+- build result
+- manual UI verification result
+- confirmation that existing live Stop data was not modified
+- confirmation that Route Management was not unnecessarily changed
+
+Use this completion marker:
+
+BUILD_SERVICE_MANAGEMENT_V1_COMPLETE
+
+STOP after this task.
+
+Do not continue automatically into Fleet, Schedule, Passenger UI, Simulator, or unrelated Admin work.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-04T14:28:11+05:30.
+
+The user's current state is as follows:
+Other open documents:
+- d:\GoBus\Transit Pulse\transit-platform\apps\passenger-android\app\src\main\java\com\transitplatform\passenger\ui\city\CitySelectionViewModel.kt (LANGUAGE_KOTLIN)
+- d:\GoBus\Transit Pulse\transit-platform\apps\passenger-android\settings.gradle.kts (LANGUAGE_UNSPECIFIED)
+- d:\GoBus\Transit Pulse\transit-platform\apps\passenger-web\index.html (LANGUAGE_HTML)
+- d:\GoBus\Transit Pulse\transit-platform\apps\passenger-android\app\src\main\java\com\transitplatform\passenger\repository\CityRepository.kt (LANGUAGE_KOTLIN)
+- d:\GoBus\Transit Pulse\transit-platform\apps\passenger-web\src\pages\ServiceDetailsPage.tsx (LANGUAGE_TSX)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.8 Flash (Medium). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>

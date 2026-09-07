@@ -1,0 +1,4350 @@
+{
+  "metadata": {
+    "name": "GoBus Kolkata Master Working Package",
+    "status": "HUMAN_REVIEW",
+    "route_catalogue_rows": 198,
+    "stop_names": 296
+  },
+  "routes": [
+    {
+      "route_number": "1",
+      "origin": "Ramnagar",
+      "destination": "Mukundapur",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "1A",
+      "origin": "Ramnagar",
+      "destination": "Mukundapur",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "1B",
+      "origin": "Ramnagar",
+      "destination": "Nayabad",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "3B",
+      "origin": "New Alipore",
+      "destination": "Milk Colony",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "3C/1",
+      "origin": "Anandapur",
+      "destination": "Nagerbazar",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "3C/2",
+      "origin": "Anandapur",
+      "destination": "Nagerbazar",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "3D",
+      "origin": "Sakherbazar",
+      "destination": "Milk Colony",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12",
+      "origin": "Badartala",
+      "destination": "Rajabazar",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12 (Shuttle)",
+      "origin": "Badartala",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12A",
+      "origin": "Badartala",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12AD",
+      "origin": "Akra Fatak",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12B (Shuttle)",
+      "origin": "Kamal Talkies",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12C",
+      "origin": "Pailan",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Joka Bridge > Thakurpukur > Shilpara > Sakher Bazar > Behala Chowrasta > Behala 14no. > Taratala > Brace Bridge > Hide Road > B.N.R. Hospital > Babubazar > Kidderpore > Hastings > Fort William > Esplanade > Dalhousie > Barabazar",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12C/1",
+      "origin": "Shibrampur",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Shakuntala Park > Bakultala > Behala Chowrasta > Behala 14no. > Majherhat > Mominpore > Ekbalpur > Kidderpore > Hastings > P.T.S. More > Rabindra Sadan > Maidan Metro > Park Street > Esplanade > Dalhousie > Barabazar",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12C/2",
+      "origin": "Aquatica",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Thakdari > Kestopur Bazar > Dumdum Park > Laketown > Sreebhumi > Ultadanga > Khanna Cinema > Maniktala > Rajabazar > Sealdah Station > College Street > Medical College > Bowbazar > Central Metro > Dalhousie > Barabazar",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12C/1A",
+      "origin": "Pailan",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Joka Bridge > Thakurpukur > Shilpara > Sakher Bazar > Behala Chowrasta > Behala 14no. > Majherhat > Mominpore > Ekbalpur > Kidderpore > Hastings > Fort William > Esplanade > Dalhousie > Barabazar",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "12C/1B",
+      "origin": "Pailan",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Joka Bridge > Thakurpukur 3A > Cancer Hospital > Kalitala Housing > Kabardanga > Keorapukur > Haridevpur > Tollygunge > Rabindra Sarovar > Rashbehari > Kalighat > Hazra More > Bhowanipore > Rabindra Sadan > Maidan Metro > Park Street > Esplanade > Dalhousie > Barabazar",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "13",
+      "origin": "Parnasree",
+      "destination": "Sealdah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "13A",
+      "origin": "S.M. Nagar",
+      "destination": "B.B.D. Bag",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "13C",
+      "origin": "Old Dakghar",
+      "destination": "Baghajatin",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "17",
+      "origin": "Chetla",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "18A",
+      "origin": "Greenfield City",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "18B/1",
+      "origin": "Dakghar",
+      "destination": "China Mandir",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "18C",
+      "origin": "Kestor More",
+      "destination": "Anandapur",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "18D",
+      "origin": "Suryasen Nagar",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "21",
+      "origin": "Barisha",
+      "destination": "Sealdah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "21/1",
+      "origin": "Barisha",
+      "destination": "Sealdah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "23",
+      "origin": "Barasat",
+      "destination": "Boalghata",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "24",
+      "origin": "Topsia",
+      "destination": "Bandha Ghat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "24A",
+      "origin": "Topsia",
+      "destination": "Bandha Ghat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "24A/1",
+      "origin": "Mukundapur",
+      "destination": "Howrah Fire Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "24B",
+      "origin": "Sealdah Station",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "28",
+      "origin": "Sealdah Station",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "30A",
+      "origin": "Sinthee",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "30B",
+      "origin": "Gouripur",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "30C",
+      "origin": "Hatiara",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "30C/1",
+      "origin": "Hatiara",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "30D",
+      "origin": "Dum Dum Canton",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "32A",
+      "origin": "Dakshineshwar",
+      "destination": "Sector V (Salt Lake)",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "34B",
+      "origin": "Dunlop",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "34C",
+      "origin": "Noapara",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "37",
+      "origin": "Dhakuria",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "37A",
+      "origin": "Dhakuria",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "39",
+      "origin": "Picnic Garden",
+      "destination": "High Court",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "39A/2",
+      "origin": "VIP Bazar",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "40A",
+      "origin": "Julpia",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Nepalgunge > Bakeshwar > Mallickpur > Sajnaberia > Mittirchak > Kabardanga > Keorapukur > Haridevpur > Siriti More > NSHM Campus > Mahabirtala > Tollygunge Phari > Rabindra Sarovar > Rashbehari > Kalighat > Hazra More > Bhowanipore > Rabindra Sadan > Maidan Metro > Park Street > Esplanade",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "40B",
+      "origin": "Thakurpukur",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Cancer Hospital > Kalitala Housing > Kabardanga > Keorapukur > Haridevpur > Tollygunge > Rabindra Sarovar > Rashbehari > Kalighat > Hazra More > Bhowanipore > Rabindra Sadan > Maidan Metro > Park Street > Esplanade",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "41",
+      "origin": "Layalka",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "41B",
+      "origin": "Netaji Nagar",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "42A",
+      "origin": "Picnic Garden",
+      "destination": "Bichali Ghat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "42B",
+      "origin": "Anandapur",
+      "destination": "Bichali Ghat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "43",
+      "origin": "Dakshineshwar",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "44",
+      "origin": "Baguiati",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "44/1",
+      "origin": "Baguiati",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "44A",
+      "origin": "Sector V (Salt Lake)",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "45",
+      "origin": "Airport 1no.",
+      "destination": "Baisnabghata",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "45A",
+      "origin": "Airport 1no.",
+      "destination": "Garia Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Kaikhali > Haldirams > Baguiati > Kestopur > Dumdum Park > Laketown > Sreebhumi > Ultadanga > Kankurgachi > Phoolbagan > Beleghata > Sealdah Station > Moulali More > C.I.T. Road > Chittaranjan Hospital > Park Circus > Quest Mall > Ballygunge Phari > Gariahat > Golpark > Dhakuria > Jadavpur 8B > Baghajatin > Ramgarh > Garia Metro > Dhalai Bridge",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "45B",
+      "origin": "Building More",
+      "destination": "Garia Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "46",
+      "origin": "Airport 1no.",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Kaikhali > Haldirams > Baguiati > Kestopur > Dumdum Park > Laketown > Sreebhumi > Ultadanga > Kankurgachi > Maniktala > Vivekananda Road > College Street > Medical College > Bowbazar > Wellington > Chandni Market",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "46B",
+      "origin": "Moonbeam",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "47/1",
+      "origin": "Tollygunge",
+      "destination": "Rajabazar (Salt Lake)",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Rabindra Sarovar > Rashbehari > Kalighat > Hazra More > Bhowanipore > Rabindra Sadan > Maidan Metro > Park Street > Esplanade > Dalhousie > Central Metro > Bowbazar > Medical College > College Street > Sealdah Station",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "47B",
+      "origin": "Lake Town",
+      "destination": "Dhanmath",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "51",
+      "origin": "Pardankuni",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "52",
+      "origin": "Ramrajatala",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "54",
+      "origin": "Ballykhal",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "55",
+      "origin": "B.Garden",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "55A",
+      "origin": "Shibpur TD",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "56",
+      "origin": "Ruiya Purbapara",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "57",
+      "origin": "Kona More",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "57A",
+      "origin": "Chanditala",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "59",
+      "origin": "Bakultala",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "61",
+      "origin": "Alampur",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "63",
+      "origin": "Domjur",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "64",
+      "origin": "Tulshiberia",
+      "destination": "Kulgachia",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "67",
+      "origin": "Bagnan",
+      "destination": "Shibgunge",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "67B",
+      "origin": "Bagnan",
+      "destination": "58 Gate",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "68",
+      "origin": "Bagnan",
+      "destination": "Kamalpur",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "69",
+      "origin": "Sankrail",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "70",
+      "origin": "Amta",
+      "destination": "Uluberia",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "71",
+      "origin": "Howrah Maidan",
+      "destination": "Rajabazar (Salt Lake)",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "72",
+      "origin": "Dumurjola",
+      "destination": "Park Circus",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "72A",
+      "origin": "Bashirhat",
+      "destination": "Dhamakhali",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "73",
+      "origin": "Dasnagar",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "75",
+      "origin": "Kadamtala",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "91C",
+      "origin": "Shyambazar",
+      "destination": "Lauhati",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "92",
+      "origin": "Bongaon",
+      "destination": "Boyra",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "92A",
+      "origin": "Bongaon",
+      "destination": "Duttaphulia",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "93",
+      "origin": "Kharibari",
+      "destination": "Bagbazar",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "95",
+      "origin": "Bongaon",
+      "destination": "Habra Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "96C",
+      "origin": "Bongaon",
+      "destination": "Duttaphulia",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "201",
+      "origin": "Nimta",
+      "destination": "Mahisbatan",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "202",
+      "origin": "Nagerbazar",
+      "destination": "Science City",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "204/1",
+      "origin": "Chetla Park",
+      "destination": "Rajabazar",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "205",
+      "origin": "Bansdroni",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Netaji Nagar > Ranikuthi > Malancha Cinema > Tollygunge > Rabindra Sarovar > Kalighat > Hazra More > Bhowanipore > Rabindra Sadan > Maidan Metro > Park Street > Esplanade > Dalhousie",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "205A",
+      "origin": "Bansdroni",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "208",
+      "origin": "Kudghat",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "210",
+      "origin": "Raichak",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Raichak More > Sarisha More > Dostipur > Fatehpur > Shirakole > Amtala > Bishnupur > Khariberia > Bhasha 14no. > Pailan > Joka Bridge > Thakurpukur > Shilpara > Sakher Bazar > Behala Chowrasta > Behala 14no. > Majherhat > Mominpore > Bhawani Bhawan > PTS More > Fort William",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "211 White",
+      "origin": "Ahiritola",
+      "destination": "Kharibari",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "211 Yellow",
+      "origin": "Ahiritola",
+      "destination": "Patharghata",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "211 Blue",
+      "origin": "Ahiritola",
+      "destination": "Shikharpur",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "211A",
+      "origin": "Ahiritola",
+      "destination": "Langolpota",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "212",
+      "origin": "Jadavpur Station",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "213",
+      "origin": "Ghatakpukur",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "213A",
+      "origin": "Ghatakpukur",
+      "destination": "Rajabazar",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "214",
+      "origin": "Sajirhat",
+      "destination": "Babughat",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "Boardghar > Muragacha > Ghola Bazar > Sodepur Station > Kamarhati > Rathtala More > Dunlop More > Bonhooghly > Tobin Road > Sinthee More > Chiria More > Shyambazar > Rajballavpara > Sovabazar > Girish Park > M.G. Road > Central Metro > Dalhousie",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "214A",
+      "origin": "Sodepur Girja",
+      "destination": "Esplanade",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "215",
+      "origin": "Moonbeam",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "215/1",
+      "origin": "Laketown VIP",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "215A",
+      "origin": "Sector V (Salt Lake)",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_BUS",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "SDF More > College More > Wipro More > Karunamoyee > Saltlake 9no. Tank > 206 Bus Stand > Saltlake 7no. Tank > Baisakhi More > Saltlake 4no. Tank > Saltlake P.N.B. > Ultadanga > Khanna Cinema > Hatibagan > Sovabazar > B.K. Paul More > Ahiritola > Jorabagan > Malapara > Barabazar",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-128",
+      "origin": "Picnic Garden",
+      "destination": "Howrah Station",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-129",
+      "origin": "Rabindra Nagar",
+      "destination": "Howrah Station",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-131",
+      "origin": "Joka Bridge",
+      "destination": "Ruby Hospital",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-135",
+      "origin": "Baisnabghata",
+      "destination": "Howrah Maidan",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-139",
+      "origin": "Shyambazar",
+      "destination": "Babughat",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-151",
+      "origin": "Airport 1no.",
+      "destination": "B.B.D. Bag",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-152",
+      "origin": "Baguiati",
+      "destination": "B.B.D. Bag",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-158",
+      "origin": "Dakshineshwar",
+      "destination": "Babughat",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-159",
+      "origin": "Dunlop More",
+      "destination": "B.B.D. Bag",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-161",
+      "origin": "Shyambazar",
+      "destination": "Metiabruz",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-163",
+      "origin": "Shyambazar",
+      "destination": "B.B.D. Bag",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-165",
+      "origin": "Phoolbagan",
+      "destination": "Howrah Station",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-166",
+      "origin": "Tangra",
+      "destination": "Howrah Station",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-167",
+      "origin": "Salt Lake",
+      "destination": "B.B.D. Bag",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-168",
+      "origin": "Nagerbazar",
+      "destination": "Howrah Station",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-172",
+      "origin": "Tegharia",
+      "destination": "Howrah Maidan",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-173",
+      "origin": "Salt Lake",
+      "destination": "Howrah Station",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-175",
+      "origin": "New Barrackpore",
+      "destination": "Howrah Station",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-176",
+      "origin": "Shyambazar",
+      "destination": "Howrah Maidan",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-178",
+      "origin": "Behala 14no.",
+      "destination": "Rajabazar",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-180",
+      "origin": "Belgharia Station",
+      "destination": "Howrah Maidan",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-184",
+      "origin": "Birati Station",
+      "destination": "B.B.D. Bag",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-185",
+      "origin": "Nimta Bazar",
+      "destination": "Howrah Station",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-186",
+      "origin": "Uttar Panchannagram",
+      "destination": "Howrah Station",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "S-189",
+      "origin": "Shyambazar",
+      "destination": "Howrah Maidan",
+      "category": "SPECIAL_ROUTE",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-1",
+      "origin": "Salkia Chowrasta",
+      "destination": "Esplanade",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-1A",
+      "origin": "Satyabala",
+      "destination": "Sishu Mangal (Kasba)",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-2",
+      "origin": "Salkia Chowrasta",
+      "destination": "Esplanade",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-3",
+      "origin": "Kadamtala",
+      "destination": "Esplanade",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-13",
+      "origin": "Ranihati",
+      "destination": "Ahiritola",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-13A",
+      "origin": "Fatickgachi",
+      "destination": "Ahiritola",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-18",
+      "origin": "Kona More",
+      "destination": "Esplanade",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-20",
+      "origin": "Alampur",
+      "destination": "Ultadanga",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-20A",
+      "origin": "Mourigram",
+      "destination": "Salt Lake Stadium",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-21",
+      "origin": "Howrah Maidan",
+      "destination": "Shilpara",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-24",
+      "origin": "Sankrail",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-25",
+      "origin": "Malipanchghara",
+      "destination": "Sealdah Station",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-26",
+      "origin": "Santragachi",
+      "destination": "Esplanade",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-27",
+      "origin": "Bankra",
+      "destination": "Park Circus",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-27A",
+      "origin": "Howrah Maidan",
+      "destination": "Park Circus",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-29",
+      "origin": "Tikiapara",
+      "destination": "Sector V (Salt Lake)",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-30",
+      "origin": "Baluhati",
+      "destination": "Esplanade",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-31",
+      "origin": "Makardaha",
+      "destination": "Rabindra Sadan",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-32",
+      "origin": "Howrah Maidan",
+      "destination": "Rabindra Sadan",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-34",
+      "origin": "Purash",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-35",
+      "origin": "Hantal",
+      "destination": "Howrah Station",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-38",
+      "origin": "Dasnagar",
+      "destination": "Esplanade",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-39",
+      "origin": "Bhattanagar",
+      "destination": "Esplanade",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "RT-42",
+      "origin": "Danesh Shaikh Lane",
+      "destination": "Aliah University",
+      "category": "PRIVATE_OR_ASSOCIATION",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN-2",
+      "origin": "Barasat",
+      "destination": "Dakshineshwar",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN-2/1",
+      "origin": "Shapoorji",
+      "destination": "Dakshineshwar",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN-5",
+      "origin": "Barasat",
+      "destination": "Naihati",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN-8",
+      "origin": "Barasat",
+      "destination": "Sector V (Salt Lake)",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN-9/1",
+      "origin": "Barasat",
+      "destination": "Rajchandrapur",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN12",
+      "origin": "Bongaon",
+      "destination": "Basirhat",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN12/1",
+      "origin": "Hazra",
+      "destination": "Nazat",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN13",
+      "origin": "Bashirhat Boardghat",
+      "destination": "Hakimpur",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN13A",
+      "origin": "Haroa",
+      "destination": "Hakimpur",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN16/1",
+      "origin": "Barasat",
+      "destination": "Dhamakhali",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN17",
+      "origin": "Barasat",
+      "destination": "Babughat",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN18",
+      "origin": "Shyambazar",
+      "destination": "Baduria",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN19",
+      "origin": "Barrackpore Court",
+      "destination": "Chapadali",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN21",
+      "origin": "Baduria",
+      "destination": "Barasat",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN26",
+      "origin": "Gaighata (Habra)",
+      "destination": "Kalyani (Jagulia)",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN28",
+      "origin": "Barasat",
+      "destination": "Haroa",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN35",
+      "origin": "Barasat",
+      "destination": "Nabatkati",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN38",
+      "origin": "Bashirhat (Malancha)",
+      "destination": "Taranipur",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN43",
+      "origin": "Dakshineshwar",
+      "destination": "Barasat Moyna Check Post",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "DN44",
+      "origin": "Bongaon",
+      "destination": "Dakshineshwar",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-3",
+      "origin": "Sonarpur",
+      "destination": "Ghatakpukur",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-4",
+      "origin": "Thakurpukur",
+      "destination": "Sapuipara",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-5",
+      "origin": "Sonarpur Station",
+      "destination": "Khariberia",
+      "category": "HERO_SD5",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PRODUCT_OWNER_GROUNDED",
+      "via": "",
+      "source": "User-provided SD5 specification + current public route directory"
+    },
+    {
+      "route_number": "SD-8",
+      "origin": "Bibirhat",
+      "destination": "Nandi Bagan",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-9",
+      "origin": "Noorpur",
+      "destination": "Esplanade",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-11",
+      "origin": "Noorpur",
+      "destination": "Patharpratima",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-14",
+      "origin": "Sahararhat",
+      "destination": "Taratala",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-16",
+      "origin": "Shirakole",
+      "destination": "Mukundapur",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-18",
+      "origin": "Diamond Harbour",
+      "destination": "Esplanade",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-19",
+      "origin": "Esplanade",
+      "destination": "Patharpratima",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-22/1",
+      "origin": "Nainan",
+      "destination": "Esplanade",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-24",
+      "origin": "Alipore Zoo",
+      "destination": "Sonakhali",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-26",
+      "origin": "Burul",
+      "destination": "Babughat",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-27",
+      "origin": "Dostipur",
+      "destination": "Akra Fatak",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-29",
+      "origin": "Amtala",
+      "destination": "Baruipur",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-30",
+      "origin": "Sahararhat",
+      "destination": "Taratala",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-33",
+      "origin": "Canning",
+      "destination": "Jharkhali",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-82",
+      "origin": "Esplanade",
+      "destination": "Kakdwip",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-85",
+      "origin": "Canning",
+      "destination": "Dhamakhali",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    },
+    {
+      "route_number": "SD-94",
+      "origin": "Kakdwip",
+      "destination": "Bakkhali",
+      "category": "SUBURBAN",
+      "status": "CURRENT_RESEARCH_CANDIDATE",
+      "confidence": "PUBLICLY_DOCUMENTED",
+      "via": "",
+      "source": "Kolkata Bus-O-Pedia"
+    }
+  ],
+  "stops": [
+    {
+      "stop_name": "Ramnagar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Mukundapur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Nayabad",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "New Alipore",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Milk Colony",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Anandapur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Nagerbazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sakherbazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Badartala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Rajabazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Esplanade",
+      "latitude": 22.5645,
+      "longitude": 88.3517,
+      "coordinate_status": "PRIOR_RESEARCH_COORDINATE",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Howrah Station",
+      "latitude": 22.5839,
+      "longitude": 88.3426,
+      "coordinate_status": "PRIOR_RESEARCH_COORDINATE",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Akra Fatak",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kamal Talkies",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Pailan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Joka Bridge",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Thakurpukur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Shilpara",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sakher Bazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Behala Chowrasta",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Behala 14no.",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Taratala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Brace Bridge",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Hide Road",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "B.N.R. Hospital",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Babubazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kidderpore",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Hastings",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Fort William",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dalhousie",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Barabazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Shibrampur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Shakuntala Park",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bakultala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Majherhat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Mominpore",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ekbalpur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "P.T.S. More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Rabindra Sadan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Maidan Metro",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Park Street",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Aquatica",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Thakdari",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kestopur Bazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dumdum Park",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Laketown",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sreebhumi",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ultadanga",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Khanna Cinema",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Maniktala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sealdah Station",
+      "latitude": 22.5673,
+      "longitude": 88.3711,
+      "coordinate_status": "PRIOR_RESEARCH_COORDINATE",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "College Street",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Medical College",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bowbazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Central Metro",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Thakurpukur 3A",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Cancer Hospital",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kalitala Housing",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kabardanga",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Keorapukur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Haridevpur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Tollygunge",
+      "latitude": 22.4934,
+      "longitude": 88.3475,
+      "coordinate_status": "PRIOR_RESEARCH_COORDINATE",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Rabindra Sarovar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Rashbehari",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kalighat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Hazra More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bhowanipore",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Parnasree",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "S.M. Nagar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "B.B.D. Bag",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Old Dakghar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Baghajatin",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Chetla",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Greenfield City",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dakghar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "China Mandir",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kestor More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Suryasen Nagar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Barisha",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Barasat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Boalghata",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Topsia",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bandha Ghat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Howrah Fire Station",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sinthee",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Gouripur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Babughat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Hatiara",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dum Dum Canton",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dakshineshwar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sector V (Salt Lake)",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dunlop",
+      "latitude": 22.6521,
+      "longitude": 88.3762,
+      "coordinate_status": "PRIOR_RESEARCH_COORDINATE",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Noapara",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dhakuria",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Picnic Garden",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "High Court",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "VIP Bazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Julpia",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Nepalgunge",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bakeshwar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Mallickpur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sajnaberia",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Mittirchak",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Siriti More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "NSHM Campus",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Mahabirtala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Tollygunge Phari",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Layalka",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Netaji Nagar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bichali Ghat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Baguiati",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Airport 1no.",
+      "latitude": 22.6431,
+      "longitude": 88.4372,
+      "coordinate_status": "PRIOR_RESEARCH_COORDINATE",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Baisnabghata",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Garia Station",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kaikhali",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Haldirams",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kestopur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kankurgachi",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Phoolbagan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Beleghata",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Moulali More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "C.I.T. Road",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Chittaranjan Hospital",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Park Circus",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Quest Mall",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ballygunge Phari",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Gariahat",
+      "latitude": 22.5186,
+      "longitude": 88.3664,
+      "coordinate_status": "PRIOR_RESEARCH_COORDINATE",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Golpark",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Jadavpur 8B",
+      "latitude": 22.4988,
+      "longitude": 88.3719,
+      "coordinate_status": "PRIOR_RESEARCH_COORDINATE",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ramgarh",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Garia Metro",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dhalai Bridge",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Building More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Vivekananda Road",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Wellington",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Chandni Market",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Moonbeam",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Rajabazar (Salt Lake)",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Lake Town",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dhanmath",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Pardankuni",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ramrajatala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ballykhal",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "B.Garden",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Shibpur TD",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ruiya Purbapara",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kona More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Chanditala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Alampur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Domjur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Tulshiberia",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kulgachia",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bagnan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Shibgunge",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "58 Gate",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kamalpur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sankrail",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Amta",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Uluberia",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Howrah Maidan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dumurjola",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bashirhat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dhamakhali",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dasnagar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kadamtala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Shyambazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Lauhati",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bongaon",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Boyra",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Duttaphulia",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kharibari",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bagbazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Habra Station",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Nimta",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Mahisbatan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Science City",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Chetla Park",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bansdroni",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ranikuthi",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Malancha Cinema",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kudghat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Raichak",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Raichak More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sarisha More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dostipur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Fatehpur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Shirakole",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Amtala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bishnupur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Khariberia",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bhasha 14no.",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bhawani Bhawan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "PTS More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ahiritola",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Patharghata",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Shikharpur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Langolpota",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Jadavpur Station",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ghatakpukur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sajirhat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Boardghar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Muragacha",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ghola Bazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sodepur Station",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kamarhati",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Rathtala More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Dunlop More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bonhooghly",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Tobin Road",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sinthee More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Chiria More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Rajballavpara",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sovabazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Girish Park",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "M.G. Road",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sodepur Girja",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Laketown VIP",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "SDF More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "College More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Wipro More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Karunamoyee",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Saltlake 9no. Tank",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "206 Bus Stand",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Saltlake 7no. Tank",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Baisakhi More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Saltlake 4no. Tank",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Saltlake P.N.B.",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Hatibagan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "B.K. Paul More",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Jorabagan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Malapara",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Rabindra Nagar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ruby Hospital",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Metiabruz",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Tangra",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Salt Lake",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Tegharia",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "New Barrackpore",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Belgharia Station",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Birati Station",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Nimta Bazar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Uttar Panchannagram",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Salkia Chowrasta",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Satyabala",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sishu Mangal (Kasba)",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Ranihati",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Fatickgachi",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Mourigram",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Salt Lake Stadium",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Malipanchghara",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Santragachi",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bankra",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Tikiapara",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Baluhati",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Makardaha",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Purash",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Hantal",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bhattanagar",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Danesh Shaikh Lane",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Aliah University",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Shapoorji",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Naihati",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Rajchandrapur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Basirhat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Hazra",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Nazat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bashirhat Boardghat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Hakimpur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Haroa",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Baduria",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Barrackpore Court",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Chapadali",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Gaighata (Habra)",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kalyani (Jagulia)",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Nabatkati",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bashirhat (Malancha)",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Taranipur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Barasat Moyna Check Post",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sonarpur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sapuipara",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sonarpur Station",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bibirhat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Nandi Bagan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Noorpur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Patharpratima",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sahararhat",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Diamond Harbour",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Nainan",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Alipore Zoo",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Sonakhali",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Burul",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Baruipur",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Canning",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Jharkhali",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Kakdwip",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    },
+    {
+      "stop_name": "Bakkhali",
+      "latitude": "",
+      "longitude": "",
+      "coordinate_status": "TO_ENRICH",
+      "source": "Kolkata Bus-O-Pedia / prior research"
+    }
+  ],
+  "sd5": {
+    "service": {
+      "service_id": "SD5",
+      "origin": "Sonarpur Station Terminus",
+      "destination": "Kharibaria Terminus"
+    },
+    "stops": [
+      {
+        "sequence": 1,
+        "name": "Sonarpur Station Terminus",
+        "lat": 22.4431,
+        "lon": 88.4285
+      },
+      {
+        "sequence": 2,
+        "name": "Sahebpara",
+        "lat": 22.4442,
+        "lon": 88.4241
+      },
+      {
+        "sequence": 3,
+        "name": "Power House",
+        "lat": 22.4452,
+        "lon": 88.4215
+      },
+      {
+        "sequence": 4,
+        "name": "IIMC Hospital",
+        "lat": 22.4485,
+        "lon": 88.4116
+      },
+      {
+        "sequence": 5,
+        "name": "Mission Pally / Mission More",
+        "lat": 22.4512,
+        "lon": 88.4054
+      },
+      {
+        "sequence": 6,
+        "name": "Shimultala",
+        "lat": 22.4544,
+        "lon": 88.4011
+      },
+      {
+        "sequence": 7,
+        "name": "Karbala More",
+        "lat": 22.4568,
+        "lon": 88.3965
+      },
+      {
+        "sequence": 8,
+        "name": "Kamalgazi More",
+        "lat": 22.4601,
+        "lon": 88.3912
+      },
+      {
+        "sequence": 9,
+        "name": "Pratapgarh",
+        "lat": 22.4618,
+        "lon": 88.3875
+      },
+      {
+        "sequence": 10,
+        "name": "Mahamayatala",
+        "lat": 22.4635,
+        "lon": 88.3842
+      },
+      {
+        "sequence": 11,
+        "name": "Sitala Mandir",
+        "lat": 22.4655,
+        "lon": 88.3812
+      },
+      {
+        "sequence": 12,
+        "name": "Garia More / Garia Bazar",
+        "lat": 22.4674,
+        "lon": 88.3789
+      },
+      {
+        "sequence": 13,
+        "name": "Naktala",
+        "lat": 22.4694,
+        "lon": 88.37
+      },
+      {
+        "sequence": 14,
+        "name": "Bandsdroni",
+        "lat": 22.4731,
+        "lon": 88.3637
+      },
+      {
+        "sequence": 15,
+        "name": "Netaji Nagar",
+        "lat": 22.477,
+        "lon": 88.3582
+      },
+      {
+        "sequence": 16,
+        "name": "Ranikuthi",
+        "lat": 22.4812,
+        "lon": 88.3524
+      },
+      {
+        "sequence": 17,
+        "name": "Ashoke Nagar",
+        "lat": 22.4855,
+        "lon": 88.3491
+      },
+      {
+        "sequence": 18,
+        "name": "Malancha Cinema",
+        "lat": 22.4902,
+        "lon": 88.347
+      },
+      {
+        "sequence": 19,
+        "name": "Tollygunge Tram Depot / Metro",
+        "lat": 22.4932,
+        "lon": 88.3458
+      },
+      {
+        "sequence": 20,
+        "name": "M.R. Bangur Hospital",
+        "lat": 22.4975,
+        "lon": 88.3412
+      },
+      {
+        "sequence": 21,
+        "name": "Tollygunge Phari",
+        "lat": 22.5005,
+        "lon": 88.3371
+      },
+      {
+        "sequence": 22,
+        "name": "RSV Hospital / Mahabirtala",
+        "lat": 22.5028,
+        "lon": 88.3312
+      },
+      {
+        "sequence": 23,
+        "name": "New Alipore",
+        "lat": 22.511,
+        "lon": 88.3245
+      },
+      {
+        "sequence": 24,
+        "name": "Taratala Crossing",
+        "lat": 22.5152,
+        "lon": 88.3142
+      },
+      {
+        "sequence": 25,
+        "name": "Behala 14 No. / Tram Depot",
+        "lat": 22.5054,
+        "lon": 88.3138
+      },
+      {
+        "sequence": 26,
+        "name": "Manton",
+        "lat": 22.5002,
+        "lon": 88.313
+      },
+      {
+        "sequence": 27,
+        "name": "Behala Chowrasta",
+        "lat": 22.4947,
+        "lon": 88.3121
+      },
+      {
+        "sequence": 28,
+        "name": "Janakalyan",
+        "lat": 22.4891,
+        "lon": 88.3113
+      },
+      {
+        "sequence": 29,
+        "name": "Sakher Bazar",
+        "lat": 22.4842,
+        "lon": 88.3105
+      },
+      {
+        "sequence": 30,
+        "name": "Shilpara",
+        "lat": 22.4764,
+        "lon": 88.3094
+      },
+      {
+        "sequence": 31,
+        "name": "Kadamtala (Behala)",
+        "lat": 22.4721,
+        "lon": 88.3075
+      },
+      {
+        "sequence": 32,
+        "name": "Thakurpukur Bazar",
+        "lat": 22.4695,
+        "lon": 88.3068
+      },
+      {
+        "sequence": 33,
+        "name": "Thakurpukur (3A Terminus)",
+        "lat": 22.4665,
+        "lon": 88.3061
+      },
+      {
+        "sequence": 34,
+        "name": "Diamond Park",
+        "lat": 22.4589,
+        "lon": 88.3044
+      },
+      {
+        "sequence": 35,
+        "name": "ESIC Medical College & Hospital",
+        "lat": 22.4561,
+        "lon": 88.3039
+      },
+      {
+        "sequence": 36,
+        "name": "Joka / Joka Bridge",
+        "lat": 22.4518,
+        "lon": 88.3025
+      },
+      {
+        "sequence": 37,
+        "name": "Pailan More",
+        "lat": 22.4342,
+        "lon": 88.2954
+      },
+      {
+        "sequence": 38,
+        "name": "Bhasa Mandir (Bhasha)",
+        "lat": 22.4172,
+        "lon": 88.2868
+      },
+      {
+        "sequence": 39,
+        "name": "Konchowki",
+        "lat": 22.4045,
+        "lon": 88.2778
+      },
+      {
+        "sequence": 40,
+        "name": "Kharibaria Terminus",
+        "lat": 22.3924,
+        "lon": 88.2672
+      }
+    ],
+    "fare_stages": [
+      {
+        "through_sequence": 8,
+        "stop": "Kamalgazi More",
+        "fare_inr": 10
+      },
+      {
+        "through_sequence": 12,
+        "stop": "Garia More / Garia Bazar",
+        "fare_inr": 12
+      },
+      {
+        "through_sequence": 19,
+        "stop": "Tollygunge Tram Depot / Metro",
+        "fare_inr": 15
+      },
+      {
+        "through_sequence": 24,
+        "stop": "Taratala Crossing",
+        "fare_inr": 18
+      },
+      {
+        "through_sequence": 27,
+        "stop": "Behala Chowrasta",
+        "fare_inr": 20
+      },
+      {
+        "through_sequence": 33,
+        "stop": "Thakurpukur (3A Terminus)",
+        "fare_inr": 22
+      },
+      {
+        "through_sequence": 40,
+        "stop": "Kharibaria Terminus",
+        "fare_inr": 25
+      }
+    ]
+  }
+}

@@ -41,7 +41,7 @@ class Route(Base):
     route_name: Mapped[str] = mapped_column(String(255), nullable=False)
     geometry = mapped_column(
         Geometry(geometry_type="LINESTRING", srid=4326, spatial_index=True),
-        nullable=False,
+        nullable=True,
     )
     distance_km: Mapped[float | None] = mapped_column(Float, nullable=True)
     status: Mapped[RouteStatus] = mapped_column(
@@ -114,6 +114,12 @@ class Stop(Base):
     # ── Relationships ────────────────────────────────────────────────
     organization = relationship("Organization", back_populates="stops", lazy="select")
     route_stops = relationship("RouteStop", back_populates="stop", lazy="select")
+    aliases = relationship(
+        "StopAlias",
+        back_populates="stop",
+        cascade="all, delete-orphan",
+        lazy="selectin",
+    )
 
     __table_args__ = (
         UniqueConstraint("organization_id", "stop_code", name="uq_stops_org_code"),
@@ -122,6 +128,44 @@ class Stop(Base):
 
     def __repr__(self) -> str:
         return f"<Stop {self.stop_code!r} ({self.name})>"
+
+
+class StopAlias(Base):
+    """
+    Normalized alternative/local/landmark names for a Stop.
+    Allows 0..N searchable aliases belonging to the same organization.
+    """
+
+    __tablename__ = "stop_aliases"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    stop_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("stops.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    organization_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("organizations.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    alias_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    alias_type: Mapped[str] = mapped_column(String(50), nullable=False, default="LOCAL_NAME")
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, default=lambda: datetime.now(timezone.utc)
+    )
+
+    # ── Relationships ────────────────────────────────────────────────
+    stop = relationship("Stop", back_populates="aliases", lazy="select")
+    organization = relationship("Organization", lazy="select")
+
+    __table_args__ = (
+        Index("ix_stop_aliases_org_name", "organization_id", "alias_name"),
+    )
+
+    def __repr__(self) -> str:
+        return f"<StopAlias {self.alias_name!r} ({self.alias_type}) stop={self.stop_id}>"
 
 
 class RouteStop(Base):

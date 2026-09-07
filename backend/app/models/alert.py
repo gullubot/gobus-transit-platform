@@ -13,7 +13,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.database import Base
-from app.models.enums import AlertScope
+from app.models.enums import AlertScope, AlertStatus, AlertSeverity
 
 
 class ServiceAlert(Base):
@@ -64,15 +64,34 @@ class ServiceAlert(Base):
         Enum(AlertScope, name="alertscope", create_constraint=False),
         nullable=False,
     )
+    status: Mapped[AlertStatus] = mapped_column(
+        Enum(AlertStatus, name="alertstatus", create_constraint=False),
+        nullable=False,
+        default=AlertStatus.OPEN,
+        index=True,
+    )
     type: Mapped[str] = mapped_column(String(50), nullable=False)
+    incident_fingerprint: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     title: Mapped[str] = mapped_column(String(255), nullable=False)
     message: Mapped[str] = mapped_column(Text, nullable=False)
-    severity: Mapped[str] = mapped_column(String(20), nullable=False)
+    suggested_solution: Mapped[str | None] = mapped_column(Text, nullable=True)
+    severity: Mapped[AlertSeverity] = mapped_column(
+        Enum(AlertSeverity, name="alertseverity", create_constraint=False),
+        nullable=False,
+    )
     effective_from: Mapped[datetime | None] = mapped_column(nullable=True)
     effective_until: Mapped[datetime | None] = mapped_column(nullable=True)
     created_by: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id"), nullable=True
     )
+    acknowledged_by: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=True
+    )
+    acknowledged_at: Mapped[datetime | None] = mapped_column(nullable=True)
+    resolved_by: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=True
+    )
+    resolved_at: Mapped[datetime | None] = mapped_column(nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         nullable=False, default=lambda: datetime.now(timezone.utc)
     )
@@ -89,6 +108,8 @@ class ServiceAlert(Base):
     stop = relationship("Stop", foreign_keys=[stop_id], lazy="select")
     trip = relationship("Trip", foreign_keys=[trip_id], lazy="select")
     created_by_user = relationship("User", foreign_keys=[created_by], lazy="select")
+    acknowledged_by_user = relationship("User", foreign_keys=[acknowledged_by], lazy="select")
+    resolved_by_user = relationship("User", foreign_keys=[resolved_by], lazy="select")
 
     # NOTE: Scope/target CHECK constraints are added in the migration
     # because SQLAlchemy CHECK expressions referencing enum columns

@@ -16,6 +16,7 @@ router = APIRouter(tags=["health"])
 
 
 @router.get("/health")
+@router.get("/api/health")
 def health_check() -> dict:
     """Basic application health check."""
     return {
@@ -25,6 +26,7 @@ def health_check() -> dict:
 
 
 @router.get("/health/db")
+@router.get("/api/health/db")
 def health_check_db(db: Session = Depends(get_db)) -> dict:
     """
     Database connectivity health check.

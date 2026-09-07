@@ -54,11 +54,15 @@ def upsert_canonical_state(session: Session, context: CanonicalStateContext) -> 
     row.current_stop_id = uuid.UUID(context.current_stop_id) if context.current_stop_id else None
     row.next_stop_id = uuid.UUID(context.next_stop_id) if context.next_stop_id else None
     row.dwell_state = context.dwell_state.value if context.dwell_state else None
-
     row.state = context.state.value if context.state else None
     # Assuming state_reason isn't populated currently by TrackerFusionEngine
     row.confidence = Confidence(context.confidence) if context.confidence else None
     row.canonical_source = context.canonical_source
+
+    if hasattr(context, "eta_seconds"):
+        row.eta_seconds = context.eta_seconds
+    if hasattr(context, "eta_status"):
+        row.eta_status = context.eta_status
 
     row.last_observed_at = context.last_observed_at
     row.last_received_at = context.last_received_at

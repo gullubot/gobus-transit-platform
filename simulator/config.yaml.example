@@ -1,0 +1,25 @@
+# Demo Simulator Configuration
+
+api:
+  base_url: "http://localhost:8000"
+  timeout_seconds: 10.0
+
+simulation:
+  # The SD5 hero route to simulate
+  route_code: "SD5"
+  # How fast the simulation runs relative to real time (e.g., 10 means 10x faster)
+  speed_multiplier: 10.0
+  # How often (in real seconds) to send telemetry to the backend
+  telemetry_interval_real_seconds: 2.0
+  
+operators:
+  # To simulate multiple vehicles on SD5, define multiple operators with their credentials
+  - username: "O-001"
+    password: "Password123!"
+    direction: "A_TO_B" # Must match app.models.enums.Direction
+    scenario: "NORMAL_OPERATION"
+  
+  - username: "O-002"
+    password: "Password123!"
+    direction: "B_TO_A"
+    scenario: "NORMAL_OPERATION"

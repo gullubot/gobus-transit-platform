@@ -91,8 +91,17 @@ class ForegroundTrackingService : Service(), LocationListener {
         const val EXTRA_VEHICLE_NUMBER = "extra_vehicle_number"
         const val EXTRA_BASE_URL = "extra_base_url"
 
-        private const val NOTIFICATION_CHANNEL_ID = "transit_tracking_channel"
+        const val NOTIFICATION_CHANNEL_ID = "transit_tracking_channel"
         private const val NOTIFICATION_ID = 9001
+
+        const val ACTION_OPEN_TRIP = "com.transitplatform.app.ACTION_OPEN_TRIP"
+        const val ACTION_REPORT_ISSUE = "com.transitplatform.app.ACTION_REPORT_ISSUE"
+        const val ACTION_CROWD_LEVEL = "com.transitplatform.app.ACTION_CROWD_LEVEL"
+
+        const val EXTRA_OPEN_ACTION = "extra_open_action"
+        const val ACTION_NAME_OPEN_TRIP = "OPEN_TRIP"
+        const val ACTION_NAME_REPORT_ISSUE = "REPORT_ISSUE"
+        const val ACTION_NAME_CROWD_LEVEL = "CROWD_LEVEL"
 
         private val _trackingStatus = MutableStateFlow(LiveTrackingStatus())
         val trackingStatus = _trackingStatus.asStateFlow()
@@ -147,13 +156,53 @@ class ForegroundTrackingService : Service(), LocationListener {
     }
 
     private fun buildNotification(): Notification {
-        val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        val mainIntent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(EXTRA_OPEN_ACTION, ACTION_NAME_OPEN_TRIP)
         }
-        val pendingIntent = PendingIntent.getActivity(
+        val mainPendingIntent = PendingIntent.getActivity(
             this,
             0,
-            intent,
+            mainIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Action 1: OPEN TRIP
+        val openTripIntent = Intent(this, MainActivity::class.java).apply {
+            action = ACTION_OPEN_TRIP
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(EXTRA_OPEN_ACTION, ACTION_NAME_OPEN_TRIP)
+        }
+        val openTripPendingIntent = PendingIntent.getActivity(
+            this,
+            101,
+            openTripIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Action 2: REPORT ISSUE
+        val reportIssueIntent = Intent(this, MainActivity::class.java).apply {
+            action = ACTION_REPORT_ISSUE
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(EXTRA_OPEN_ACTION, ACTION_NAME_REPORT_ISSUE)
+        }
+        val reportIssuePendingIntent = PendingIntent.getActivity(
+            this,
+            102,
+            reportIssueIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Action 3: CROWD LEVEL
+        val crowdLevelIntent = Intent(this, MainActivity::class.java).apply {
+            action = ACTION_CROWD_LEVEL
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(EXTRA_OPEN_ACTION, ACTION_NAME_CROWD_LEVEL)
+        }
+        val crowdLevelPendingIntent = PendingIntent.getActivity(
+            this,
+            103,
+            crowdLevelIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
@@ -162,8 +211,23 @@ class ForegroundTrackingService : Service(), LocationListener {
             .setContentText("Service $serviceCode · Vehicle $vehicleNumber")
             .setSmallIcon(android.R.drawable.ic_menu_mylocation)
             .setOngoing(true)
-            .setContentIntent(pendingIntent)
+            .setContentIntent(mainPendingIntent)
             .setPriority(NotificationCompat.PRIORITY_LOW)
+            .addAction(
+                android.R.drawable.ic_menu_directions,
+                "OPEN TRIP",
+                openTripPendingIntent
+            )
+            .addAction(
+                android.R.drawable.ic_dialog_alert,
+                "REPORT ISSUE",
+                reportIssuePendingIntent
+            )
+            .addAction(
+                android.R.drawable.ic_menu_agenda,
+                "CROWD LEVEL",
+                crowdLevelPendingIntent
+            )
             .build()
     }
 

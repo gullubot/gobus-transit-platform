@@ -53,6 +53,13 @@ class Vehicle(Base):
         foreign_keys="[Trip.vehicle_id]",
     )
     depot_schedules = relationship("DepotSchedule", back_populates="vehicle", lazy="select")
+    service_memberships = relationship(
+        "ServiceVehicle",
+        back_populates="vehicle",
+        lazy="select",
+        primaryjoin="Vehicle.id == ServiceVehicle.vehicle_id",
+        foreign_keys="[ServiceVehicle.vehicle_id]",
+    )
     bus_current_state = relationship(
         "BusCurrentState", back_populates="vehicle", uselist=False, lazy="select"
     )

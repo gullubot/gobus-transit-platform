@@ -264,6 +264,7 @@ def test_service_alert_scope_constraints(db: Session):
         scope=AlertScope.SERVICE,
         service_id=None,  # Missing target!
         type="DELAY",
+        incident_fingerprint="delay-123",
         title="Delay Alert",
         message="Service is delayed",
         severity="WARNING",
@@ -280,6 +281,7 @@ def test_service_alert_scope_constraints(db: Session):
         scope=AlertScope.ROUTE,
         route_id=None,  # Missing target!
         type="DETOUR",
+        incident_fingerprint="detour-123",
         title="Route Detour",
         message="Route detour in effect",
         severity="INFO",
@@ -296,6 +298,7 @@ def test_service_alert_scope_constraints(db: Session):
         scope=AlertScope.SERVICE,
         service_id=SVC_AC4B_ID,
         type="DELAY",
+        incident_fingerprint="valid-delay",
         title="Valid Service Alert",
         message="Valid delay notification",
         severity="WARNING",

@@ -10,8 +10,13 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
-from app.schemas.auth import OperatorLoginRequest, OperatorLoginResponse
-from app.services.auth_service import authenticate_operator
+from app.schemas.auth import (
+    OperatorLoginRequest,
+    OperatorLoginResponse,
+    PassengerLoginRequest,
+    PassengerLoginResponse,
+)
+from app.services.auth_service import authenticate_operator, authenticate_passenger
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -26,3 +31,15 @@ def operator_login(
     Returns JWT access token with operator identity and organization context.
     """
     return authenticate_operator(db, request)
+
+
+@router.post("/passenger/login", response_model=PassengerLoginResponse)
+def passenger_login(
+    request: PassengerLoginRequest,
+    db: Annotated[Session, Depends(get_db)],
+) -> PassengerLoginResponse:
+    """
+    Authenticate a passenger by phone and name.
+    Returns JWT access token.
+    """
+    return authenticate_passenger(db, request)

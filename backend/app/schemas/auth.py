@@ -42,3 +42,45 @@ class TokenPayload(BaseModel):
     emp_code: str
     exp: int
     iat: int
+
+
+class PassengerLoginRequest(BaseModel):
+    """Passenger authentication credentials."""
+
+    phone: str = Field(..., min_length=5, max_length=20, description="Passenger phone number")
+    name: str = Field(..., min_length=1, max_length=255, description="Passenger name")
+
+
+class PassengerLoginResponse(BaseModel):
+    """Successful passenger authentication response."""
+
+    access_token: str
+    token_type: str = "bearer"
+    user_id: uuid.UUID
+    name: str
+    role: str
+    phone: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AdminLoginRequest(BaseModel):
+    """Admin authentication credentials."""
+
+    email: str = Field(..., min_length=5, max_length=255, description="Admin email address")
+    password: str = Field(..., min_length=1, description="Admin password")
+
+
+class AdminLoginResponse(BaseModel):
+    """Successful admin authentication response."""
+
+    access_token: str
+    token_type: str = "bearer"
+    user_id: uuid.UUID
+    name: str
+    email: str
+    role: str
+    organization_id: uuid.UUID | None
+    organization_name: str | None
+
+    model_config = ConfigDict(from_attributes=True)

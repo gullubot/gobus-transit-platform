@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -19,14 +22,23 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // Read BASE_URL from local.properties or environment variable
+    val localProperties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localProperties.load(FileInputStream(localPropertiesFile))
+    }
+    val debugBaseUrl = System.getenv("DEBUG_BASE_URL") ?: localProperties.getProperty("DEBUG_BASE_URL", "http://10.0.2.2:8000")
+    val releaseBaseUrl = System.getenv("RELEASE_BASE_URL") ?: "https://api.production-domain.com"
+
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://127.0.0.1:8000\"")
+            buildConfigField("String", "BASE_URL", "\"$debugBaseUrl\"")
         }
         create("localTest") {
             initWith(getByName("release"))
             signingConfig = signingConfigs.getByName("debug")
-            buildConfigField("String", "BASE_URL", "\"http://127.0.0.1:8000\"")
+            buildConfigField("String", "BASE_URL", "\"$debugBaseUrl\"")
         }
         create("staging") {
             initWith(getByName("release"))
@@ -39,7 +51,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "BASE_URL", "\"https://api.production-domain.com\"")
+            buildConfigField("String", "BASE_URL", "\"$releaseBaseUrl\"")
         }
     }
 
@@ -87,6 +99,9 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
     implementation("androidx.work:work-runtime-ktx:2.9.1")
+
+    // Security / EncryptedSharedPreferences
+    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

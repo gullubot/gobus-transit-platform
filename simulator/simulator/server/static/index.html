@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoBus Simulator — Mission Control</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header Bar -->
+    <header class="top-bar">
+      <div class="brand-cluster">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+            <path d="M7 14h.01M17 14h.01M3 10h18M6 18v2M18 18v2"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>GoBus Transit Platform</h1>
+          <span class="subtext">DEMO SIMULATOR &bull; MISSION CONTROL</span>
+        </div>
+      </div>
+
+      <div class="status-cluster">
+        <!-- Backend Status -->
+        <div id="backend-status-pill" class="status-pill status-disconnected">
+          <span class="pulse-dot"></span>
+          <span id="backend-status-text">PROBING BACKEND...</span>
+          <span id="backend-latency" class="latency-text">-- ms</span>
+        </div>
+
+        <!-- Simulator Lifecycle -->
+        <div id="simulator-lifecycle-pill" class="status-pill status-idle">
+          <span class="lifecycle-label">STATE:</span>
+          <span id="simulator-lifecycle-text">IDLE</span>
+        </div>
+
+        <!-- Digital Simulation Clock -->
+        <div class="digital-clock">
+          <span class="clock-label">SIM TIME</span>
+          <span id="sim-clock-display" class="clock-time">T+00:00.0s</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <main class="dashboard-grid">
+      <!-- Left Panel: Orchestration & Controls -->
+      <section class="panel control-panel">
+        <div class="panel-header">
+          <h2>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Scenario Orchestration
+          </h2>
+        </div>
+
+        <div class="form-group">
+          <label for="scenario-select">SELECT DEMO SCENARIO</label>
+          <select id="scenario-select" class="form-control">
+            <option value="normal_single_bus">normal_single_bus (Single Bus Baseline)</option>
+            <option value="multi_bus_demo">multi_bus_demo (2 Concurrent Buses)</option>
+            <option value="delay_demo">delay_demo (Traffic Congestion & Delay)</option>
+            <option value="offline_demo">offline_demo (Telemetry Loss & Stale Recovery)</option>
+            <option value="crowding_demo">crowding_demo (Crowding Reports Submission)</option>
+            <option value="service_shortage_demo">service_shortage_demo (Service Absence & Shortage)</option>
+            <option value="full_demo" selected>full_demo (Unified Multi-Event Demo)</option>
+          </select>
+        </div>
+
+        <!-- Scenario Description Card -->
+        <div class="scenario-card">
+          <div class="scenario-title" id="scenario-name">full_demo</div>
+          <p class="scenario-desc" id="scenario-desc">Loading scenario details...</p>
+          <div class="scenario-meta">
+            <span>Buses: <strong id="scenario-buses">-</strong></span>
+            <span>Duration: <strong id="scenario-duration">-</strong></span>
+          </div>
+          <div id="validation-banner" class="validation-banner">
+            <span class="valid-icon">&check;</span>
+            <span id="validation-text">Valid Scenario Configuration</span>
+          </div>
+        </div>
+
+        <!-- Execution Options -->
+        <div class="options-row">
+          <div class="form-group half">
+            <label for="time-multiplier">SPEED MULTIPLIER</label>
+            <select id="time-multiplier" class="form-control">
+              <option value="1.0" selected>1.0x (Real-time)</option>
+              <option value="2.0">2.0x (Fast)</option>
+              <option value="5.0">5.0x (Turbo)</option>
+            </select>
+          </div>
+          <div class="form-group half">
+            <label for="tick-interval">TICK INTERVAL</label>
+            <select id="tick-interval" class="form-control">
+              <option value="1.0" selected>1.0s (Standard)</option>
+              <option value="0.5">0.5s (High Precision)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Primary Action Buttons -->
+        <div class="control-actions">
+          <button id="btn-start" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            START
+          </button>
+          <button id="btn-pause" class="btn btn-warning" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            PAUSE
+          </button>
+          <button id="btn-resume" class="btn btn-success" disabled style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            RESUME
+          </button>
+          <button id="btn-stop" class="btn btn-danger" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16"></rect></svg>
+            STOP
+          </button>
+          <button id="btn-reset" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+            RESET
+          </button>
+        </div>
+
+        <!-- Timeline Stepper -->
+        <div class="panel-section timeline-section">
+          <h3>SCENARIO TIMELINE</h3>
+          <div id="timeline-container" class="timeline-list">
+            <div class="timeline-empty">Select or start a scenario to view timeline.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Center Panel: Live Fleet Overview -->
+      <section class="panel fleet-panel">
+        <div class="panel-header">
+          <h2>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+            Active Fleet Overview (<span id="fleet-count">0</span> Buses)
+          </h2>
+        </div>
+
+        <div id="fleet-grid" class="fleet-grid">
+          <div class="fleet-empty-state">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <p>Fleet is currently idle. Select a scenario and press <strong>START</strong> to begin simulation.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Sanitized Audit Stream & Metrics -->
+      <section class="panel audit-panel">
+        <div class="panel-header">
+          <h2>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            Operational Audit Stream
+          </h2>
+        </div>
+
+        <div id="event-log-container" class="event-log-container">
+          <!-- Live events injected here -->
+        </div>
+
+        <!-- Observability Summary Counters -->
+        <div class="metrics-card">
+          <h3>SIMULATOR METRICS</h3>
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <span class="metric-label">PACKETS SENT</span>
+              <span id="metric-pkts-sent" class="metric-val">0</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">ACCEPTED (ACK)</span>
+              <span id="metric-pkts-ack" class="metric-val text-success">0</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">REJECTED</span>
+              <span id="metric-pkts-rej" class="metric-val text-danger">0</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">HEARTBEATS</span>
+              <span id="metric-heartbeats" class="metric-val">0</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">CROWDING REPS</span>
+              <span id="metric-crowding" class="metric-val text-warning">0</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">TICKS</span>
+              <span id="metric-ticks" class="metric-val">0</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Reset Confirmation Modal -->
+    <div id="reset-modal" class="modal-backdrop" style="display: none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Confirm Destructive Reset</h3>
+        </div>
+        <div class="modal-body">
+          <p>The simulation is currently <strong>ACTIVE</strong>.</p>
+          <p>Resetting now will:</p>
+          <ul>
+            <li>Terminate all active simulated tracking sessions.</li>
+            <li>Send <code>POST /api/trips/{trip_id}/end</code> to GoBus backend for all active buses.</li>
+            <li>Log out all operator sessions.</li>
+            <li>Clear all local fleet memory and reset the timeline to 0.</li>
+          </ul>
+          <p class="modal-warning">Are you sure you want to proceed?</p>
+        </div>
+        <div class="modal-actions">
+          <button id="modal-cancel-btn" class="btn btn-secondary">Cancel</button>
+          <button id="modal-confirm-btn" class="btn btn-danger">Confirm & Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

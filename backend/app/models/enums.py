@@ -15,6 +15,7 @@ class UserRole(str, enum.Enum):
     CONDUCTOR = "CONDUCTOR"
     FLEET_ADMIN = "FLEET_ADMIN"
     DEPOT_ADMIN = "DEPOT_ADMIN"
+    PASSENGER = "PASSENGER"
 
 
 class OrganizationType(str, enum.Enum):
@@ -135,3 +136,15 @@ class AlertScope(str, enum.Enum):
     ROUTE = "ROUTE"
     STOP = "STOP"
     TRIP = "TRIP"
+
+
+class AlertStatus(str, enum.Enum):
+    OPEN = "OPEN"
+    ACKNOWLEDGED = "ACKNOWLEDGED"
+    RESOLVED = "RESOLVED"
+
+
+class AlertSeverity(str, enum.Enum):
+    INFO = "INFO"
+    WARNING = "WARNING"
+    CRITICAL = "CRITICAL"

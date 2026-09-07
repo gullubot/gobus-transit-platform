@@ -1,0 +1,19 @@
+{
+  "api": {
+    "base_url": "http://localhost:8000",
+    "timeout_seconds": 10.0
+  },
+  "simulation": {
+    "route_code": "SD5",
+    "speed_multiplier": 100.0,
+    "telemetry_interval_real_seconds": 2.0
+  },
+  "operators": [
+    {
+      "username": "O-001",
+      "password": "Password123!",
+      "direction": "A_TO_B",
+      "scenario": "RECOVERY"
+    }
+  ]
+}

@@ -22,8 +22,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Copy pyproject.toml first to cache dependencies
 COPY pyproject.toml .
 
-# Install dependencies (only production deps)
-RUN pip install --no-cache-dir .
+# Install dependencies
+RUN pip install --no-cache-dir ".[dev]"
 
 # Copy application code
 COPY . .

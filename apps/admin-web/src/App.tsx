@@ -1,122 +1,57 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import Layout from "./components/Layout";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import StopsPage from "./pages/StopsPage";
+import RoutesPage from "./pages/RoutesPage";
+import ServicesPage from "./pages/ServicesPage";
+import VehiclesPage from "./pages/VehiclesPage";
+import FleetSchedulesPage from "./pages/FleetSchedulesPage";
+import DepotSchedulesPage from "./pages/DepotSchedulesPage";
+import { LiveOperationsPage } from "./pages/live-operations/LiveOperationsPage";
+import AlertsPage from "./pages/AlertsPage";
+import FaresPage from "./pages/FaresPage";
+import InsightsDashboard from "./pages/InsightsDashboard";
+import ServiceSchedulesPage from "./pages/ServiceSchedulesPage";
+import ServiceDetailsPage from "./pages/ServiceDetailsPage";
+import RouteDetailsPage from "./pages/RouteDetailsPage";
+import { UsersPage } from "./pages/UsersPage";
+import { ErrorBoundary } from "./components/ErrorBoundary";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { token, loading } = useAuth();
+  if (loading) return <div className="loading-screen">Loading...</div>;
+  if (!token) return <Navigate to="/login" replace />;
+  return <ErrorBoundary>{children}</ErrorBoundary>;
 }
 
-export default App
+export default function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+            <Route index element={<Dashboard />} />
+            <Route path="stops" element={<StopsPage />} />
+            <Route path="routes" element={<RoutesPage />} />
+            <Route path="routes/:routeId" element={<RouteDetailsPage />} />
+            <Route path="services" element={<ServicesPage />} />
+            <Route path="vehicles" element={<VehiclesPage />} />
+            <Route path="fleet-schedules" element={<FleetSchedulesPage />} />
+            <Route path="depot-schedules" element={<DepotSchedulesPage />} />
+            <Route path="live-operations" element={<LiveOperationsPage />} />
+            <Route path="alerts" element={<AlertsPage />} />
+            <Route path="fares" element={<FaresPage />} />
+            <Route path="insights" element={<InsightsDashboard />} />
+            <Route path="users" element={<UsersPage />} />
+            <Route path="services/:serviceId" element={<ServiceDetailsPage />} />
+            <Route path="services/:id/schedules" element={<ServiceSchedulesPage />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
+}

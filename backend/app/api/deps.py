@@ -78,3 +78,29 @@ def get_current_operator(
         )
 
     return current_user, current_user.operator_profile
+
+def get_current_admin(
+    current_user: Annotated[User, Depends(get_current_user)],
+) -> User:
+    """
+    Ensure the authenticated user is an active FLEET_ADMIN or DEPOT_ADMIN.
+    """
+    if current_user.role not in (UserRole.FLEET_ADMIN, UserRole.DEPOT_ADMIN):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=f"Role '{current_user.role.value}' is not authorized for administration",
+        )
+    return current_user
+
+def get_fleet_admin(
+    current_admin: Annotated[User, Depends(get_current_admin)],
+) -> User:
+    """
+    Ensure the authenticated admin is specifically a FLEET_ADMIN.
+    """
+    if current_admin.role != UserRole.FLEET_ADMIN:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only Fleet Admins can perform this action",
+        )
+    return current_admin

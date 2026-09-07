@@ -27,7 +27,7 @@ fun LoginScreen(
     onLogin: (String, String) -> Unit,
     onUpdateBaseUrl: (String) -> Unit
 ) {
-    var employeeCode by remember { mutableStateOf("DRV001") }
+    var employeeCode by remember { mutableStateOf("DR1") }
     var password by remember { mutableStateOf("operator123") }
     var showServerConfig by remember { mutableStateOf(false) }
     var serverUrl by remember { mutableStateOf(uiState.baseUrl) }

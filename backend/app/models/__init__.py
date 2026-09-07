@@ -40,3 +40,5 @@ from app.models.tracking import TrackingEvent, TrackingSession  # noqa: F401
 from app.models.trip import Trip, TripAssignment, TripStateHistory  # noqa: F401
 from app.models.user import OperatorProfile, User  # noqa: F401
 from app.models.vehicle import Vehicle  # noqa: F401
+from app.models.fare import FareConfiguration, FareSlab  # noqa: F401
+from app.models.service_vehicle import ServiceVehicle  # noqa: F401

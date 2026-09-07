@@ -1,0 +1,47 @@
+# BUILD 4 - STEP 8L KOLKATA DATA INGESTION GUIDE
+
+This guide explains how to manage, validate, and execute the SIH Data Importer for Kolkata. The script resides at `backend/app/commands/import_sih.py`.
+
+## 1. How to Validate Data
+The importer expects specific CSV formats placed directly inside `data/kolkata/`. Before running the script, ensure your data files match the schema exactly:
+- `master_kolkata_stops.csv` (requires: `stop_name`, `latitude`, `longitude`)
+- `master_kolkata_route_catalogue.csv` (requires: `route_number`, `origin`, `destination`)
+- `sd5_demo_route.csv` (requires: `sequence`, `stop_name`, `latitude`, `longitude`)
+- `sd5_demo_service.csv` (requires: `normal_frequency_min`, `first_bus`, `last_bus`)
+- `sd5_fare_stage_map.csv` (requires: `through_stop_sequence`, `fare_inr`)
+
+## 2. How to Dry-Run
+Always execute a dry-run before committing new transit networks to the production database. The `--dry-run` flag parses the input files, performs all database inserts, prints the summary counts, and then invokes a forced `db.rollback()` leaving the database completely untouched.
+
+```bash
+cd backend
+python app/commands/import_sih.py --dry-run
+```
+
+## 3. How to Import
+When the dry-run logs show no fatal errors and the counts align with your expectations, execute the live import:
+
+```bash
+cd backend
+python app/commands/import_sih.py
+```
+
+## 4. How to Verify
+After ingestion, you can verify the integrity using standard Postgres SQL queries or the Admin API:
+- Organization Check: `SELECT * FROM organizations WHERE name = 'Kolkata Transit Authority';`
+- SD5 Route Sequence: `SELECT * FROM route_stops JOIN routes ON routes.id = route_stops.route_id WHERE routes.route_code = 'SD5' ORDER BY sequence_number;`
+- Fare Slabs: Check that `fare_configurations` correctly maps the slabs using `distance_from_start` boundaries.
+
+## 5. How to Rerun Safely
+The script is strictly **idempotent**. All records are generated using deterministic UUID5 namespaces derived from `10000000-0000-0000-0000-000000000002` and the specific entity name. 
+If you modify `sd5_demo_route.csv` and rerun `python app/commands/import_sih.py`, the script will gracefully:
+1. Lookup existing entities rather than duplicate them.
+2. Clear the old `RouteStop`, `ServiceSchedule`, and `FareSlab` entries for SD5.
+3. Replace them with the fresh CSV data.
+You can safely run the script as many times as you want.
+
+## 6. How to Recover If Something Fails
+Because the script wraps all operations inside a solitary contiguous `Session` context block, **any uncaught exception, validation error, or PostgreSQL constraint violation will immediately trigger a `db.rollback()`**.
+- You will NEVER have half-imported data.
+- If the script fails, simply fix the offending row in the CSV (e.g., malformed latitude string) and run the script again. 
+- No database cleanup is required after a failure.
